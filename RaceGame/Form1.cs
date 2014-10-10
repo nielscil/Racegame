@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Windows.Input;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -13,44 +14,91 @@ namespace RaceGame
     public partial class Form1 : Form
     {
         Bitmap Backbuffer;
-
-        const int BallAxisSpeed = 1;
-
-        Point BallPos = new Point(30, 30);
-        Point BallSpeed = new Point(BallAxisSpeed, BallAxisSpeed);
+        Bitmap racetrack = new Bitmap(RaceGame.Properties.Resources.racetrack);
+        float angle = 76.54f;
+        float speed = 0;
+        int i = 0;
+        PointF BallPos = new PointF(287f, 383f);
+        PointF BallSpeed = new PointF(0, 0);
         const int BallSize = 10;
-
+        Timer GameTimer = new Timer();
         public Form1()
         {
             InitializeComponent();
-
             this.SetStyle(
             ControlStyles.UserPaint |
             ControlStyles.AllPaintingInWmPaint |
-            ControlStyles.DoubleBuffer, true);
-
-            Timer GameTimer = new Timer();
+            ControlStyles.DoubleBuffer, true);            
             GameTimer.Interval = 10;
             GameTimer.Tick += new EventHandler(GameTimer_Tick);
             GameTimer.Start();
-
             this.ResizeEnd += new EventHandler(Form1_CreateBackBuffer);
             this.Load += new EventHandler(Form1_CreateBackBuffer);
             this.Paint += new PaintEventHandler(Form1_Paint);
-
             this.KeyDown += new KeyEventHandler(Form1_KeyDown);
+            this.KeyUp += new KeyEventHandler(Form1_keyUp);
         }
 
-        void Form1_KeyDown(object sender, KeyEventArgs e)
+        void ESC()
+        {
+            if (i == 0)
+            {
+                GameTimer.Stop();
+                panel1.Visible = true;
+                i++;
+            }
+            else
+            {
+                panel1.Visible = false;
+                GameTimer.Start();
+                i = 0;
+            }
+           
+        }
+
+        void Form1_keyUp(object sender, KeyEventArgs e)// wanneer toets losgelaten wordt, gebeurt dit
+        {
+            if (e.KeyCode == Keys.Up)
+            {
+
+            }
+            else if (e.KeyCode == Keys.Down)
+            {
+
+            }
+        } 
+
+        void Form1_KeyDown(object sender, KeyEventArgs e)// wanneer toets ingedrukt wordt, gebeurt dit
         {
             if (e.KeyCode == Keys.Left)
-                BallSpeed.X = -BallAxisSpeed;
+            {
+                angle -= 0.5f;
+            }
             else if (e.KeyCode == Keys.Right)
-                BallSpeed.X = BallAxisSpeed;
+            {
+                angle += 0.5f;
+            }
             else if (e.KeyCode == Keys.Up)
-                BallSpeed.Y = -BallAxisSpeed; // Y axis is downwards so -ve is up.
+            {
+                if(speed > -3)
+                speed -= 0.5f;
+
+            }
             else if (e.KeyCode == Keys.Down)
-                BallSpeed.Y = BallAxisSpeed;
+            {
+                if(speed < 3)
+                speed += 0.5f;
+            }
+            
+            else if (e.KeyCode == Keys.Space)
+            {
+                angle = 0;
+                speed = 0;
+            }
+            else if (e.KeyCode == Keys.Escape)
+            {
+                    ESC();
+            }
         }
 
         void Form1_Paint(object sender, PaintEventArgs e)
@@ -66,7 +114,7 @@ namespace RaceGame
             if (Backbuffer != null)
                 Backbuffer.Dispose();
 
-            Backbuffer = new Bitmap(ClientSize.Width, ClientSize.Height);
+            Backbuffer = new Bitmap(1024, 768);
         }
 
         void Draw()
@@ -75,8 +123,8 @@ namespace RaceGame
             {
                 using (var g = Graphics.FromImage(Backbuffer))
                 {
-                    g.Clear(Color.White);
-                    g.FillEllipse(Brushes.Black, BallPos.X - BallSize / 2, BallPos.Y - BallSize / 2, BallSize, BallSize);
+                    g.DrawImage(racetrack,0,0,1024,768);
+                    g.FillEllipse(Brushes.Red, BallPos.X - BallSize / 2, BallPos.Y - BallSize / 2, BallSize, BallSize);
                 }
 
                 Invalidate();
@@ -85,13 +133,16 @@ namespace RaceGame
 
         void GameTimer_Tick(object sender, EventArgs e)
         {
+            BallSpeed.X = (float)(speed * Math.Cos(angle));
+            BallSpeed.Y = (float)(speed * Math.Sin(angle));
             BallPos.X += BallSpeed.X;
             BallPos.Y += BallSpeed.Y;
-
-
             Draw();
+        }
 
-            // TODO: Add the notion of dying (disable the timer and show a message box or something)
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Application.Restart();            
         }
     }
 }
