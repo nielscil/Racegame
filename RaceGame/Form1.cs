@@ -13,17 +13,13 @@ namespace RaceGame
 {
     public partial class Form1 : Form
     {
-<<<<<<< HEAD
-        public Form1()
-        {
-            InitializeComponent();
-=======
         Bitmap Backbuffer;
         Bitmap racetrack = new Bitmap(RaceGame.Properties.Resources.racetrack);
         float angle = 76.54f;
         float speed = 0;
         int i = 0;
         PointF BallPos = new PointF(287f, 383f);
+        
         PointF BallSpeed = new PointF(0, 0);
         const int BallSize = 10;
         Timer GameTimer = new Timer();
@@ -128,7 +124,9 @@ namespace RaceGame
             {
                 using (var g = Graphics.FromImage(Backbuffer))
                 {
+                    Pen pen = new Pen(Brushes.Black);
                     g.DrawImage(racetrack,0,0,1024,768);
+                    g.DrawRectangle(pen, 436.80f, 256.09f, 104f,33f);
                     g.FillEllipse(Brushes.Red, BallPos.X - BallSize / 2, BallPos.Y - BallSize / 2, BallSize, BallSize);
                 }
 
@@ -143,12 +141,17 @@ namespace RaceGame
             BallPos.X += BallSpeed.X;
             BallPos.Y += BallSpeed.Y;
             Draw();
+
+            if( BallPos.X > 436.80f && BallPos.X < 540f && BallPos.Y > 256.09 && BallPos.Y < 289 && BallSpeed.X == 0 && BallSpeed.Y == 0)//checkt of balletje stil is in het aangegeven vak.
+            {
+                Console.WriteLine("Tanken");
+                //tankt code toevoegen
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             Application.Restart();            
->>>>>>> origin/test
         }
     }
 }
