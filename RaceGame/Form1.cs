@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Media;
+using System.Windows;
 
 namespace RaceGame
 {
@@ -18,10 +20,14 @@ namespace RaceGame
         float angle = 76.54f;
         float speed = 0;
         int i = 0;
-        PointF BallPos = new PointF(287f, 383f);
-        
-        PointF BallSpeed = new PointF(0, 0);
-        const int BallSize = 10;
+        System.Drawing.Color green = System.Drawing.Color.FromArgb(16, 117, 59);
+        PointF BallPos = new PointF(287f, 383f);        
+        PointF BallSpeed = new PointF(0, 0);  
+        const int BallSize = 20;
+
+        RectangleF r = new RectangleF();
+        RotateTransform rt1 = new RotateTransform();
+ 
         Timer GameTimer = new Timer();
         public Form1()
         {
@@ -36,8 +42,10 @@ namespace RaceGame
             this.ResizeEnd += new EventHandler(Form1_CreateBackBuffer);
             this.Load += new EventHandler(Form1_CreateBackBuffer);
             this.Paint += new PaintEventHandler(Form1_Paint);
-            this.KeyDown += new KeyEventHandler(Form1_KeyDown);
-            this.KeyUp += new KeyEventHandler(Form1_keyUp);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(Form1_KeyDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(Form1_keyUp);
+            r.Height = 10;
+            r.Width = 5;        
         }
 
         void ESC()
@@ -57,7 +65,7 @@ namespace RaceGame
            
         }
 
-        void Form1_keyUp(object sender, KeyEventArgs e)// wanneer toets losgelaten wordt, gebeurt dit
+        void Form1_keyUp(object sender, System.Windows.Forms.KeyEventArgs e)// wanneer toets losgelaten wordt, gebeurt dit
         {
             if (e.KeyCode == Keys.Up)
             {
@@ -69,7 +77,7 @@ namespace RaceGame
             }
         } 
 
-        void Form1_KeyDown(object sender, KeyEventArgs e)// wanneer toets ingedrukt wordt, gebeurt dit
+        void Form1_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)// wanneer toets ingedrukt wordt, gebeurt dit
         {
             if (e.KeyCode == Keys.Left)
             {
@@ -106,7 +114,7 @@ namespace RaceGame
         {
             if (Backbuffer != null)
             {
-                e.Graphics.DrawImageUnscaled(Backbuffer, Point.Empty);
+                e.Graphics.DrawImageUnscaled(Backbuffer, System.Drawing.Point.Empty);
             }
         }
 
@@ -124,12 +132,15 @@ namespace RaceGame
             {
                 using (var g = Graphics.FromImage(Backbuffer))
                 {
-                    Pen pen = new Pen(Brushes.Black);
+                    System.Drawing.Pen pen = new System.Drawing.Pen(System.Drawing.Brushes.Black);
                     g.DrawImage(racetrack,0,0,1024,768);
                     g.DrawRectangle(pen, 436.80f, 256.09f, 104f,33f);
-                    g.FillEllipse(Brushes.Red, BallPos.X - BallSize / 2, BallPos.Y - BallSize / 2, BallSize, BallSize);
+                    //g.FillEllipse(Brushes.Red, BallPos.X - BallSize / 2, BallPos.Y - BallSize / 2, BallSize, BallSize);
+                    g.FillRectangle(System.Drawing.Brushes.Red, r);
+                    r.X = BallPos.X;
+                    r.Y = BallPos.Y;
+                    rt1.Angle = angle;
                 }
-
                 Invalidate();
             }
         }
