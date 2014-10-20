@@ -37,6 +37,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.fuelAmount = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.timerFuel = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -122,6 +123,11 @@
             this.progressBar1.Size = new System.Drawing.Size(100, 41);
             this.progressBar1.TabIndex = 4;
             // 
+            // timerFuel
+            // 
+            this.timerFuel.Enabled = true;
+            this.timerFuel.Tick += new System.EventHandler(this.timerFuel_Tick_1);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -153,6 +159,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label fuelAmount;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Timer timerFuel;
     }
 }
 

@@ -27,7 +27,7 @@ namespace RaceGame
         RectangleF r = new RectangleF();
         RotateTransform rt1 = new RotateTransform();
  
-        int fuel = 100;
+        int fuel = 55;
         double distance = 0;
         Timer GameTimer = new Timer();
   //      ProgressBar progressBar1 = new  ProgressBar();
@@ -41,6 +41,9 @@ namespace RaceGame
             GameTimer.Interval = 10;
             GameTimer.Tick += new EventHandler(GameTimer_Tick);
             GameTimer.Start();
+            timerFuel.Interval = 100;
+            timerFuel.Tick += new EventHandler(timerFuel_Tick_1);
+            timerFuel.Start();
             this.ResizeEnd += new EventHandler(Form1_CreateBackBuffer);
             this.Load += new EventHandler(Form1_CreateBackBuffer);
             this.Paint += new PaintEventHandler(Form1_Paint);
@@ -49,18 +52,14 @@ namespace RaceGame
             r.Height = 10;
             r.Width = 5;        
         }
-        int Fuel()
-        {
-            
-            return fuel;
-
-        }
+       
 
         void ESC()
         {
             if (i == 0)
             {
                 GameTimer.Stop();
+                timerFuel.Stop();
                 panel1.Visible = true;
                 i++;
             }
@@ -68,6 +67,7 @@ namespace RaceGame
             {
                 panel1.Visible = false;
                 GameTimer.Start();
+                timerFuel.Start();
                 i = 0;
             }
            
@@ -107,11 +107,7 @@ namespace RaceGame
                 speed += 0.5f;
             }
             
-            else if (e.KeyCode == Keys.Space)
-            {
-                angle = 0;
-                speed = 0;
-            }
+            
             else if (e.KeyCode == Keys.Escape)
             {
                     ESC();
@@ -161,6 +157,10 @@ namespace RaceGame
             BallPos.Y += BallSpeed.Y;
             Draw();
 
+                    }
+
+        void timerFuel_Tick_1(object sender, EventArgs e)         
+        {
             distance += Math.Sqrt(Math.Pow(BallSpeed.X, 2) + Math.Pow(BallSpeed.Y, 2));
             if (distance >= Math.Sqrt(Math.Pow(54.654968, 2) + Math.Pow(134.750443, 2)))
             {
@@ -168,7 +168,6 @@ namespace RaceGame
                 distance = 0;
             }
 
-            
             if( BallPos.X > 436.80f && BallPos.X < 540f && BallPos.Y > 256.09 && BallPos.Y < 289 && BallSpeed.X == 0 && BallSpeed.Y == 0)//checkt of balletje stil is in het aangegeven vak.
             {
                 
@@ -177,7 +176,7 @@ namespace RaceGame
                     fuel += 2;
                 }
 
-                if (fuel == 99)
+                else if (fuel == 99)
                 {
                     fuel++;
                 }
@@ -185,7 +184,8 @@ namespace RaceGame
                 //tankt code toevoegen
             }
             progressBar1.Value = fuel;
-            progressBar1.CreateGraphics().DrawString(fuel.ToString(), new Font("Sitka Text", (float)24, System.Drawing.FontStyle.Bold), System.Drawing.Brushes.Black, new PointF(progressBar1.Width / 2 - 30 , progressBar1.Height / 2 - 16 ));
+            progressBar1.CreateGraphics().DrawString(fuel.ToString(), new Font("Sitka Text", (float)24, System.Drawing.FontStyle.Bold), System.Drawing.Brushes.Black, new PointF(progressBar1.Width / 2 - 30, progressBar1.Height / 2 - 16));
+
             
         }
 
@@ -193,6 +193,6 @@ namespace RaceGame
         {
             Application.Restart();            
         }
-        
+
     }
 }
