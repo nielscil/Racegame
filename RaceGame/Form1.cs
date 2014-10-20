@@ -18,11 +18,13 @@ namespace RaceGame
         float angle = 76.54f;
         float speed = 0;
         int i = 0;
+        int fuel = 100;
+        double distance = 0;
         PointF BallPos = new PointF(287f, 383f);
-        
         PointF BallSpeed = new PointF(0, 0);
         const int BallSize = 10;
         Timer GameTimer = new Timer();
+  //      ProgressBar progressBar1 = new  ProgressBar();
         public Form1()
         {
             InitializeComponent();
@@ -38,6 +40,12 @@ namespace RaceGame
             this.Paint += new PaintEventHandler(Form1_Paint);
             this.KeyDown += new KeyEventHandler(Form1_KeyDown);
             this.KeyUp += new KeyEventHandler(Form1_keyUp);
+        }
+        int Fuel()
+        {
+            
+            return fuel;
+
         }
 
         void ESC()
@@ -142,16 +150,33 @@ namespace RaceGame
             BallPos.Y += BallSpeed.Y;
             Draw();
 
+            distance += Math.Sqrt(Math.Pow(BallSpeed.X, 2) + Math.Pow(BallSpeed.Y, 2));
+            if (distance >= Math.Sqrt(Math.Pow(54.654968, 2) + Math.Pow(134.750443, 2)))
+            {
+                fuel--;
+                distance = 0;
+            }
+
+            
             if( BallPos.X > 436.80f && BallPos.X < 540f && BallPos.Y > 256.09 && BallPos.Y < 289 && BallSpeed.X == 0 && BallSpeed.Y == 0)//checkt of balletje stil is in het aangegeven vak.
             {
-                Console.WriteLine("Tanken");
+                
+                if (fuel <= 100)
+                {
+                    fuel += 2;
+                }
+                
                 //tankt code toevoegen
             }
+            progressBar1.Value = fuel;
+            progressBar1.CreateGraphics().DrawString(fuel.ToString(), new Font("Sitka Text", (float)24, FontStyle.Bold), Brushes.Black, new PointF(progressBar1.Width / 2 - 30 , progressBar1.Height / 2 - 16 ));
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             Application.Restart();            
         }
+        
     }
 }
