@@ -27,7 +27,7 @@ namespace RaceGame
         RectangleF r = new RectangleF();
         RotateTransform rt1 = new RotateTransform();
  
-        int fuel = 55;
+        int fuel = 100;
         double distance = 0;
         Timer GameTimer = new Timer();
   //      ProgressBar progressBar1 = new  ProgressBar();
