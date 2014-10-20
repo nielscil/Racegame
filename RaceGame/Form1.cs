@@ -20,8 +20,6 @@ namespace RaceGame
         float angle = 76.54f;
         float speed = 0;
         int i = 0;
-<<<<<<< HEAD
-        System.Drawing.Color green = System.Drawing.Color.FromArgb(16, 117, 59);
         PointF BallPos = new PointF(287f, 383f);        
         PointF BallSpeed = new PointF(0, 0);  
         const int BallSize = 20;
@@ -29,13 +27,8 @@ namespace RaceGame
         RectangleF r = new RectangleF();
         RotateTransform rt1 = new RotateTransform();
  
-=======
         int fuel = 100;
         double distance = 0;
-        PointF BallPos = new PointF(287f, 383f);
-        PointF BallSpeed = new PointF(0, 0);
-        const int BallSize = 10;
->>>>>>> feature/Fuel
         Timer GameTimer = new Timer();
   //      ProgressBar progressBar1 = new  ProgressBar();
         public Form1()
@@ -179,15 +172,20 @@ namespace RaceGame
             if( BallPos.X > 436.80f && BallPos.X < 540f && BallPos.Y > 256.09 && BallPos.Y < 289 && BallSpeed.X == 0 && BallSpeed.Y == 0)//checkt of balletje stil is in het aangegeven vak.
             {
                 
-                if (fuel <= 100)
+                if (fuel < 99)
                 {
                     fuel += 2;
+                }
+
+                if (fuel == 99)
+                {
+                    fuel++;
                 }
                 
                 //tankt code toevoegen
             }
             progressBar1.Value = fuel;
-            progressBar1.CreateGraphics().DrawString(fuel.ToString(), new Font("Sitka Text", (float)24, FontStyle.Bold), Brushes.Black, new PointF(progressBar1.Width / 2 - 30 , progressBar1.Height / 2 - 16 ));
+            progressBar1.CreateGraphics().DrawString(fuel.ToString(), new Font("Sitka Text", (float)24, System.Drawing.FontStyle.Bold), System.Drawing.Brushes.Black, new PointF(progressBar1.Width / 2 - 30 , progressBar1.Height / 2 - 16 ));
             
         }
 
