@@ -82,6 +82,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="racetrack.jpg" />
+    <None Include="Resources\text_paused_resized.png" />
+    <None Include="Resources\text_paused_000000.png" />
     <None Include="Resources\AutoVierkantRegenboog.png" />
     <None Include="Resources\AutoVierkantGroen.png" />
     <None Include="Resources\AutoVierkantGrijs.png" />

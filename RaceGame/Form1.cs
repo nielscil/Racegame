@@ -18,6 +18,7 @@ namespace RaceGame
         Bitmap Backbuffer;
         Bitmap auto = new Bitmap(RaceGame.Properties.Resources.AutoVierkantBlauw,30,30);
         Bitmap racetrack = new Bitmap(RaceGame.Properties.Resources.racetrack);
+        Bitmap paused = new Bitmap(RaceGame.Properties.Resources.text_paused_resized);
         float angle = 0;
         float speed = 0;
         int i = 0;
