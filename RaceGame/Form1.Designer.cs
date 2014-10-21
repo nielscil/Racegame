@@ -36,8 +36,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.fuelAmount = new System.Windows.Forms.Label();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.timerFuel = new System.Windows.Forms.Timer(this.components);
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -114,6 +114,11 @@
             this.fuelAmount.Size = new System.Drawing.Size(0, 39);
             this.fuelAmount.TabIndex = 3;
             // 
+            // timerFuel
+            // 
+            this.timerFuel.Enabled = true;
+            this.timerFuel.Tick += new System.EventHandler(this.timerFuel_Tick_1);
+            // 
             // progressBar1
             // 
             this.progressBar1.BackColor = System.Drawing.Color.White;
@@ -122,11 +127,6 @@
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(100, 41);
             this.progressBar1.TabIndex = 4;
-            // 
-            // timerFuel
-            // 
-            this.timerFuel.Enabled = true;
-            this.timerFuel.Tick += new System.EventHandler(this.timerFuel_Tick_1);
             // 
             // Form1
             // 
@@ -158,8 +158,8 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label fuelAmount;
-        private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Timer timerFuel;
+        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }
 

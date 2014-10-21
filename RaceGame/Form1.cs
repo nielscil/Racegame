@@ -25,9 +25,8 @@ namespace RaceGame
         PointF BallSpeed = new PointF(0, 0);  
         const int BallSize = 20;
 
-        RectangleF r = new RectangleF();
-        RotateTransform rt1 = new RotateTransform();
- 
+        Matrix m = new Matrix(287f, 383f,387f,383f,287f,483f);
+        
         int fuel = 100;
         double distance = 0;
         Timer GameTimer = new Timer();
@@ -38,7 +37,8 @@ namespace RaceGame
             this.SetStyle(
             ControlStyles.UserPaint |
             ControlStyles.AllPaintingInWmPaint |
-            ControlStyles.DoubleBuffer, true);            
+            ControlStyles.DoubleBuffer, true);
+            pictureBox1.Image = auto;
             GameTimer.Interval = 10;
             GameTimer.Tick += new EventHandler(GameTimer_Tick);
             GameTimer.Start();
@@ -50,49 +50,6 @@ namespace RaceGame
             this.Paint += new PaintEventHandler(Form1_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(Form1_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(Form1_keyUp);  
-        }
-
-        Bitmap Rotate(Bitmap bmp, float test)
-        {
-           /* test = test % 360;
-            if (test > 180)
-                test -= 360;
-            float sin = (float)Math.Abs(Math.Sin(test * Math.PI / 180.0)); // this function takes radians
-            float cos = (float)Math.Abs(Math.Cos(test * Math.PI / 180.0)); // this one too
-            float newImgWidth = sin * bmp.Height + cos * bmp.Width;
-            float newImgHeight = sin * bmp.Width + cos * bmp.Height;
-            float originX = 0f;
-            float originY = 0f;
-
-            if (test > 90)
-            {
-                if (test <= 180)
-                    originX = sin * bmp.Height;
-                else
-                {
-                    originX = newImgWidth;
-                    originY = newImgHeight - sin * bmp.Width;
-                }
-            }
-            else
-            {
-                if (test >= -180)
-                    originY = sin * bmp.Width;
-                else
-                {
-                    originX = newImgWidth - sin * bmp.Height;
-                    originY = newImgHeight;
-                }
-            } */
-            Bitmap newImg = new Bitmap(100,100);
-            Graphics g = Graphics.FromImage(newImg);
-            g.TranslateTransform(BallPos.X - BallSize / 2, BallPos.Y - BallSize / 2); // offset the origin to our calculated values
-            g.RotateTransform(test); // set up rotate
-            g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBilinear;
-            g.DrawImage(bmp, BallPos.X, BallPos.Y); // draw the image at 0, 0
-            g.Dispose();
-            return newImg;
-
         }
 
         void ESC()
@@ -130,11 +87,11 @@ namespace RaceGame
         {
             if (e.KeyCode == Keys.Left)
             {
-                angle -= 0.5f;
+                angle -= 0.05f;
             }
             else if (e.KeyCode == Keys.Right)
             {
-                angle += 0.5f;
+                angle += 0.05f;
             }
             else if (e.KeyCode == Keys.Up)
             {
@@ -171,32 +128,29 @@ namespace RaceGame
             Backbuffer = new Bitmap(1024, 768);
         }
 
+        Bitmap rotateCenter(Image b, float angle)
+        {
+            Bitmap returnBitmap = new Bitmap(b.Width, b.Height + 1);
+            Graphics g = Graphics.FromImage(returnBitmap);
+            g.TranslateTransform((float)b.Width / 2, (float)b.Height / 2);
+            g.RotateTransform(angle * 57);
+            g.TranslateTransform(-(float)b.Width / 2, -(float)b.Height / 2);
+            g.DrawImage(b, b.Width / 2 - b.Height / 2, b.Height / 2 - b.Width / 2, b.Height, b.Width);
+
+            return returnBitmap;
+        }
         void Draw()
         {
             using (var g = Graphics.FromImage(Backbuffer))
             {
                 if (Backbuffer != null)
                 {
-
-
                     System.Drawing.Pen pen = new System.Drawing.Pen(System.Drawing.Brushes.Black);
                     g.DrawImage(racetrack, 0, 0, 1024, 768);
                     g.DrawRectangle(pen, 436.80f, 256.09f, 104f, 33f);
-                    //g.FillEllipse(Brushes.Red, BallPos.X - BallSize / 2, BallPos.Y - BallSize / 2, BallSize, BallSize);
-                    g.FillRectangle(System.Drawing.Brushes.Red, r);
-                    /*r.X = BallPos.X;
-                    r.Y = BallPos.Y;
-                    rt1.Angle = angle;*/
                     Invalidate();
-                    
+                    g.DrawImage(rotateCenter(auto, angle), BallPos);
                 }
-                g.TranslateTransform((float)auto.Width / 2, (float)auto.Height / 2);
-                //rotate
-                g.RotateTransform(angle);
-                //move image back
-                g.TranslateTransform(-(float)auto.Width / 2, -(float)auto.Height / 2);
-                //draw passed in image onto graphics object
-                g.DrawImage(auto, BallPos);
             }
         }
 
