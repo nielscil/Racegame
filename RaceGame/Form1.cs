@@ -23,21 +23,20 @@ namespace RaceGame
         PointF BallPos = new PointF(535f, 520f);        
         PointF BallSpeed = new PointF(0, 0);  
         const int BallSize = 20;
-
+        bool noFuel = false;
         RectangleF r = new RectangleF();
         RotateTransform rt1 = new RotateTransform();
  
         int fuel = 100;
         double distance = 0;
         Timer GameTimer = new Timer();
-  //      ProgressBar progressBar1 = new  ProgressBar();
         public Form1()
         {
             InitializeComponent();
             this.SetStyle(
             ControlStyles.UserPaint |
             ControlStyles.AllPaintingInWmPaint |
-            ControlStyles.DoubleBuffer, true);            
+            ControlStyles.DoubleBuffer, true);
             GameTimer.Interval = 10;
             GameTimer.Tick += new EventHandler(GameTimer_Tick);
             GameTimer.Start();
@@ -50,9 +49,8 @@ namespace RaceGame
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(Form1_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(Form1_keyUp);
             r.Height = 10;
-            r.Width = 5;        
-        }
-       
+            r.Width = 5;
+        }       
 
         void ESC()
         {
@@ -61,6 +59,9 @@ namespace RaceGame
                 GameTimer.Stop();
                 timerFuel.Stop();
                 panel1.Visible = true;
+                fuelBar.Visible = false;
+                fuelLabel.Visible = false;
+                label2.Visible = false;
                 i++;
             }
             else
@@ -68,6 +69,9 @@ namespace RaceGame
                 panel1.Visible = false;
                 GameTimer.Start();
                 timerFuel.Start();
+                fuelBar.Visible = true;
+                fuelLabel.Visible = true;
+                label2.Visible = true;
                 i = 0;
             }
            
@@ -87,21 +91,22 @@ namespace RaceGame
 
         void Form1_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)// wanneer toets ingedrukt wordt, gebeurt dit
         {
-            if (e.KeyCode == Keys.Left)
+            
+            if (e.KeyCode == Keys.Left && noFuel == false)
             {
                 angle -= 0.5f;
             }
-            else if (e.KeyCode == Keys.Right)
+            else if (e.KeyCode == Keys.Right && noFuel == false)
             {
                 angle += 0.5f;
             }
-            else if (e.KeyCode == Keys.Up)
+            else if (e.KeyCode == Keys.Up && noFuel == false)
             {
                 if(speed > -3)
                 speed -= 0.5f;
 
             }
-            else if (e.KeyCode == Keys.Down)
+            else if (e.KeyCode == Keys.Down && noFuel == false)
             {
                 if(speed < 3)
                 speed += 0.5f;
@@ -110,8 +115,11 @@ namespace RaceGame
             
             else if (e.KeyCode == Keys.Escape)
             {
-                    ESC();
+                ESC();
+
             }
+         
+           
         }
 
         void Form1_Paint(object sender, PaintEventArgs e)
@@ -162,6 +170,13 @@ namespace RaceGame
                 fuel--;
                 distance = 0;
             }
+            if (fuel == 0)
+            {
+                speed = 0;
+                noFuel = true;
+               
+            }
+
          }
 
         void timerFuel_Tick_1(object sender, EventArgs e)         
@@ -183,8 +198,8 @@ namespace RaceGame
                 
                 //tankt code toevoegen
             }
-            progressBar1.Value = fuel;
-            progressBar1.CreateGraphics().DrawString(fuel.ToString(), new Font("Sitka Text", (float)24, System.Drawing.FontStyle.Bold), System.Drawing.Brushes.Black, new PointF(progressBar1.Width / 2 - 30, progressBar1.Height / 2 - 16));
+            fuelBar.Value = fuel;
+            fuelBar.CreateGraphics().DrawString(fuel.ToString(), new Font("Sitka Text", (float)24, System.Drawing.FontStyle.Bold), System.Drawing.Brushes.Black, new PointF(fuelBar.Width / 2 - 30, fuelBar.Height / 2 - 16));
 
             
         }
@@ -193,6 +208,13 @@ namespace RaceGame
         {
             Application.Restart();            
         }
+
+        private void label2_Click_1(object sender, EventArgs e)
+        {
+           
+        }
+
+    
 
 
     }
