@@ -26,7 +26,9 @@ namespace RaceGame
         int fuel = 100;
         double distance = 0;
         Timer GameTimer = new Timer();
+        Timer timerFuel = new Timer();
         TimeSpan stopwatch = new TimeSpan();
+        bool noFuel = false;
         public Form1()
         {
             InitializeComponent();
@@ -37,7 +39,7 @@ namespace RaceGame
             GameTimer.Interval = 10;
             GameTimer.Tick += new EventHandler(GameTimer_Tick);
             GameTimer.Start();
-            timerFuel.Interval = 100;
+            timerFuel.Interval = 5;
             timerFuel.Tick += new EventHandler(timerFuel_Tick_1);
             timerFuel.Start();
             this.ResizeEnd += new EventHandler(Form1_CreateBackBuffer);
@@ -49,6 +51,7 @@ namespace RaceGame
             WindowState = FormWindowState.Maximized;
         }
 
+
         void ESC()
         {
             if (i == 0)
@@ -56,6 +59,9 @@ namespace RaceGame
                 GameTimer.Stop();
                 timerFuel.Stop();
                 panel1.Visible = true;
+                fuelBar.Visible = false;
+                fuelLabel.Visible = false;
+                label2.Visible = false;
                 i++;
             }
             else
@@ -63,6 +69,9 @@ namespace RaceGame
                 panel1.Visible = false;
                 GameTimer.Start();
                 timerFuel.Start();
+                fuelBar.Visible = true;
+                fuelLabel.Visible = true;
+                label2.Visible = true;
                 i = 0;
             }
            
@@ -83,22 +92,44 @@ namespace RaceGame
 
         void Form1_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)// wanneer toets ingedrukt wordt, gebeurt dit
         {
-
-            if (e.KeyCode == Keys.Left)
+            if(noFuel == false)
+            {
+                switch(e.KeyCode)
+                {
+                case Keys.Left:
+                    angle -= 0.05f;
+                    break;
+                case Keys.Right:
+                    angle += 0.05f;
+                    break;
+                case Keys.Up:
+                    if(speed > -2)
+                        speed -= 0.5f;
+                    break;
+                case Keys.Down:
+                    if(speed < 2)
+                        speed += 0.5f;
+                    break;
+                case Keys.Escape:
+                    ESC();
+                    break;
+                }
+            }
+            /*if (e.KeyCode == Keys.Left && noFuel == false)
             {
                 angle -= 0.05f;
             }
-            else if (e.KeyCode == Keys.Right)
+            else if (e.KeyCode == Keys.Right && noFuel == false)
             {
                 angle += 0.05f;
             }
-            else if (e.KeyCode == Keys.Up)
+            else if (e.KeyCode == Keys.Up && noFuel == false)
             {
                 if(speed > -2)
                 speed -= 0.5f;
 
             }
-            else if (e.KeyCode == Keys.Down)
+            else if (e.KeyCode == Keys.Down && noFuel == false)
             {
                 if(speed < 2)
                 speed += 0.5f;
@@ -107,10 +138,12 @@ namespace RaceGame
             
             else if (e.KeyCode == Keys.Escape)
             {
-                    ESC();
-            }
-        }
+                ESC();
 
+            }*/
+         
+           
+        }
         void Form1_Paint(object sender, PaintEventArgs e)
         {
             if (Backbuffer != null)
@@ -161,19 +194,24 @@ namespace RaceGame
             BallPos.Y += BallSpeed.Y;
             stopwatch = stopwatch.Add(TimeSpan.FromMilliseconds(10));
             label3.Text = stopwatch.ToString();
+            distance += Math.Sqrt(Math.Pow(BallSpeed.X, 2) + Math.Pow(BallSpeed.Y, 2));
             Draw();
 
-                    }
+        }
 
         void timerFuel_Tick_1(object sender, EventArgs e)         
         {
-            distance += Math.Sqrt(Math.Pow(BallSpeed.X, 2) + Math.Pow(BallSpeed.Y, 2));
+            
             if (distance >= Math.Sqrt(Math.Pow(50, 2) + Math.Pow(70, 2)))
             {
                 fuel--;
                 distance = 0;
             }
-
+            if (fuel == 0)
+            {
+                speed = 0;
+                noFuel = true;              
+            }
             if( (BallPos.X + 25) > 425f && (BallPos.X + 25) < 650f && (BallPos.Y + 25) > 680 && (BallPos.Y + 25) < 750 && BallSpeed.X == 0 && BallSpeed.Y == 0)//checkt of balletje stil is in het aangegeven vak.
             {
                 
@@ -186,19 +224,14 @@ namespace RaceGame
                 {
                     fuel++;
                 }
-                
-                //tankt code toevoegen
             }
-            progressBar1.Value = fuel;
-            progressBar1.CreateGraphics().DrawString(fuel.ToString(), new Font("Sitka Text", (float)24, System.Drawing.FontStyle.Bold), System.Drawing.Brushes.Black, new PointF(progressBar1.Width / 2 - 30, progressBar1.Height / 2 - 16));
-
-            
-        }
+            fuelBar.Value = fuel;
+            fuelBar.CreateGraphics().DrawString(fuel.ToString(), new Font("Sitka Text", (float)24, System.Drawing.FontStyle.Bold), System.Drawing.Brushes.Black, new PointF(fuelBar.Width / 2 - 30, fuelBar.Height / 2 - 16));
+         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             Application.Restart();            
         }
-
     }
 }
