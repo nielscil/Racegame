@@ -17,10 +17,10 @@ namespace RaceGame
     {
         Bitmap Backbuffer;
         Bitmap racetrack = new Bitmap(RaceGame.Properties.Resources.racetrack);
-        float angle = 76.54f;
+        float angle = 0f;
         float speed = 0;
         int i = 0;
-        PointF BallPos = new PointF(287f, 383f);        
+        PointF BallPos = new PointF(535f, 520f);        
         PointF BallSpeed = new PointF(0, 0);  
         const int BallSize = 20;
 
@@ -156,17 +156,17 @@ namespace RaceGame
             BallPos.X += BallSpeed.X;
             BallPos.Y += BallSpeed.Y;
             Draw();
-
-                    }
-
-        void timerFuel_Tick_1(object sender, EventArgs e)         
-        {
             distance += Math.Sqrt(Math.Pow(BallSpeed.X, 2) + Math.Pow(BallSpeed.Y, 2));
-            if (distance >= Math.Sqrt(Math.Pow(54.654968, 2) + Math.Pow(134.750443, 2)))
+            if (distance >= Math.Sqrt(Math.Pow(50, 2) + Math.Pow(70, 2)))
             {
                 fuel--;
                 distance = 0;
             }
+         }
+
+        void timerFuel_Tick_1(object sender, EventArgs e)         
+        {
+            
 
             if( BallPos.X > 436.80f && BallPos.X < 540f && BallPos.Y > 256.09 && BallPos.Y < 289 && BallSpeed.X == 0 && BallSpeed.Y == 0)//checkt of balletje stil is in het aangegeven vak.
             {
@@ -193,6 +193,7 @@ namespace RaceGame
         {
             Application.Restart();            
         }
+
 
     }
 }
