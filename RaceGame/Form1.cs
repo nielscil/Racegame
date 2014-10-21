@@ -97,10 +97,24 @@ namespace RaceGame
                 switch(e.KeyCode)
                 {
                 case Keys.Left:
-                    angle -= 0.05f;
+                        if (speed != 0)
+                        {
+                            angle -= 0.05f;
+                        }
+                        else
+                        {
+
+                        }
                     break;
                 case Keys.Right:
-                    angle += 0.05f;
+                    if (speed != 0)
+                        {
+                            angle += 0.05f;
+                        }
+                        else
+                        {
+
+                        }
                     break;
                 case Keys.Up:
                     if(speed > -2)
