@@ -41,6 +41,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -106,6 +107,7 @@
             this.panel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel1.BackgroundImage")));
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button1);
@@ -145,6 +147,16 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(120, 247);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(111, 39);
+            this.button3.TabIndex = 4;
+            this.button3.Text = "Stop";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -182,6 +194,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Timer stopWatch;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button button3;
     }
 }
 

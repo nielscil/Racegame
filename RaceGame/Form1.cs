@@ -21,6 +21,7 @@ namespace RaceGame
         Bitmap paused = new Bitmap(RaceGame.Properties.Resources.text_paused_resized);
         float angle = 0;
         float speed = 0;
+        bool r,l = false;
         int i = 0;
         PointF BallPos = new PointF(545f, 515f);        
         PointF BallSpeed = new PointF(0, 0);        
@@ -40,6 +41,7 @@ namespace RaceGame
             GameTimer.Interval = 10;
             GameTimer.Tick += new EventHandler(GameTimer_Tick);
             GameTimer.Start();
+            KeyPreview = true;
             timerFuel.Interval = 5;
             timerFuel.Tick += new EventHandler(timerFuel_Tick_1);
             timerFuel.Start();
@@ -51,8 +53,6 @@ namespace RaceGame
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
         }
-
-
         void ESC()
         {
             if (i == 0)
@@ -77,20 +77,17 @@ namespace RaceGame
             }
            
         }
-
         void Form1_keyUp(object sender, System.Windows.Forms.KeyEventArgs e)// wanneer toets losgelaten wordt, gebeurt dit
         {
-            if (e.KeyCode == Keys.Up)
+            if (e.KeyCode == Keys.Left)
             {
-
+                l = false;
             }
-            else if (e.KeyCode == Keys.Down)
+            else if (e.KeyCode == Keys.Right)
             {
-
+                r = false;
             }
         }
-
-
         void Form1_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)// wanneer toets ingedrukt wordt, gebeurt dit
         {
             if(noFuel == false)
@@ -99,23 +96,11 @@ namespace RaceGame
                 {
                 case Keys.Left:
                         if (speed != 0)
-                        {
-                            angle -= 0.05f;
-                        }
-                        else
-                        {
-
-                        }
+                         l = true;
                     break;
                 case Keys.Right:
                     if (speed != 0)
-                        {
-                            angle += 0.05f;
-                        }
-                        else
-                        {
-
-                        }
+                        r = true;
                     break;
                 case Keys.Up:
                     if(speed > -2)
@@ -128,35 +113,7 @@ namespace RaceGame
                 }
             }
             if (e.KeyCode == Keys.Escape)
-                ESC();
-            /*if (e.KeyCode == Keys.Left && noFuel == false)
-            {
-                angle -= 0.05f;
-            }
-            else if (e.KeyCode == Keys.Right && noFuel == false)
-            {
-                angle += 0.05f;
-            }
-            else if (e.KeyCode == Keys.Up && noFuel == false)
-            {
-                if(speed > -2)
-                speed -= 0.5f;
-
-            }
-            else if (e.KeyCode == Keys.Down && noFuel == false)
-            {
-                if(speed < 2)
-                speed += 0.5f;
-            }
-            
-            
-            else if (e.KeyCode == Keys.Escape)
-            {
-                ESC();
-
-            }*/
-         
-           
+                ESC();                  
         }
         void Form1_Paint(object sender, PaintEventArgs e)
         {
@@ -201,6 +158,14 @@ namespace RaceGame
 
         void GameTimer_Tick(object sender, EventArgs e)
         {
+            if(l == true)
+            {
+                angle -= 0.015f;
+            }
+            else if( r== true)
+            {
+                angle += 0.015f;
+            }
             BallSpeed.X = (float)(speed * Math.Cos(angle));
             BallSpeed.Y = (float)(speed * Math.Sin(angle));
             BallPos.X += BallSpeed.X;
@@ -245,6 +210,11 @@ namespace RaceGame
         private void button1_Click(object sender, EventArgs e)
         {
             Application.Restart();            
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
