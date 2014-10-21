@@ -228,15 +228,15 @@ namespace RaceGame
             if( (BallPos.X + 25) > 425f && (BallPos.X + 25) < 650f && (BallPos.Y + 25) > 680 && (BallPos.Y + 25) < 750 && BallSpeed.X == 0 && BallSpeed.Y == 0)//checkt of balletje stil is in het aangegeven vak.
             {
                 
-                if (fuel < 99)
+                if (fuel < 100)
                 {
-                    fuel += 2;
+                    fuel += 1;
                 }
 
-                else if (fuel == 99)
+                /*else if (fuel == 99)
                 {
                     fuel++;
-                }
+                }*/
             }
             fuelBar.Value = fuel;
             fuelBar.CreateGraphics().DrawString(fuel.ToString(), new Font("Sitka Text", (float)24, System.Drawing.FontStyle.Bold), System.Drawing.Brushes.Black, new PointF(fuelBar.Width / 2 - 30, fuelBar.Height / 2 - 16));
