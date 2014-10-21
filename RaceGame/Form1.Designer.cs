@@ -61,7 +61,7 @@
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.label1);
             this.panel1.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.panel1.Location = new System.Drawing.Point(38, 7);
+            this.panel1.Location = new System.Drawing.Point(56, 9);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(769, 625);
             this.panel1.TabIndex = 1;
@@ -89,8 +89,8 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(391, 115);
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.Location = new System.Drawing.Point(521, 125);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(35, 13);
@@ -124,7 +124,7 @@
             this.fuelLabel.AutoSize = true;
             this.fuelLabel.BackColor = System.Drawing.Color.Transparent;
             this.fuelLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fuelLabel.Location = new System.Drawing.Point(406, 7);
+            this.fuelLabel.Location = new System.Drawing.Point(508, 9);
             this.fuelLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.fuelLabel.Name = "fuelLabel";
             this.fuelLabel.Size = new System.Drawing.Size(83, 37);
@@ -135,7 +135,7 @@
             // 
             this.fuelAmount.AutoSize = true;
             this.fuelAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 25.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fuelAmount.Location = new System.Drawing.Point(848, 78);
+            this.fuelAmount.Location = new System.Drawing.Point(450, 70);
             this.fuelAmount.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.fuelAmount.Name = "fuelAmount";
             this.fuelAmount.Size = new System.Drawing.Size(0, 39);
@@ -144,7 +144,7 @@
             // fuelBar
             // 
             this.fuelBar.BackColor = System.Drawing.Color.White;
-            this.fuelBar.Location = new System.Drawing.Point(394, 63);
+            this.fuelBar.Location = new System.Drawing.Point(515, 68);
             this.fuelBar.Margin = new System.Windows.Forms.Padding(2);
             this.fuelBar.Name = "fuelBar";
             this.fuelBar.Size = new System.Drawing.Size(100, 41);
@@ -163,12 +163,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(1008, 747);
             this.Controls.Add(this.fuelBar);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.fuelAmount);
             this.Controls.Add(this.fuelLabel);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.label3);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "Form1";

@@ -110,11 +110,10 @@ namespace RaceGame
                     if(speed < 2)
                         speed += 0.5f;
                     break;
-                case Keys.Escape:
-                    ESC();
-                    break;
                 }
             }
+            if (e.KeyCode == Keys.Escape)
+                ESC();
             /*if (e.KeyCode == Keys.Left && noFuel == false)
             {
                 angle -= 0.05f;
@@ -179,7 +178,6 @@ namespace RaceGame
                 {
                     System.Drawing.Pen pen = new System.Drawing.Pen(System.Drawing.Brushes.Black);
                     g.DrawImage(racetrack, 0, 0, 1024, 768);
-                    g.DrawRectangle(pen, 436.80f, 256.09f, 104f, 33f);
                     Invalidate();
                     g.DrawImage(rotateCenter(auto, angle), BallPos);
                 }
