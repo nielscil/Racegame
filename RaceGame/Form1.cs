@@ -178,7 +178,7 @@ namespace RaceGame
             Bitmap returnBitmap = new Bitmap(b.Width, b.Height + 1);
             Graphics g = Graphics.FromImage(returnBitmap);
             g.TranslateTransform((float)b.Width / 2, (float)b.Height / 2);
-            g.RotateTransform(angle * 57);
+            g.RotateTransform(angle * (float)(57.1));
             g.TranslateTransform(-(float)b.Width / 2, -(float)b.Height / 2);
             g.DrawImage(b, b.Width / 2 - b.Height / 2, b.Height / 2 - b.Width / 2, b.Height, b.Width);
 
