@@ -16,17 +16,24 @@ namespace RaceGame
     public partial class Form1 : Form
     {
         Bitmap Backbuffer;
+        Bitmap auto = new Bitmap(RaceGame.Properties.Resources.AutoVierkantBlauw,30,30);
         Bitmap racetrack = new Bitmap(RaceGame.Properties.Resources.racetrack);
-        float angle = 0f;
+        float angle = 0;
         float speed = 0;
         int i = 0;
-        PointF BallPos = new PointF(535f, 520f);        
+        PointF BallPos = new PointF(287f, 383f);        
         PointF BallSpeed = new PointF(0, 0);  
         const int BallSize = 20;
+<<<<<<< HEAD
         bool noFuel = false;
         RectangleF r = new RectangleF();
         RotateTransform rt1 = new RotateTransform();
  
+=======
+
+        Matrix m = new Matrix(287f, 383f,387f,383f,287f,483f);
+        
+>>>>>>> 929ac0f973cd07034ac70682b1f38e216e16d3a8
         int fuel = 100;
         double distance = 0;
         Timer GameTimer = new Timer();
@@ -47,10 +54,15 @@ namespace RaceGame
             this.Load += new EventHandler(Form1_CreateBackBuffer);
             this.Paint += new PaintEventHandler(Form1_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(Form1_KeyDown);
+<<<<<<< HEAD
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(Form1_keyUp);
             r.Height = 10;
             r.Width = 5;
         }       
+=======
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(Form1_keyUp);  
+        }
+>>>>>>> 929ac0f973cd07034ac70682b1f38e216e16d3a8
 
         void ESC()
         {
@@ -94,11 +106,11 @@ namespace RaceGame
             
             if (e.KeyCode == Keys.Left && noFuel == false)
             {
-                angle -= 0.5f;
+                angle -= 0.05f;
             }
             else if (e.KeyCode == Keys.Right && noFuel == false)
             {
-                angle += 0.5f;
+                angle += 0.05f;
             }
             else if (e.KeyCode == Keys.Up && noFuel == false)
             {
@@ -138,22 +150,29 @@ namespace RaceGame
             Backbuffer = new Bitmap(1024, 768);
         }
 
+        Bitmap rotateCenter(Image b, float angle)
+        {
+            Bitmap returnBitmap = new Bitmap(b.Width, b.Height + 1);
+            Graphics g = Graphics.FromImage(returnBitmap);
+            g.TranslateTransform((float)b.Width / 2, (float)b.Height / 2);
+            g.RotateTransform(angle * 57);
+            g.TranslateTransform(-(float)b.Width / 2, -(float)b.Height / 2);
+            g.DrawImage(b, b.Width / 2 - b.Height / 2, b.Height / 2 - b.Width / 2, b.Height, b.Width);
+
+            return returnBitmap;
+        }
         void Draw()
         {
-            if (Backbuffer != null)
+            using (var g = Graphics.FromImage(Backbuffer))
             {
-                using (var g = Graphics.FromImage(Backbuffer))
+                if (Backbuffer != null)
                 {
                     System.Drawing.Pen pen = new System.Drawing.Pen(System.Drawing.Brushes.Black);
-                    g.DrawImage(racetrack,0,0,1024,768);
-                    g.DrawRectangle(pen, 436.80f, 256.09f, 104f,33f);
-                    //g.FillEllipse(Brushes.Red, BallPos.X - BallSize / 2, BallPos.Y - BallSize / 2, BallSize, BallSize);
-                    g.FillRectangle(System.Drawing.Brushes.Red, r);
-                    r.X = BallPos.X;
-                    r.Y = BallPos.Y;
-                    rt1.Angle = angle;
+                    g.DrawImage(racetrack, 0, 0, 1024, 768);
+                    g.DrawRectangle(pen, 436.80f, 256.09f, 104f, 33f);
+                    Invalidate();
+                    g.DrawImage(rotateCenter(auto, angle), BallPos);
                 }
-                Invalidate();
             }
         }
 
@@ -164,12 +183,18 @@ namespace RaceGame
             BallPos.X += BallSpeed.X;
             BallPos.Y += BallSpeed.Y;
             Draw();
+
+                    }
+
+        void timerFuel_Tick_1(object sender, EventArgs e)         
+        {
             distance += Math.Sqrt(Math.Pow(BallSpeed.X, 2) + Math.Pow(BallSpeed.Y, 2));
-            if (distance >= Math.Sqrt(Math.Pow(50, 2) + Math.Pow(70, 2)))
+            if (distance >= Math.Sqrt(Math.Pow(54.654968, 2) + Math.Pow(134.750443, 2)))
             {
                 fuel--;
                 distance = 0;
             }
+<<<<<<< HEAD
             if (fuel == 0)
             {
                 speed = 0;
@@ -182,8 +207,10 @@ namespace RaceGame
         void timerFuel_Tick_1(object sender, EventArgs e)         
         {
             
+=======
+>>>>>>> 929ac0f973cd07034ac70682b1f38e216e16d3a8
 
-            if( BallPos.X > 436.80f && BallPos.X < 540f && BallPos.Y > 256.09 && BallPos.Y < 289 && BallSpeed.X == 0 && BallSpeed.Y == 0)//checkt of balletje stil is in het aangegeven vak.
+            if( (BallPos.X + 25) > 436.80f && (BallPos.X + 25) < 540f && (BallPos.Y + 25) > 256.09 && (BallPos.Y + 25) < 289 && BallSpeed.X == 0 && BallSpeed.Y == 0)//checkt of balletje stil is in het aangegeven vak.
             {
                 
                 if (fuel < 99)
@@ -209,6 +236,7 @@ namespace RaceGame
             Application.Restart();            
         }
 
+<<<<<<< HEAD
         private void label2_Click_1(object sender, EventArgs e)
         {
            
@@ -217,5 +245,7 @@ namespace RaceGame
     
 
 
+=======
+>>>>>>> 929ac0f973cd07034ac70682b1f38e216e16d3a8
     }
 }

@@ -37,10 +37,15 @@
             this.label1 = new System.Windows.Forms.Label();
             this.fuelLabel = new System.Windows.Forms.Label();
             this.fuelAmount = new System.Windows.Forms.Label();
+<<<<<<< HEAD
             this.fuelBar = new System.Windows.Forms.ProgressBar();
             this.timerFuel = new System.Windows.Forms.Timer(this.components);
             this.label2 = new System.Windows.Forms.Label();
             this.stopWatch = new System.Windows.Forms.Timer(this.components);
+=======
+            this.timerFuel = new System.Windows.Forms.Timer(this.components);
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+>>>>>>> 929ac0f973cd07034ac70682b1f38e216e16d3a8
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -121,7 +126,16 @@
             this.fuelAmount.Size = new System.Drawing.Size(0, 51);
             this.fuelAmount.TabIndex = 3;
             // 
+<<<<<<< HEAD
             // fuelBar
+=======
+            // timerFuel
+            // 
+            this.timerFuel.Enabled = true;
+            this.timerFuel.Tick += new System.EventHandler(this.timerFuel_Tick_1);
+            // 
+            // progressBar1
+>>>>>>> 929ac0f973cd07034ac70682b1f38e216e16d3a8
             // 
             this.fuelBar.BackColor = System.Drawing.Color.White;
             this.fuelBar.Location = new System.Drawing.Point(526, 77);
@@ -130,6 +144,7 @@
             this.fuelBar.Size = new System.Drawing.Size(133, 50);
             this.fuelBar.TabIndex = 4;
             // 
+<<<<<<< HEAD
             // timerFuel
             // 
             this.timerFuel.Enabled = true;
@@ -149,12 +164,19 @@
             // 
             this.stopWatch.Interval = 10;
             // 
+=======
+>>>>>>> 929ac0f973cd07034ac70682b1f38e216e16d3a8
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+<<<<<<< HEAD
             this.ClientSize = new System.Drawing.Size(1006, 721);
             this.Controls.Add(this.fuelBar);
+=======
+            this.ClientSize = new System.Drawing.Size(1008, 729);
+            this.Controls.Add(this.progressBar1);
+>>>>>>> 929ac0f973cd07034ac70682b1f38e216e16d3a8
             this.Controls.Add(this.fuelAmount);
             this.Controls.Add(this.fuelLabel);
             this.Controls.Add(this.panel1);
@@ -180,10 +202,15 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label fuelLabel;
         private System.Windows.Forms.Label fuelAmount;
+<<<<<<< HEAD
         private System.Windows.Forms.ProgressBar fuelBar;
         private System.Windows.Forms.Timer timerFuel;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Timer stopWatch;
+=======
+        private System.Windows.Forms.Timer timerFuel;
+        private System.Windows.Forms.ProgressBar progressBar1;
+>>>>>>> 929ac0f973cd07034ac70682b1f38e216e16d3a8
     }
 }
 
