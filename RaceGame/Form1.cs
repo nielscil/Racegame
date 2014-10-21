@@ -21,16 +21,12 @@ namespace RaceGame
         float angle = 0;
         float speed = 0;
         int i = 0;
-        PointF BallPos = new PointF(287f, 383f);        
-        PointF BallSpeed = new PointF(0, 0);  
-        const int BallSize = 20;
-
-        Matrix m = new Matrix(287f, 383f,387f,383f,287f,483f);
-        
+        PointF BallPos = new PointF(545f, 515f);        
+        PointF BallSpeed = new PointF(0, 0);        
         int fuel = 100;
         double distance = 0;
         Timer GameTimer = new Timer();
-  //      ProgressBar progressBar1 = new  ProgressBar();
+        TimeSpan stopwatch = new TimeSpan();
         public Form1()
         {
             InitializeComponent();
@@ -48,7 +44,9 @@ namespace RaceGame
             this.Load += new EventHandler(Form1_CreateBackBuffer);
             this.Paint += new PaintEventHandler(Form1_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(Form1_KeyDown);
-            this.KeyUp += new System.Windows.Forms.KeyEventHandler(Form1_keyUp);  
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(Form1_keyUp);
+            FormBorderStyle = FormBorderStyle.None;
+            WindowState = FormWindowState.Maximized;
         }
 
         void ESC()
@@ -80,10 +78,12 @@ namespace RaceGame
             {
 
             }
-        } 
+        }
+
 
         void Form1_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)// wanneer toets ingedrukt wordt, gebeurt dit
         {
+
             if (e.KeyCode == Keys.Left)
             {
                 angle -= 0.05f;
@@ -94,13 +94,13 @@ namespace RaceGame
             }
             else if (e.KeyCode == Keys.Up)
             {
-                if(speed > -3)
+                if(speed > -2)
                 speed -= 0.5f;
 
             }
             else if (e.KeyCode == Keys.Down)
             {
-                if(speed < 3)
+                if(speed < 2)
                 speed += 0.5f;
             }
             
@@ -159,6 +159,8 @@ namespace RaceGame
             BallSpeed.Y = (float)(speed * Math.Sin(angle));
             BallPos.X += BallSpeed.X;
             BallPos.Y += BallSpeed.Y;
+            stopwatch = stopwatch.Add(TimeSpan.FromMilliseconds(10));
+            label3.Text = stopwatch.ToString();
             Draw();
 
                     }
@@ -166,13 +168,13 @@ namespace RaceGame
         void timerFuel_Tick_1(object sender, EventArgs e)         
         {
             distance += Math.Sqrt(Math.Pow(BallSpeed.X, 2) + Math.Pow(BallSpeed.Y, 2));
-            if (distance >= Math.Sqrt(Math.Pow(54.654968, 2) + Math.Pow(134.750443, 2)))
+            if (distance >= Math.Sqrt(Math.Pow(50, 2) + Math.Pow(70, 2)))
             {
                 fuel--;
                 distance = 0;
             }
 
-            if( (BallPos.X + 25) > 436.80f && (BallPos.X + 25) < 540f && (BallPos.Y + 25) > 256.09 && (BallPos.Y + 25) < 289 && BallSpeed.X == 0 && BallSpeed.Y == 0)//checkt of balletje stil is in het aangegeven vak.
+            if( (BallPos.X + 25) > 425f && (BallPos.X + 25) < 650f && (BallPos.Y + 25) > 680 && (BallPos.Y + 25) < 750 && BallSpeed.X == 0 && BallSpeed.Y == 0)//checkt of balletje stil is in het aangegeven vak.
             {
                 
                 if (fuel < 99)
