@@ -16,18 +16,26 @@ namespace RaceGame
     public partial class Form1 : Form
     {
         Bitmap Backbuffer;
+        Bitmap auto = new Bitmap(RaceGame.Properties.Resources.AutoVierkantBlauw,30,30);
         Bitmap racetrack = new Bitmap(RaceGame.Properties.Resources.racetrack);
-        float angle = 76.54f;
+        float angle = 0;
         float speed = 0;
         int i = 0;
-        System.Drawing.Color green = System.Drawing.Color.FromArgb(16, 117, 59);
         PointF BallPos = new PointF(287f, 383f);        
         PointF BallSpeed = new PointF(0, 0);  
         const int BallSize = 20;
-
+<<<<<<< HEAD
+        bool noFuel = false;
         RectangleF r = new RectangleF();
         RotateTransform rt1 = new RotateTransform();
  
+=======
+
+        Matrix m = new Matrix(287f, 383f,387f,383f,287f,483f);
+        
+>>>>>>> 929ac0f973cd07034ac70682b1f38e216e16d3a8
+        int fuel = 100;
+        double distance = 0;
         Timer GameTimer = new Timer();
         public Form1()
         {
@@ -35,31 +43,47 @@ namespace RaceGame
             this.SetStyle(
             ControlStyles.UserPaint |
             ControlStyles.AllPaintingInWmPaint |
-            ControlStyles.DoubleBuffer, true);            
+            ControlStyles.DoubleBuffer, true);
             GameTimer.Interval = 10;
             GameTimer.Tick += new EventHandler(GameTimer_Tick);
             GameTimer.Start();
+            timerFuel.Interval = 100;
+            timerFuel.Tick += new EventHandler(timerFuel_Tick_1);
+            timerFuel.Start();
             this.ResizeEnd += new EventHandler(Form1_CreateBackBuffer);
             this.Load += new EventHandler(Form1_CreateBackBuffer);
             this.Paint += new PaintEventHandler(Form1_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(Form1_KeyDown);
+<<<<<<< HEAD
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(Form1_keyUp);
             r.Height = 10;
-            r.Width = 5;        
+            r.Width = 5;
+        }       
+=======
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(Form1_keyUp);  
         }
+>>>>>>> 929ac0f973cd07034ac70682b1f38e216e16d3a8
 
         void ESC()
         {
             if (i == 0)
             {
                 GameTimer.Stop();
+                timerFuel.Stop();
                 panel1.Visible = true;
+                fuelBar.Visible = false;
+                fuelLabel.Visible = false;
+                label2.Visible = false;
                 i++;
             }
             else
             {
                 panel1.Visible = false;
                 GameTimer.Start();
+                timerFuel.Start();
+                fuelBar.Visible = true;
+                fuelLabel.Visible = true;
+                label2.Visible = true;
                 i = 0;
             }
            
@@ -79,35 +103,35 @@ namespace RaceGame
 
         void Form1_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)// wanneer toets ingedrukt wordt, gebeurt dit
         {
-            if (e.KeyCode == Keys.Left)
+            
+            if (e.KeyCode == Keys.Left && noFuel == false)
             {
-                angle -= 0.5f;
+                angle -= 0.05f;
             }
-            else if (e.KeyCode == Keys.Right)
+            else if (e.KeyCode == Keys.Right && noFuel == false)
             {
-                angle += 0.5f;
+                angle += 0.05f;
             }
-            else if (e.KeyCode == Keys.Up)
+            else if (e.KeyCode == Keys.Up && noFuel == false)
             {
                 if(speed > -3)
                 speed -= 0.5f;
 
             }
-            else if (e.KeyCode == Keys.Down)
+            else if (e.KeyCode == Keys.Down && noFuel == false)
             {
                 if(speed < 3)
                 speed += 0.5f;
             }
             
-            else if (e.KeyCode == Keys.Space)
-            {
-                angle = 0;
-                speed = 0;
-            }
+            
             else if (e.KeyCode == Keys.Escape)
             {
-                    ESC();
+                ESC();
+
             }
+         
+           
         }
 
         void Form1_Paint(object sender, PaintEventArgs e)
@@ -126,22 +150,29 @@ namespace RaceGame
             Backbuffer = new Bitmap(1024, 768);
         }
 
+        Bitmap rotateCenter(Image b, float angle)
+        {
+            Bitmap returnBitmap = new Bitmap(b.Width, b.Height + 1);
+            Graphics g = Graphics.FromImage(returnBitmap);
+            g.TranslateTransform((float)b.Width / 2, (float)b.Height / 2);
+            g.RotateTransform(angle * 57);
+            g.TranslateTransform(-(float)b.Width / 2, -(float)b.Height / 2);
+            g.DrawImage(b, b.Width / 2 - b.Height / 2, b.Height / 2 - b.Width / 2, b.Height, b.Width);
+
+            return returnBitmap;
+        }
         void Draw()
         {
-            if (Backbuffer != null)
+            using (var g = Graphics.FromImage(Backbuffer))
             {
-                using (var g = Graphics.FromImage(Backbuffer))
+                if (Backbuffer != null)
                 {
                     System.Drawing.Pen pen = new System.Drawing.Pen(System.Drawing.Brushes.Black);
-                    g.DrawImage(racetrack,0,0,1024,768);
-                    g.DrawRectangle(pen, 436.80f, 256.09f, 104f,33f);
-                    //g.FillEllipse(Brushes.Red, BallPos.X - BallSize / 2, BallPos.Y - BallSize / 2, BallSize, BallSize);
-                    g.FillRectangle(System.Drawing.Brushes.Red, r);
-                    r.X = BallPos.X;
-                    r.Y = BallPos.Y;
-                    rt1.Angle = angle;
+                    g.DrawImage(racetrack, 0, 0, 1024, 768);
+                    g.DrawRectangle(pen, 436.80f, 256.09f, 104f, 33f);
+                    Invalidate();
+                    g.DrawImage(rotateCenter(auto, angle), BallPos);
                 }
-                Invalidate();
             }
         }
 
@@ -153,16 +184,68 @@ namespace RaceGame
             BallPos.Y += BallSpeed.Y;
             Draw();
 
-            if( BallPos.X > 436.80f && BallPos.X < 540f && BallPos.Y > 256.09 && BallPos.Y < 289 && BallSpeed.X == 0 && BallSpeed.Y == 0)//checkt of balletje stil is in het aangegeven vak.
+                    }
+
+        void timerFuel_Tick_1(object sender, EventArgs e)         
+        {
+            distance += Math.Sqrt(Math.Pow(BallSpeed.X, 2) + Math.Pow(BallSpeed.Y, 2));
+            if (distance >= Math.Sqrt(Math.Pow(54.654968, 2) + Math.Pow(134.750443, 2)))
             {
-                Console.WriteLine("Tanken");
+                fuel--;
+                distance = 0;
+            }
+<<<<<<< HEAD
+            if (fuel == 0)
+            {
+                speed = 0;
+                noFuel = true;
+               
+            }
+
+         }
+
+        void timerFuel_Tick_1(object sender, EventArgs e)         
+        {
+            
+=======
+>>>>>>> 929ac0f973cd07034ac70682b1f38e216e16d3a8
+
+            if( (BallPos.X + 25) > 436.80f && (BallPos.X + 25) < 540f && (BallPos.Y + 25) > 256.09 && (BallPos.Y + 25) < 289 && BallSpeed.X == 0 && BallSpeed.Y == 0)//checkt of balletje stil is in het aangegeven vak.
+            {
+                
+                if (fuel < 99)
+                {
+                    fuel += 2;
+                }
+
+                else if (fuel == 99)
+                {
+                    fuel++;
+                }
+                
                 //tankt code toevoegen
             }
+            fuelBar.Value = fuel;
+            fuelBar.CreateGraphics().DrawString(fuel.ToString(), new Font("Sitka Text", (float)24, System.Drawing.FontStyle.Bold), System.Drawing.Brushes.Black, new PointF(fuelBar.Width / 2 - 30, fuelBar.Height / 2 - 16));
+
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             Application.Restart();            
         }
+
+<<<<<<< HEAD
+        private void label2_Click_1(object sender, EventArgs e)
+        {
+           
+        }
+
+    
+
+
+=======
+>>>>>>> 929ac0f973cd07034ac70682b1f38e216e16d3a8
     }
 }
