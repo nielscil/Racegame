@@ -16,7 +16,7 @@ namespace RaceGame
     public partial class Form1 : Form
     {
         Bitmap Backbuffer;
-        Bitmap auto = new Bitmap(RaceGame.Properties.Resources.AutoVierkantBlauw,100,100);
+        Bitmap auto = new Bitmap(RaceGame.Properties.Resources.AutoVierkantBlauw,30,30);
         Bitmap racetrack = new Bitmap(RaceGame.Properties.Resources.racetrack);
         float angle = 0;
         float speed = 0;
@@ -38,7 +38,6 @@ namespace RaceGame
             ControlStyles.UserPaint |
             ControlStyles.AllPaintingInWmPaint |
             ControlStyles.DoubleBuffer, true);
-            pictureBox1.Image = auto;
             GameTimer.Interval = 10;
             GameTimer.Tick += new EventHandler(GameTimer_Tick);
             GameTimer.Start();
@@ -173,7 +172,7 @@ namespace RaceGame
                 distance = 0;
             }
 
-            if( BallPos.X > 436.80f && BallPos.X < 540f && BallPos.Y > 256.09 && BallPos.Y < 289 && BallSpeed.X == 0 && BallSpeed.Y == 0)//checkt of balletje stil is in het aangegeven vak.
+            if( (BallPos.X + 25) > 436.80f && (BallPos.X + 25) < 540f && (BallPos.Y + 25) > 256.09 && (BallPos.Y + 25) < 289 && BallSpeed.X == 0 && BallSpeed.Y == 0)//checkt of balletje stil is in het aangegeven vak.
             {
                 
                 if (fuel < 99)
