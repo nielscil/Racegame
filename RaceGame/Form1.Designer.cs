@@ -118,7 +118,7 @@
             // 
             this.progressBar1.BackColor = System.Drawing.Color.White;
             this.progressBar1.Location = new System.Drawing.Point(833, 88);
-            this.progressBar1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.progressBar1.Margin = new System.Windows.Forms.Padding(2);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(100, 41);
             this.progressBar1.TabIndex = 4;
@@ -132,7 +132,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1008, 730);
+            this.ClientSize = new System.Drawing.Size(1008, 729);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.fuelAmount);
             this.Controls.Add(this.label2);
