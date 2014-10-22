@@ -50,7 +50,7 @@ namespace RaceGame
             GameTimer.Tick += new EventHandler(GameTimer_Tick);
             GameTimer.Start();
             KeyPreview = true;
-            timerFuel.Interval = 5;
+            timerFuel.Interval = 100;
             timerFuel.Tick += new EventHandler(timerFuel_Tick_1);
             timerFuel.Start();
             this.ResizeEnd += new EventHandler(Form1_CreateBackBuffer);
