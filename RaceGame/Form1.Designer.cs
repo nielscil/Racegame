@@ -41,12 +41,10 @@
             this.button3 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-<<<<<<< .merge_file_a02604
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-=======
->>>>>>> .merge_file_a10816
+
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -121,16 +119,16 @@
             // 
             // button3
             // 
-<<<<<<< .merge_file_a02604
+
             this.button3.Location = new System.Drawing.Point(160, 304);
             this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(148, 48);
-=======
+
             this.button3.Location = new System.Drawing.Point(120, 247);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(111, 39);
->>>>>>> .merge_file_a10816
+
             this.button3.TabIndex = 4;
             this.button3.Text = "Stop";
             this.button3.UseVisualStyleBackColor = true;
@@ -144,20 +142,8 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(0, 51);
             this.label2.TabIndex = 3;
+            
             // 
-<<<<<<< .merge_file_a02604
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(160, 249);
-            this.button2.Margin = new System.Windows.Forms.Padding(4);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(148, 48);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Last checkpoint";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-=======
->>>>>>> .merge_file_a10816
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(160, 146);
@@ -169,7 +155,7 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-<<<<<<< .merge_file_a02604
+
             // label1
             // 
             this.label1.AutoSize = true;
@@ -198,8 +184,6 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-=======
->>>>>>> .merge_file_a10816
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);

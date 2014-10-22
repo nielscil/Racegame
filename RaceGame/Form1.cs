@@ -47,12 +47,9 @@ namespace RaceGame
             ControlStyles.UserPaint |
             ControlStyles.AllPaintingInWmPaint |
             ControlStyles.DoubleBuffer, true);
-<<<<<<< HEAD
             timer1.Interval = 1;
             timer1.Tick += new EventHandler(timer1_Tick);
             timer1.Start();
-=======
->>>>>>> 7de9c5c6376a98853215e51f4105178349e4745c
             GameTimer.Interval = 10;
             GameTimer.Tick += new EventHandler(GameTimer_Tick);            
             KeyPreview = true;
@@ -240,14 +237,11 @@ namespace RaceGame
             player1.carPos.X += player1.carSpeed.X;
             player1.carPos.Y += player1.carSpeed.Y;
             stopwatch = stopwatch.Add(TimeSpan.FromMilliseconds(10));
-<<<<<<< HEAD
             label3.Text =stopwatch.ToString();
             label1.Text = Convert.ToString(fuel);
-            distance += Math.Sqrt(Math.Pow(BallSpeed.X, 2) + Math.Pow(BallSpeed.Y, 2));
-=======
+            distance += Math.Sqrt(Math.Pow(player1.carPos.X,2) + Math.Pow(player1.carPos.Y, 2));
             label3.Text = stopwatch.ToString();
             distance += Math.Sqrt(Math.Pow(player1.carSpeed.X, 2) + Math.Pow(player1.carSpeed.Y, 2));
->>>>>>> 7de9c5c6376a98853215e51f4105178349e4745c
             Draw();
 
         }
