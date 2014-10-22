@@ -21,7 +21,7 @@ namespace RaceGame
         Bitmap paused = new Bitmap(RaceGame.Properties.Resources.text_paused_resized);
         float angle = 0;
         float speed = 0;
-        bool r,l = false;
+        bool r,l,f,b = false;
         int i = 0;
         PointF BallPos = new PointF(545f, 515f);        
         PointF BallSpeed = new PointF(0, 0);        
@@ -87,6 +87,14 @@ namespace RaceGame
             {
                 r = false;
             }
+            if (e.KeyCode == Keys.Down)
+            {
+                b = false;
+            }
+            else if (e.KeyCode == Keys.Up)
+            {
+                f = false;
+            }
         }
         void Form1_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)// wanneer toets ingedrukt wordt, gebeurt dit
         {
@@ -94,21 +102,25 @@ namespace RaceGame
             {
                 switch(e.KeyCode)
                 {
-                case Keys.Left:
-                        if (speed != 0)
-                         l = true;
-                    break;
+                    case Keys.Left:
+                        {
+                            l = true;
+                        }
+                        break;
                 case Keys.Right:
-                    if (speed != 0)
+                    {
                         r = true;
+                    }
                     break;
                 case Keys.Up:
-                    if(speed > -2)
-                        speed -= 0.5f;
+                    {
+                        f = true;
+                    }
                     break;
                 case Keys.Down:
-                    if(speed < 2)
-                        speed += 0.5f;
+                    {
+                        b = true;
+                    }
                     break;
                 }
             }
@@ -158,14 +170,23 @@ namespace RaceGame
 
         void GameTimer_Tick(object sender, EventArgs e)
         {
-            if(l == true)
+            if (l == true && speed != 0)
             {
-                angle -= 0.015f;
+                angle -= 0.03f;
             }
-            else if( r== true)
+            else if (r == true && speed != 0)
             {
-                angle += 0.015f;
+                angle += 0.03f;
             }
+            else if (f == true && speed < 2)
+            {
+                speed -= 0.3f;
+            }
+            else if (b== true && speed > 2)
+            {
+                speed += 0.3f;
+            }
+
             BallSpeed.X = (float)(speed * Math.Cos(angle));
             BallSpeed.Y = (float)(speed * Math.Sin(angle));
             BallPos.X += BallSpeed.X;
