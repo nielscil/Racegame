@@ -10,7 +10,6 @@ namespace RaceGame
     class Player
     {
         public string naam;
-        public Bitmap track;
         private bool checkedCheckpoint1 = false;
         private bool checkedCheckpoint2 = false;
         private bool checkedCheckpoint3 = false;
