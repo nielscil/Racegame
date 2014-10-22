@@ -69,12 +69,14 @@ namespace RaceGame
             {
                 GameTimer.Stop();
                 timerFuel.Stop();
+                timer1.Stop();               
                 panel1.Visible = true;
                 fuelBar.Visible = false;
                 fuelLabel.Visible = false;
                 label2.Visible = false;
                 label1.Visible = false;
                 label4.Visible = false;
+                label3.Visible = false;
                 i++;
             }
             else
@@ -87,6 +89,7 @@ namespace RaceGame
                 label2.Visible = true;
                 label1.Visible = true;
                 label4.Visible = true;
+                label3.Visible = true;
                 i = 0;
             }
            
@@ -214,11 +217,11 @@ namespace RaceGame
         
         void GameTimer_Tick(object sender, EventArgs e)
         {
-            if (l == true && speed != 0)
+            if (l == true && (speed < -0.001f || speed > 0.001f))
             {
                 angle -= 0.03f;
             }
-            else if (r == true && speed != 0)
+            else if (r == true && (speed < -0.001f || speed > 0.001f))
             {
                 angle += 0.03f;
             }
