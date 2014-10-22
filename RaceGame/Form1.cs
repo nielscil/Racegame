@@ -14,9 +14,8 @@ using System.Windows;
 
 namespace RaceGame
 {
-    /// <summary>
-    /// 
-    /// </summary>
+    //Met commentaar heb ik even een todo lijst toegevoegd bij de code die miss verrandert kan worden.(Eelke/Wolfgang) :D
+    //Of dat er iets mee gedaan moet worden.
     public partial class Form1 : Form
     {
         Player player1 = new Player();
@@ -24,20 +23,20 @@ namespace RaceGame
 
         Bitmap Backbuffer;
         Bitmap paused = new Bitmap(RaceGame.Properties.Resources.text_paused_resized);
-        float angle = 0;
-        float speed = 0;
-        bool r,l,f,b = false;
-        int i,j = 0;       
-        int fuel = 100;
-        double distance = 0;
+        float angle = 0; //Moet nog per player worden gedaan.
+        float speed = 0; //Moet nog per player worden gedaan.
+        bool r, l, f, b = false; //Moet nog per player worden gedaan.
+        int i,j = 0;
+        int fuel = 100; //Moet nog per player worden gedaan.
+        double distance = 0; //Moet nog per player worden gedaan.
         double countDownTimer = 2;
         System.Windows.Forms.Timer GameTimer = new System.Windows.Forms.Timer();
         System.Windows.Forms.Timer timerFuel = new System.Windows.Forms.Timer();
         TimeSpan total = new TimeSpan();
-        TimeSpan Player1 = new TimeSpan();
-        TimeSpan Player2 = new TimeSpan();
-        bool noFuel = false;
-        string bestLab = "";
+        TimeSpan Player1 = new TimeSpan(); //Player1 is een TimeSpan en player1 is een Player, is dit niet ingewikkeld?
+        TimeSpan Player2 = new TimeSpan(); // Same as above, maar Player player2 word nooit aangemaakt?
+        bool noFuel = false; //Moet nog per player worden gedaan.
+        string bestLab = ""; //Moet dit per persoon, of is dit beste rondetijd die speelbeurt?
         public Form1()
         {
             InitializeComponent();
@@ -198,7 +197,7 @@ namespace RaceGame
                 label4.Text = Convert.ToString(countDownTimer);
                 label3.Text = "00:00:00:00";
             }
-            if (countDownTimer < -0.3)
+            if (countDownTimer < -0.3) //Waarom -0.3, ==-1 werkt ook toch?
             {
                 timer1.Stop();
                 label4.Text = "";
@@ -261,9 +260,9 @@ namespace RaceGame
             total = total.Add(TimeSpan.FromMilliseconds(10));
             Player1 = Player1.Add(TimeSpan.FromMilliseconds(10));
             Player2 = Player2.Add(TimeSpan.FromMilliseconds(10));
-            label3.Text = total.ToString();
-            label5.Text = Player1.ToString();
-            label12.Text = Player2.ToString();
+            label3.Text = total.ToString(); //Betere naam voor label3, zoals labelTijdPlayer1 ofzo?
+            label5.Text = Player1.ToString();//idem
+            label12.Text = Player2.ToString(); //idem
             label1.Text = Convert.ToString(fuel);
             distance += Math.Sqrt(Math.Pow(player1.carSpeed.X, 2) + Math.Pow(player1.carSpeed.Y, 2));
             Draw();
@@ -321,7 +320,7 @@ namespace RaceGame
             Application.Exit();
         }
 
-        void myForm_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
+        void myForm_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e) //Waarvoor is dit?
         {
             int myX = e.X;
             int myY = e.Y;
@@ -331,32 +330,32 @@ namespace RaceGame
 
         private void checkPoint()
         {
-            //checkpoint 1.
+            //checkpoint 1. op track 1, deze punten moeten dus in class voor track1 komen te staan ofzo.
             if ((player1.carPos.X + 25 >= 275 & player1.carPos.X + 25 <= 280) & (player1.carPos.Y >= 588 & player1.carPos.Y <= 668))
             {
                 player1.SetCheckpoint(1);
             }
-
+            //checkpoint 2???
             if ((player1.carPos.X + 25 >= 165 & player1.carPos.X <= 170) & (player1.carPos.Y >= 74 & player1.carPos.Y <= 148) & player1.CheckCheckpoint(1) == true)
             {
                 player1.SetCheckpoint(2);
             }
-
+            //checkpoint 3???
             if ((player1.carPos.X >= 434 & player1.carPos.X <= 499) & (player1.carPos.Y >= 192 & player1.carPos.Y <= 197) & player1.CheckCheckpoint(2) == true)
             {
                 player1.SetCheckpoint(3);
             }
-
+            //checkpoint 4???
             if ((player1.carPos.X >= 578 & player1.carPos.X <= 583) & (player1.carPos.Y >= 414 & player1.carPos.Y <= 488) & player1.CheckCheckpoint(3) == true)
             {
                 player1.SetCheckpoint(4);
             }
-
+            //checkpoint 5???
             if ((player1.carPos.X >= 852 & player1.carPos.X <= 857) & (player1.carPos.Y >= 0 & player1.carPos.Y <= 69) & player1.CheckCheckpoint(4) == true)
             {
                 player1.SetCheckpoint(5);
             }
-
+            //checkpoint 6???
             if ((player1.carPos.X >= 793 & player1.carPos.X <= 798) & (player1.carPos.Y >= 589 & player1.carPos.Y <= 672) & player1.CheckCheckpoint(5) == true)
             {
                 player1.SetCheckpoint(6);
@@ -381,7 +380,7 @@ namespace RaceGame
                         label6.Text = "Ronde: 3";
                         if (TimeSpan.Parse(bestLab) < Player1)
                         {
-                            bestLab = Player1.ToString();
+                            bestLab = Player1.ToString(); //Hoe komt dit voor Player2?
                         }
                         Player1 = TimeSpan.Zero;
                         j++;

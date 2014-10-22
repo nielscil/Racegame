@@ -120,7 +120,7 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.button1);
             this.panel1.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.panel1.Location = new System.Drawing.Point(915, 29);
+            this.panel1.Location = new System.Drawing.Point(593, 70);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(647, 476);
             this.panel1.TabIndex = 1;
