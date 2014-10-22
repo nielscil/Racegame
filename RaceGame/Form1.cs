@@ -247,8 +247,6 @@ namespace RaceGame
             {
                 speed = 0;
             }
-
-
             player1.carSpeed.X = (float)(speed * Math.Cos(angle));
             player1.carSpeed.Y = (float)(speed * Math.Sin(angle));
             player1.carPos.X += player1.carSpeed.X;
