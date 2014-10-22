@@ -20,10 +20,9 @@ namespace RaceGame
     public partial class Form1 : Form
     {
         Player player1 = new Player();
-        
+        Track track = new Track();
 
         Bitmap Backbuffer;
-        Bitmap racetrack = new Bitmap(RaceGame.Properties.Resources.racetrack);
         Bitmap paused = new Bitmap(RaceGame.Properties.Resources.text_paused_resized);
         float angle = 0;
         float speed = 0;
@@ -41,6 +40,7 @@ namespace RaceGame
 
             player1.carPos= new PointF(545f, 515f);
             player1.carSpeed = new PointF(0, 0);
+            track.track = new Bitmap(RaceGame.Properties.Resources.racetrack);
             
             this.SetStyle(
             ControlStyles.UserPaint |
@@ -173,7 +173,7 @@ namespace RaceGame
                 if (Backbuffer != null)
                 {
                     System.Drawing.Pen pen = new System.Drawing.Pen(System.Drawing.Brushes.Black);
-                    g.DrawImage(racetrack, 0, 0, 1024, 768);
+                    g.DrawImage(track.track, 0, 0, 1024, 768);
                     Invalidate();
                     g.DrawImage(rotateCenter(player1.Auto, angle), player1.carPos);
                 }
