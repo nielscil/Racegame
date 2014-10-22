@@ -56,6 +56,23 @@ namespace RaceGame
                     break;
             }
         }
+        public bool CheckCheckpoint(int checkpointNummer)
+        {
+            switch(checkpointNummer)
+            {
+                case 1:
+                    return checkedCheckpoint1;
+                case 2:
+                    return checkedCheckpoint2;
+                case 3:
+                    return checkedCheckpoint3;
+                case 4:
+                    return checkedCheckpoint4;
+                case 5:
+                    return checkedCheckpoint5;
+            }
+            return false;
+        }
 
         /// <summary>
         /// Checkt of alle checkpoints zijn gechacked.

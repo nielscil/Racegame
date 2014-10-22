@@ -37,12 +37,6 @@ namespace RaceGame
         TimeSpan Player1 = new TimeSpan();
         TimeSpan Player2 = new TimeSpan();
         bool noFuel = false;
-        bool checkPoint_1 = false;
-        bool checkPoint_2 = false;
-        bool checkPoint_3 = false;
-        bool checkPoint_4 = false;
-        bool checkPoint_5 = false;
-        bool checkPoint_6 = false;
         string bestLab = "";
         public Form1()
         {
@@ -50,8 +44,7 @@ namespace RaceGame
 
             player1.carPos= new PointF(545f, 515f);
             player1.carSpeed = new PointF(0, 0);
-            track.track = new Bitmap(RaceGame.Properties.Resources.racetrack);
-            
+            track.track = new Bitmap(RaceGame.Properties.Resources.racetrack);            
             this.SetStyle(
             ControlStyles.UserPaint |
             ControlStyles.AllPaintingInWmPaint |
@@ -341,49 +334,43 @@ namespace RaceGame
             //checkpoint 1.
             if ((player1.carPos.X + 25 >= 275 & player1.carPos.X + 25 <= 280) & (player1.carPos.Y >= 588 & player1.carPos.Y <= 668))
             {
-                checkPoint_1 = true;
+                player1.SetCheckpoint(1);
             }
 
-            if ((player1.carPos.X + 25 >= 165 & player1.carPos.X <= 170) & (player1.carPos.Y >= 74 & player1.carPos.Y <= 148) & checkPoint_1 == true)
+            if ((player1.carPos.X + 25 >= 165 & player1.carPos.X <= 170) & (player1.carPos.Y >= 74 & player1.carPos.Y <= 148) & player1.CheckCheckpoint(1) == true)
             {
-                checkPoint_2 = true;
+                player1.SetCheckpoint(2);
             }
 
-            if ((player1.carPos.X >= 434 & player1.carPos.X <= 499) & (player1.carPos.Y >= 192 & player1.carPos.Y <= 197) & checkPoint_2 == true)
+            if ((player1.carPos.X >= 434 & player1.carPos.X <= 499) & (player1.carPos.Y >= 192 & player1.carPos.Y <= 197) & player1.CheckCheckpoint(2) == true)
             {
-                checkPoint_3 = true;
+                player1.SetCheckpoint(3);
             }
 
-            if ((player1.carPos.X >= 578 & player1.carPos.X <= 583) & (player1.carPos.Y >= 414 & player1.carPos.Y <= 488) & checkPoint_3 == true)
+            if ((player1.carPos.X >= 578 & player1.carPos.X <= 583) & (player1.carPos.Y >= 414 & player1.carPos.Y <= 488) & player1.CheckCheckpoint(3) == true)
             {
-                checkPoint_4 = true;
+                player1.SetCheckpoint(4);
             }
 
-            if ((player1.carPos.X >= 852 & player1.carPos.X <= 857) & (player1.carPos.Y >= 0 & player1.carPos.Y <= 69) & checkPoint_4 == true)
+            if ((player1.carPos.X >= 852 & player1.carPos.X <= 857) & (player1.carPos.Y >= 0 & player1.carPos.Y <= 69) & player1.CheckCheckpoint(4) == true)
             {
-                checkPoint_5 = true;
+                player1.SetCheckpoint(5);
             }
 
-            if ((player1.carPos.X >= 793 & player1.carPos.X <= 798) & (player1.carPos.Y >= 589 & player1.carPos.Y <= 672) & checkPoint_5 == true)
+            if ((player1.carPos.X >= 793 & player1.carPos.X <= 798) & (player1.carPos.Y >= 589 & player1.carPos.Y <= 672) & player1.CheckCheckpoint(5) == true)
             {
-                checkPoint_6 = true;
+                player1.SetCheckpoint(6);
             }
         }
 
         private void finish()
         {
-            if ((player1.carPos.X >= 537 & player1.carPos.X <= 547) & (player1.carPos.Y >= 501 & player1.carPos.Y <= 768) & checkPoint_6 == true)
+            if ((player1.carPos.X >= 537 & player1.carPos.X <= 547) & (player1.carPos.Y >= 501 & player1.carPos.Y <= 768) & player1.CheckAndResetCheckpoint() == true)
             {
                 switch (j)
                 {
                     case 0:
                         label6.Text = "Ronde: 2";
-                        checkPoint_1 = false;
-                        checkPoint_2 = false;
-                        checkPoint_3 = false;
-                        checkPoint_4 = false;
-                        checkPoint_5 = false;
-                        checkPoint_6 = false;
                         bestLab = Player1.ToString();
                         label8.Text = "Best lab: " + bestLab;
                         Player1 = TimeSpan.Zero;
@@ -392,12 +379,6 @@ namespace RaceGame
 
                     case 1:
                         label6.Text = "Ronde: 3";
-                        checkPoint_1 = false;
-                        checkPoint_2 = false;
-                        checkPoint_3 = false;
-                        checkPoint_4 = false;
-                        checkPoint_5 = false;
-                        checkPoint_6 = false;
                         if (TimeSpan.Parse(bestLab) < Player1)
                         {
                             bestLab = Player1.ToString();
@@ -408,12 +389,6 @@ namespace RaceGame
 
                     case 2:
                         label6.Text = "Ronde: 4";
-                        checkPoint_1 = false;
-                        checkPoint_2 = false;
-                        checkPoint_3 = false;
-                        checkPoint_4 = false;
-                        checkPoint_5 = false;
-                        checkPoint_6 = false;
                         if (TimeSpan.Parse(bestLab) < Player1)
                         {
                             bestLab = Player1.ToString();
@@ -424,12 +399,6 @@ namespace RaceGame
 
                     case 3:
                         label6.Text = "Ronde: 5";
-                        checkPoint_1 = false;
-                        checkPoint_2 = false;
-                        checkPoint_3 = false;
-                        checkPoint_4 = false;
-                        checkPoint_5 = false;
-                        checkPoint_6 = false;
                         if (TimeSpan.Parse(bestLab) < Player1)
                         {
                             bestLab = Player1.ToString();
@@ -440,12 +409,6 @@ namespace RaceGame
 
                     case 4:
                         label6.Text = "Finish";
-                        checkPoint_1 = false;
-                        checkPoint_2 = false;
-                        checkPoint_3 = false;
-                        checkPoint_4 = false;
-                        checkPoint_5 = false;
-                        checkPoint_6 = false;
                         if (TimeSpan.Parse(bestLab) < Player1)
                         {
                             bestLab = Player1.ToString();
