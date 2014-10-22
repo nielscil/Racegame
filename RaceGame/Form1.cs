@@ -98,12 +98,10 @@ namespace RaceGame
             if (e.KeyCode == Keys.Down)
             {
                 b = false;
-                sl2 = true;
             }
             else if (e.KeyCode == Keys.Up)
             {
                 f = false;
-                sl1 = true;
             }
         }
         void Form1_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)// wanneer toets ingedrukt wordt, gebeurt dit
@@ -125,13 +123,11 @@ namespace RaceGame
                 case Keys.Up:
                     {
                         f = true;
-                        sl1 = false;
                     }
                     break;
                 case Keys.Down:
                     {
                         b = true;
-                        sl2 = false;
                     }
                     break;
                 }
