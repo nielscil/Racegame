@@ -14,6 +14,9 @@ using System.Windows;
 
 namespace RaceGame
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public partial class Form1 : Form
     {
         Bitmap Backbuffer;
