@@ -98,10 +98,12 @@ namespace RaceGame
             if (e.KeyCode == Keys.Down)
             {
                 b = false;
+                sl2 = true;
             }
             else if (e.KeyCode == Keys.Up)
             {
                 f = false;
+                sl1 = true;
             }
         }
         void Form1_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)// wanneer toets ingedrukt wordt, gebeurt dit
@@ -123,11 +125,13 @@ namespace RaceGame
                 case Keys.Up:
                     {
                         f = true;
+                        sl1 = false;
                     }
                     break;
                 case Keys.Down:
                     {
                         b = true;
+                        sl2 = false;
                     }
                     break;
                 }
@@ -189,12 +193,29 @@ namespace RaceGame
             
             if (f == true && speed > -2)
             {
-                speed -= 0.3f;
+                speed -= 0.1f;
             }
-            else if (b== true && speed < 2)
+            else if (b== true && speed < 0.5)
             {
-                speed += 0.3f;
+                speed += 0.05f;
             }
+            if (f== false && speed < -0.001f)
+            {
+                speed += 0.05f;
+            }
+            else if(b == false && speed > 0.001f)
+            {
+                speed -= 0.05f;
+            }
+            else if(f == false && speed == -0.05)
+            {
+                speed = 0;
+            }
+            else if (b == false && speed == 0.05)
+            {
+                speed = 0;
+            }
+
 
             player1.carSpeed.X = (float)(speed * Math.Cos(angle));
             player1.carSpeed.Y = (float)(speed * Math.Sin(angle));
@@ -220,7 +241,7 @@ namespace RaceGame
                 speed = 0;
                 noFuel = true;              
             }
-            if( (player1.carPos.X + 25) > 425f && (player1.carPos.X + 25) < 650f && (player1.carPos.Y + 25) > 680 && (player1.carPos.Y + 25) < 750 && player1.carSpeed.X == 0 && player1.carSpeed.Y == 0)//checkt of balletje stil is in het aangegeven vak.
+            if( (player1.carPos.X + 25) > 425f && (player1.carPos.X + 25) < 650f && (player1.carPos.Y + 25) > 680 && (player1.carPos.Y + 25) < 750 && speed < 0.001f && speed > -0.001f)//checkt of balletje stil is in het aangegeven vak.
             {
                 
                 if (fuel < 100)
