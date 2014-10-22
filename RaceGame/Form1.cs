@@ -19,16 +19,16 @@ namespace RaceGame
     /// </summary>
     public partial class Form1 : Form
     {
+        Player player1 = new Player();
+        
+
         Bitmap Backbuffer;
-        Bitmap auto = new Bitmap(RaceGame.Properties.Resources.AutoVierkantBlauw,30,30);
         Bitmap racetrack = new Bitmap(RaceGame.Properties.Resources.racetrack);
         Bitmap paused = new Bitmap(RaceGame.Properties.Resources.text_paused_resized);
         float angle = 0;
         float speed = 0;
         bool r,l,f,b = false;
-        int i = 0;
-        PointF BallPos = new PointF(545f, 515f);        
-        PointF BallSpeed = new PointF(0, 0);        
+        int i = 0;       
         int fuel = 100;
         double distance = 0;
         Timer GameTimer = new Timer();
@@ -38,10 +38,14 @@ namespace RaceGame
         public Form1()
         {
             InitializeComponent();
+
+            player1.carPos= new PointF(545f, 515f);
+            player1.carSpeed = new PointF(0, 0);
+            
             this.SetStyle(
             ControlStyles.UserPaint |
             ControlStyles.AllPaintingInWmPaint |
-            ControlStyles.DoubleBuffer, true;
+            ControlStyles.DoubleBuffer, true);
             GameTimer.Interval = 10;
             GameTimer.Tick += new EventHandler(GameTimer_Tick);
             GameTimer.Start();
@@ -167,7 +171,7 @@ namespace RaceGame
                     System.Drawing.Pen pen = new System.Drawing.Pen(System.Drawing.Brushes.Black);
                     g.DrawImage(racetrack, 0, 0, 1024, 768);
                     Invalidate();
-                    g.DrawImage(rotateCenter(auto, angle), BallPos);
+                    g.DrawImage(rotateCenter(player1.Auto, angle), player1.carPos);
                 }
             }
         }
@@ -182,22 +186,23 @@ namespace RaceGame
             {
                 angle += 0.03f;
             }
-            else if (f == true && speed < 2)
+            
+            if (f == true && speed > -2)
             {
                 speed -= 0.3f;
             }
-            else if (b== true && speed > 2)
+            else if (b== true && speed < 2)
             {
                 speed += 0.3f;
             }
 
-            BallSpeed.X = (float)(speed * Math.Cos(angle));
-            BallSpeed.Y = (float)(speed * Math.Sin(angle));
-            BallPos.X += BallSpeed.X;
-            BallPos.Y += BallSpeed.Y;
+            player1.carSpeed.X = (float)(speed * Math.Cos(angle));
+            player1.carSpeed.Y = (float)(speed * Math.Sin(angle));
+            player1.carPos.X += player1.carSpeed.X;
+            player1.carPos.Y += player1.carSpeed.Y;
             stopwatch = stopwatch.Add(TimeSpan.FromMilliseconds(10));
             label3.Text = stopwatch.ToString();
-            distance += Math.Sqrt(Math.Pow(BallSpeed.X, 2) + Math.Pow(BallSpeed.Y, 2));
+            distance += Math.Sqrt(Math.Pow(player1.carSpeed.X, 2) + Math.Pow(player1.carSpeed.Y, 2));
             Draw();
 
         }
@@ -215,7 +220,7 @@ namespace RaceGame
                 speed = 0;
                 noFuel = true;              
             }
-            if( (BallPos.X + 25) > 425f && (BallPos.X + 25) < 650f && (BallPos.Y + 25) > 680 && (BallPos.Y + 25) < 750 && BallSpeed.X == 0 && BallSpeed.Y == 0)//checkt of balletje stil is in het aangegeven vak.
+            if( (player1.carPos.X + 25) > 425f && (player1.carPos.X + 25) < 650f && (player1.carPos.Y + 25) > 680 && (player1.carPos.Y + 25) < 750 && player1.carSpeed.X == 0 && player1.carSpeed.Y == 0)//checkt of balletje stil is in het aangegeven vak.
             {
                 
                 if (fuel < 100)
@@ -223,10 +228,6 @@ namespace RaceGame
                     fuel += 1;
                 }
 
-                /*else if (fuel == 99)
-                {
-                    fuel++;
-                }*/
             }
             fuelBar.Value = fuel;
             fuelBar.CreateGraphics().DrawString(fuel.ToString(), new Font("Sitka Text", (float)24, System.Drawing.FontStyle.Bold), System.Drawing.Brushes.Black, new PointF(fuelBar.Width / 2 - 30, fuelBar.Height / 2 - 16));
