@@ -14,18 +14,20 @@ using System.Windows;
 
 namespace RaceGame
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public partial class Form1 : Form
     {
+        Player player1 = new Player();
+        Track track = new Track();
+
         Bitmap Backbuffer;
-        Bitmap auto = new Bitmap(RaceGame.Properties.Resources.AutoVierkantBlauw,30,30);
-        Bitmap racetrack = new Bitmap(RaceGame.Properties.Resources.racetrack);
         Bitmap paused = new Bitmap(RaceGame.Properties.Resources.text_paused_resized);
         float angle = 0;
         float speed = 0;
-        bool r,l = false;
-        int i = 0;
-        PointF BallPos = new PointF(545f, 515f);        
-        PointF BallSpeed = new PointF(0, 0);        
+        bool r,l,f,b = false;
+        int i = 0;       
         int fuel = 100;
         double distance = 0;
         double countDownTimer = 5;
@@ -36,13 +38,21 @@ namespace RaceGame
         public Form1()
         {
             InitializeComponent();
+
+            player1.carPos= new PointF(545f, 515f);
+            player1.carSpeed = new PointF(0, 0);
+            track.track = new Bitmap(RaceGame.Properties.Resources.racetrack);
+            
             this.SetStyle(
             ControlStyles.UserPaint |
             ControlStyles.AllPaintingInWmPaint |
             ControlStyles.DoubleBuffer, true);
+<<<<<<< HEAD
             timer1.Interval = 1;
             timer1.Tick += new EventHandler(timer1_Tick);
             timer1.Start();
+=======
+>>>>>>> 7de9c5c6376a98853215e51f4105178349e4745c
             GameTimer.Interval = 10;
             GameTimer.Tick += new EventHandler(GameTimer_Tick);            
             KeyPreview = true;
@@ -94,6 +104,14 @@ namespace RaceGame
             {
                 r = false;
             }
+            if (e.KeyCode == Keys.Down)
+            {
+                b = false;
+            }
+            else if (e.KeyCode == Keys.Up)
+            {
+                f = false;
+            }
         }
         void Form1_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)// wanneer toets ingedrukt wordt, gebeurt dit
         {
@@ -101,21 +119,25 @@ namespace RaceGame
             {
                 switch(e.KeyCode)
                 {
-                case Keys.Left:
-                        if (speed != 0)
-                         l = true;
-                    break;
+                    case Keys.Left:
+                        {
+                            l = true;
+                        }
+                        break;
                 case Keys.Right:
-                    if (speed != 0)
+                    {
                         r = true;
+                    }
                     break;
                 case Keys.Up:
-                    if(speed > -2)
-                        speed -= 0.5f;
+                    {
+                        f = true;
+                    }
                     break;
                 case Keys.Down:
-                    if(speed < 2)
-                        speed += 0.5f;
+                    {
+                        b = true;
+                    }
                     break;
                 }
             }
@@ -156,9 +178,9 @@ namespace RaceGame
                 if (Backbuffer != null)
                 {
                     System.Drawing.Pen pen = new System.Drawing.Pen(System.Drawing.Brushes.Black);
-                    g.DrawImage(racetrack, 0, 0, 1024, 768);
+                    g.DrawImage(track.track, 0, 0, 1024, 768);
                     Invalidate();
-                    g.DrawImage(rotateCenter(auto, angle), BallPos);
+                    g.DrawImage(rotateCenter(player1.Auto, angle), player1.carPos);
                 }
             }
         }
@@ -195,22 +217,37 @@ namespace RaceGame
         
         void GameTimer_Tick(object sender, EventArgs e)
         {
-            if(l == true)
+            if (l == true && speed != 0)
             {
-                angle -= 0.015f;
+                angle -= 0.03f;
             }
-            else if( r== true)
+            else if (r == true && speed != 0)
             {
-                angle += 0.015f;
+                angle += 0.03f;
             }
-            BallSpeed.X = (float)(speed * Math.Cos(angle));
-            BallSpeed.Y = (float)(speed * Math.Sin(angle));
-            BallPos.X += BallSpeed.X;
-            BallPos.Y += BallSpeed.Y;
+            
+            if (f == true && speed > -2)
+            {
+                speed -= 0.3f;
+            }
+            else if (b== true && speed < 2)
+            {
+                speed += 0.3f;
+            }
+
+            player1.carSpeed.X = (float)(speed * Math.Cos(angle));
+            player1.carSpeed.Y = (float)(speed * Math.Sin(angle));
+            player1.carPos.X += player1.carSpeed.X;
+            player1.carPos.Y += player1.carSpeed.Y;
             stopwatch = stopwatch.Add(TimeSpan.FromMilliseconds(10));
+<<<<<<< HEAD
             label3.Text =stopwatch.ToString();
             label1.Text = Convert.ToString(fuel);
             distance += Math.Sqrt(Math.Pow(BallSpeed.X, 2) + Math.Pow(BallSpeed.Y, 2));
+=======
+            label3.Text = stopwatch.ToString();
+            distance += Math.Sqrt(Math.Pow(player1.carSpeed.X, 2) + Math.Pow(player1.carSpeed.Y, 2));
+>>>>>>> 7de9c5c6376a98853215e51f4105178349e4745c
             Draw();
 
         }
@@ -228,7 +265,7 @@ namespace RaceGame
                 speed = 0;
                 noFuel = true;              
             }
-            if( (BallPos.X + 25) > 425f && (BallPos.X + 25) < 650f && (BallPos.Y + 25) > 680 && (BallPos.Y + 25) < 750 && BallSpeed.X == 0 && BallSpeed.Y == 0)//checkt of balletje stil is in het aangegeven vak.
+            if( (player1.carPos.X + 25) > 425f && (player1.carPos.X + 25) < 650f && (player1.carPos.Y + 25) > 680 && (player1.carPos.Y + 25) < 750 && player1.carSpeed.X == 0 && player1.carSpeed.Y == 0)//checkt of balletje stil is in het aangegeven vak.
             {
                 
                 if (fuel < 100)
@@ -236,10 +273,6 @@ namespace RaceGame
                     fuel += 1;
                 }
 
-                /*else if (fuel == 99)
-                {
-                    fuel++;
-                }*/
             }
             fuelBar.Value = fuel;
             fuelBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
