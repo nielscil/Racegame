@@ -20,6 +20,10 @@ namespace RaceGame
         public PointF carSpeed;
         public Bitmap Auto = new Bitmap(RaceGame.Properties.Resources.AutoVierkantRegenboog,30,30);
 
+        /// <summary>
+        /// zet checkpoint op true
+        /// </summary>
+        /// <param name="checkpointNummer">Nummer van checkpoint dat ge passeerd is</param>
         public void SetCheckpoint(int checkpointNummer)
         {
             switch (checkpointNummer)
@@ -53,6 +57,11 @@ namespace RaceGame
             }
         }
 
+        /// <summary>
+        /// Checkt of alle checkpoints zijn gechacked.
+        /// </summary>
+        /// <returns>True als alles gechecked is en reset alles,
+        /// false Als er checkpoints false zijn</returns>
         public bool CheckAndResetCheckpoint()
         {
             if (checkedCheckpoint1 == true && checkedCheckpoint2 == true && checkedCheckpoint3 == true && checkedCheckpoint4 == true && checkedCheckpoint5 == true)
