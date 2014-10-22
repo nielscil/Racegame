@@ -15,6 +15,7 @@ namespace RaceGame
         private bool checkedCheckpoint3 = false;
         private bool checkedCheckpoint4 = false;
         private bool checkedCheckpoint5 = false;
+        private bool checkedCheckpoint6 = false;
         public PointF carPos;
         public PointF carSpeed;
         public Bitmap Auto = new Bitmap(RaceGame.Properties.Resources.AutoVierkantRegenboog,30,30);
@@ -41,6 +42,10 @@ namespace RaceGame
 
                 case 5:
                     checkedCheckpoint5 = true;
+                    break;
+
+                case 6:
+                    checkedCheckpoint6 = true;
                     break;
 
                 default:
