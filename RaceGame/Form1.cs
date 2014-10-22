@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Windows.Input;
 using System.Data;
 using System.Drawing;
+using Color = System.Drawing.Color;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,7 +38,7 @@ namespace RaceGame
             this.SetStyle(
             ControlStyles.UserPaint |
             ControlStyles.AllPaintingInWmPaint |
-            ControlStyles.DoubleBuffer, true);
+            ControlStyles.DoubleBuffer, true;
             GameTimer.Interval = 10;
             GameTimer.Tick += new EventHandler(GameTimer_Tick);
             GameTimer.Start();
@@ -205,6 +206,22 @@ namespace RaceGame
             }
             fuelBar.Value = fuel;
             fuelBar.CreateGraphics().DrawString(fuel.ToString(), new Font("Sitka Text", (float)24, System.Drawing.FontStyle.Bold), System.Drawing.Brushes.Black, new PointF(fuelBar.Width / 2 - 30, fuelBar.Height / 2 - 16));
+            fuelBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            
+            fuelBar.BackColor = Color.Silver;
+            fuelBar.ForeColor = Color.Green;
+            if (fuel < 50 && fuel > 30)
+            {
+                fuelBar.ForeColor = Color.Orange;
+            }
+            else if(fuel <= 30 && fuel > 10)
+            {
+                fuelBar.ForeColor = Color.OrangeRed;
+            }
+            else if(fuel <=10)
+            {
+                fuelBar.ForeColor = Color.Red;
+            }
          }
 
         private void button1_Click(object sender, EventArgs e)
