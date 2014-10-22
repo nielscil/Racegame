@@ -53,7 +53,7 @@ namespace RaceGame
             GameTimer.Interval = 10;
             GameTimer.Tick += new EventHandler(GameTimer_Tick);            
             KeyPreview = true;
-            timerFuel.Interval = 5;
+            timerFuel.Interval = 50;
             timerFuel.Tick += new EventHandler(timerFuel_Tick_1);
             this.ResizeEnd += new EventHandler(Form1_CreateBackBuffer);
             this.Load += new EventHandler(Form1_CreateBackBuffer);
@@ -69,12 +69,14 @@ namespace RaceGame
             {
                 GameTimer.Stop();
                 timerFuel.Stop();
+                timer1.Stop();
                 panel1.Visible = true;
                 fuelBar.Visible = false;
                 fuelLabel.Visible = false;
                 label2.Visible = false;
                 label1.Visible = false;
                 label4.Visible = false;
+                label3.Visible = true;
                 i++;
             }
             else
@@ -82,11 +84,13 @@ namespace RaceGame
                 panel1.Visible = false;
                 GameTimer.Start();
                 timerFuel.Start();
+                timer1.Start();
                 fuelBar.Visible = true;
                 fuelLabel.Visible = true;
                 label2.Visible = true;
                 label1.Visible = true;
                 label4.Visible = true;
+                label3.Visible = true;
                 i = 0;
             }
            
