@@ -7,7 +7,7 @@ using System.Drawing;
 using Color = System.Drawing.Color;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows;
@@ -28,8 +28,9 @@ namespace RaceGame
         PointF BallSpeed = new PointF(0, 0);        
         int fuel = 100;
         double distance = 0;
-        Timer GameTimer = new Timer();
-        Timer timerFuel = new Timer();
+        double countDownTimer = 5;
+        System.Windows.Forms.Timer GameTimer = new System.Windows.Forms.Timer();
+        System.Windows.Forms.Timer timerFuel = new System.Windows.Forms.Timer();
         TimeSpan stopwatch = new TimeSpan();
         bool noFuel = false;
         public Form1()
@@ -38,14 +39,15 @@ namespace RaceGame
             this.SetStyle(
             ControlStyles.UserPaint |
             ControlStyles.AllPaintingInWmPaint |
-            ControlStyles.DoubleBuffer, true;
+            ControlStyles.DoubleBuffer, true);
+            timer1.Interval = 1;
+            timer1.Tick += new EventHandler(timer1_Tick);
+            timer1.Start();
             GameTimer.Interval = 10;
-            GameTimer.Tick += new EventHandler(GameTimer_Tick);
-            GameTimer.Start();
+            GameTimer.Tick += new EventHandler(GameTimer_Tick);            
             KeyPreview = true;
             timerFuel.Interval = 5;
             timerFuel.Tick += new EventHandler(timerFuel_Tick_1);
-            timerFuel.Start();
             this.ResizeEnd += new EventHandler(Form1_CreateBackBuffer);
             this.Load += new EventHandler(Form1_CreateBackBuffer);
             this.Paint += new PaintEventHandler(Form1_Paint);
@@ -64,6 +66,8 @@ namespace RaceGame
                 fuelBar.Visible = false;
                 fuelLabel.Visible = false;
                 label2.Visible = false;
+                label1.Visible = false;
+                label4.Visible = false;
                 i++;
             }
             else
@@ -74,6 +78,8 @@ namespace RaceGame
                 fuelBar.Visible = true;
                 fuelLabel.Visible = true;
                 label2.Visible = true;
+                label1.Visible = true;
+                label4.Visible = true;
                 i = 0;
             }
            
@@ -156,7 +162,37 @@ namespace RaceGame
                 }
             }
         }
+        void timer1_Tick(object sender, EventArgs e)
+        {
+            Draw();
+            if (countDownTimer != 0)
+            {
+                timer1.Interval = 1000;
+                countDownTimer = countDownTimer - 0.5;
+                label4.Text = Convert.ToString(countDownTimer);
+                label3.Text = "00:00:00:0000000";
+            }
+            if (countDownTimer < -0.3)
+            {
+                timer1.Stop();
+                label4.Text = "";
+                
+            }
+            if (countDownTimer == 0)
+            {
+               
+                label4.Text = "GO!";
+                
+                
+                GameTimer.Start();
+                timerFuel.Start();
 
+                countDownTimer--;
+                
+            }
+            
+        }
+        
         void GameTimer_Tick(object sender, EventArgs e)
         {
             if(l == true)
@@ -172,7 +208,8 @@ namespace RaceGame
             BallPos.X += BallSpeed.X;
             BallPos.Y += BallSpeed.Y;
             stopwatch = stopwatch.Add(TimeSpan.FromMilliseconds(10));
-            label3.Text = stopwatch.ToString();
+            label3.Text =stopwatch.ToString();
+            label1.Text = Convert.ToString(fuel);
             distance += Math.Sqrt(Math.Pow(BallSpeed.X, 2) + Math.Pow(BallSpeed.Y, 2));
             Draw();
 
@@ -205,9 +242,7 @@ namespace RaceGame
                 }*/
             }
             fuelBar.Value = fuel;
-            fuelBar.CreateGraphics().DrawString(fuel.ToString(), new Font("Sitka Text", (float)24, System.Drawing.FontStyle.Bold), System.Drawing.Brushes.Black, new PointF(fuelBar.Width / 2 - 30, fuelBar.Height / 2 - 16));
             fuelBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            
             fuelBar.BackColor = Color.Silver;
             fuelBar.ForeColor = Color.Green;
             if (fuel < 50 && fuel > 30)
