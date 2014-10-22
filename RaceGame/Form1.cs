@@ -189,7 +189,7 @@ namespace RaceGame
                 timer1.Interval = 1000;
                 countDownTimer = countDownTimer - 0.5;
                 label4.Text = Convert.ToString(countDownTimer);
-                label3.Text = "00:00:00:0000000";
+                label3.Text = "00:00:00:00";
             }
             if (countDownTimer < -0.3)
             {
@@ -239,8 +239,6 @@ namespace RaceGame
             stopwatch = stopwatch.Add(TimeSpan.FromMilliseconds(10));
             label3.Text =stopwatch.ToString();
             label1.Text = Convert.ToString(fuel);
-            distance += Math.Sqrt(Math.Pow(player1.carPos.X,2) + Math.Pow(player1.carPos.Y, 2));
-            label3.Text = stopwatch.ToString();
             distance += Math.Sqrt(Math.Pow(player1.carSpeed.X, 2) + Math.Pow(player1.carSpeed.Y, 2));
             Draw();
 
@@ -264,7 +262,7 @@ namespace RaceGame
                 
                 if (fuel < 100)
                 {
-                    fuel += 1;
+                    fuel++;
                 }
 
             }
