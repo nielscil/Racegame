@@ -34,6 +34,12 @@ namespace RaceGame
         Timer timerFuel = new Timer();
         TimeSpan stopwatch = new TimeSpan();
         bool noFuel = false;
+        bool checkPoint_1 = false;
+        bool checkPoint_2 = false;
+        bool checkPoint_3 = false;
+        bool checkPoint_4 = false;
+        bool checkPoint_5 = false;
+        bool checkPoint_6 = false;
         public Form1()
         {
             InitializeComponent();
@@ -58,6 +64,7 @@ namespace RaceGame
             this.Paint += new PaintEventHandler(Form1_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(Form1_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(Form1_keyUp);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(myForm_MouseClick);
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
         }
@@ -187,11 +194,11 @@ namespace RaceGame
                 angle += 0.03f;
             }
             
-            if (f == true && speed > -2)
+            if (f == true && speed > -3)
             {
                 speed -= 0.3f;
             }
-            else if (b== true && speed < 2)
+            else if (b== true && speed < 3)
             {
                 speed += 0.3f;
             }
@@ -204,7 +211,8 @@ namespace RaceGame
             label3.Text = stopwatch.ToString();
             distance += Math.Sqrt(Math.Pow(player1.carSpeed.X, 2) + Math.Pow(player1.carSpeed.Y, 2));
             Draw();
-
+            checkPoint();
+            finish();
         }
 
         void timerFuel_Tick_1(object sender, EventArgs e)         
@@ -257,6 +265,113 @@ namespace RaceGame
         private void button3_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        void myForm_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            int myX = e.X;
+            int myY = e.Y;
+
+            Console.WriteLine("X: " + myX + " Y: " + myY);
+        }
+
+        private void checkPoint()
+        {
+            //checkpoint 1.
+            if ((player1.carPos.X + 25 >= 275 & player1.carPos.X + 25 <= 280) & (player1.carPos.Y >= 588 & player1.carPos.Y <= 668))
+            {
+                checkPoint_1 = true;
+                label1.Text = "Checkpoint 1 reached";
+            }
+
+            if ((player1.carPos.X + 25 >= 165 & player1.carPos.X <= 170) & (player1.carPos.Y >= 74 & player1.carPos.Y <= 148) & checkPoint_1 == true)
+            {
+                checkPoint_2 = true;
+                label1.Text = "Checkpoint 2 reached";
+            }
+
+            if ((player1.carPos.X >= 434 & player1.carPos.X <= 499) & (player1.carPos.Y >= 192 & player1.carPos.Y <= 197) & checkPoint_2 == true)
+            {
+                checkPoint_3 = true;
+                label1.Text = "Checkpoint 3 reached";
+            }
+
+            if ((player1.carPos.X >= 578 & player1.carPos.X <= 583) & (player1.carPos.Y >= 414 & player1.carPos.Y <= 488) & checkPoint_3 == true)
+            {
+                checkPoint_4 = true;
+                label1.Text = "Checkpoint 4 reached";
+            }
+
+            if ((player1.carPos.X >= 852 & player1.carPos.X <= 857) & (player1.carPos.Y >= 0 & player1.carPos.Y <= 69) & checkPoint_4 == true)
+            {
+                checkPoint_5 = true;
+                label1.Text = "Checkpoint 5 reached";
+            }
+
+            if ((player1.carPos.X >= 793 & player1.carPos.X <= 798) & (player1.carPos.Y >= 589 & player1.carPos.Y <= 672) & checkPoint_5 == true)
+            {
+                checkPoint_6 = true;
+                label1.Text = "Checkpoint 6 reached";
+            }
+        }
+
+        private void finish()
+        {
+            if ((player1.carPos.X >= 537 & player1.carPos.X <= 542) & (player1.carPos.Y >= 501 & player1.carPos.Y <= 580) & checkPoint_6 == true)
+            {
+                switch (label4.Text)
+                {
+                    case "Ronde: 1":
+                        label4.Text = "Ronde: 2";
+                        checkPoint_1 = false;
+                        checkPoint_2 = false;
+                        checkPoint_3 = false;
+                        checkPoint_4 = false;
+                        checkPoint_5 = false;
+                        checkPoint_6 = false;
+                        break;
+
+                    case "Ronde: 2":
+                        label4.Text = "Ronde: 3";
+                        checkPoint_1 = false;
+                        checkPoint_2 = false;
+                        checkPoint_3 = false;
+                        checkPoint_4 = false;
+                        checkPoint_5 = false;
+                        checkPoint_6 = false;
+                        break;
+
+                    case "Ronde: 3":
+                        label4.Text = "Ronde: 4";
+                        checkPoint_1 = false;
+                        checkPoint_2 = false;
+                        checkPoint_3 = false;
+                        checkPoint_4 = false;
+                        checkPoint_5 = false;
+                        checkPoint_6 = false;
+                        break;
+
+                    case "Ronde: 4":
+                        label4.Text = "Ronde: 5";
+                        checkPoint_1 = false;
+                        checkPoint_2 = false;
+                        checkPoint_3 = false;
+                        checkPoint_4 = false;
+                        checkPoint_5 = false;
+                        checkPoint_6 = false;
+                        break;
+
+                    case "Ronde: 5":
+                        label4.Text = "Finish";
+                        checkPoint_1 = false;
+                        checkPoint_2 = false;
+                        checkPoint_3 = false;
+                        checkPoint_4 = false;
+                        checkPoint_5 = false;
+                        checkPoint_6 = false;
+                        break;
+                }
+            }
         }
     }
 }
