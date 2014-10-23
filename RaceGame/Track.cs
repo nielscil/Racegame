@@ -22,7 +22,7 @@ namespace RaceGame
             switch(trk)
             {
                 case 0:
-                    track = new Bitmap(1,22);
+                    track = new Bitmap(RaceGame.Properties.Resources.racetrack);
                     collissionMap = new Bitmap(1, 22);
                     checkp1_x1 = 275;
                     checkp1_x2 = 280;

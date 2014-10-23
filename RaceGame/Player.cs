@@ -169,8 +169,10 @@ namespace RaceGame
             if (fuel == 0)
             {
                 speed = 0;
-                noFuel = true;              
+                noFuel = true;
             }
+            else
+                noFuel = false;
             if ((carPos.X + 25) > 425f && (carPos.X + 25) < 650f && (carPos.Y + 25) > 680 && (carPos.Y + 25) < 750 && speed < 0.001f && speed > -0.001f)//checkt of balletje stil is in het aangegeven vak.
             {
                 if (fuel < 100)

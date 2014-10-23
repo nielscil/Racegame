@@ -31,6 +31,7 @@ namespace RaceGame
         public Form1()
         {
             InitializeComponent();
+            track.SetTrack(0);
             player1.carPos= new PointF(545f, 515f);
             player2.carPos = new PointF(545f, 535f);
             track.track = new Bitmap(RaceGame.Properties.Resources.racetrack);            
