@@ -73,12 +73,12 @@ namespace RaceGame
                 timerFuel.Stop();
                 timer1.Stop();               
                 panel1.Visible = true;
-                fuelBar.Visible = false;
-                fuelLabel.Visible = false;
+                progressBarPlayer1Fuel.Visible = false;
+                labelPlayer1Fuel.Visible = false;
                 label2.Visible = false;
-                label1.Visible = false;
-                label4.Visible = false;
-                label3.Visible = false;
+                labelPlayer1FuelHoeveel.Visible = false;
+                labelCountdown.Visible = false;
+                labelTimer.Visible = false;
                 i++;
             }
             else
@@ -87,12 +87,12 @@ namespace RaceGame
                 GameTimer.Start();
                 timerFuel.Start();
                 timer1.Start();
-                fuelBar.Visible = true;
-                fuelLabel.Visible = true;
+                progressBarPlayer1Fuel.Visible = true;
+                labelPlayer1Fuel.Visible = true;
                 label2.Visible = true;
-                label1.Visible = true;
-                label4.Visible = true;
-                label3.Visible = true;
+                labelPlayer1FuelHoeveel.Visible = true;
+                labelCountdown.Visible = true;
+                labelTimer.Visible = true;
                 i = 0;
             }
            
@@ -148,18 +148,18 @@ namespace RaceGame
             {
                 timer1.Interval = 1000;
                 countDownTimer = countDownTimer - 0.5;
-                label4.Text = Convert.ToString(countDownTimer);
-                label3.Text = "00:00:00:00";
+                labelCountdown.Text = Convert.ToString(countDownTimer);
+                labelTimer.Text = "00:00:00:00";
             }
             if (countDownTimer < -0.3) //Waarom -0.3, ==-1 werkt ook toch?
             {
                 timer1.Stop();
-                label4.Text = "";
+                labelCountdown.Text = "";
                
             }
             if (countDownTimer == 0)
             {               
-                label4.Text = "GO!";                               
+                labelCountdown.Text = "GO!";                               
                 GameTimer.Start();
                 timerFuel.Start();
                 countDownTimer--;                
@@ -170,10 +170,10 @@ namespace RaceGame
         void GameTimer_Tick(object sender, EventArgs e)
         {            
             total = total.Add(TimeSpan.FromMilliseconds(10));
-            label3.Text = total.ToString(); //Betere naam voor label3, zoals labelTijdPlayer1 ofzo?
-            label5.Text = player1.time.ToString();//idem
-            label12.Text = player2.time.ToString(); //idem
-            label1.Text = Convert.ToString(player1.fuel);
+            labelTimer.Text = total.ToString(); //Betere naam voor label3, zoals labelTijdPlayer1 ofzo?
+            labelPlayer1RondeTijd.Text = player1.time.ToString();
+            labelPlayer2RondeTijd.Text = player2.time.ToString();
+            labelPlayer1FuelHoeveel.Text = Convert.ToString(player1.fuel);
             player1.Race();
             player2.Race();
             player1.Finish();
@@ -186,10 +186,10 @@ namespace RaceGame
         void timerFuel_Tick_1(object sender, EventArgs e)         
         {
             player1.Fuel();
-            fuelBar.Value = player1.fuel;
-            fuelBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            fuelBar.BackColor = Color.Silver;
-            fuelBar.ForeColor = player1.GetFuelColor();
+            progressBarPlayer1Fuel.Value = player1.fuel;
+            progressBarPlayer1Fuel.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            progressBarPlayer1Fuel.BackColor = Color.Silver;
+            progressBarPlayer1Fuel.ForeColor = player1.GetFuelColor();
             
          }
         #endregion
@@ -203,7 +203,7 @@ namespace RaceGame
             Application.Exit();
         }
 
-        void myForm_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e) //Waarvoor is dit?
+        void myForm_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             int myX = e.X;
             int myY = e.Y;
