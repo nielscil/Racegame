@@ -14,9 +14,8 @@ using System.Windows;
 
 namespace RaceGame
 {
-    /// <summary>
-    /// 
-    /// </summary>
+    //Met commentaar heb ik even een todo lijst toegevoegd bij de code die miss verrandert kan worden.(Eelke/Wolfgang) :D
+    //Of dat er iets mee gedaan moet worden.
     public partial class Form1 : Form
     {
         Player player1 = new Player();
@@ -24,31 +23,27 @@ namespace RaceGame
 
         Bitmap Backbuffer;
         Bitmap paused = new Bitmap(RaceGame.Properties.Resources.text_paused_resized);
-        float angle = 0;
-        float speed = 0;
-        bool r,l,f,b = false;
-        int i = 0;       
-        int fuel = 100;
-        double distance = 0;
-        double countDownTimer = 5;
+        float angle = 0; //Moet nog per player worden gedaan.
+        float speed = 0; //Moet nog per player worden gedaan.
+        bool r, l, f, b = false; //Moet nog per player worden gedaan.
+        int i,j = 0;
+        int fuel = 100; //Moet nog per player worden gedaan.
+        double distance = 0; //Moet nog per player worden gedaan.
+        double countDownTimer = 2;
         System.Windows.Forms.Timer GameTimer = new System.Windows.Forms.Timer();
         System.Windows.Forms.Timer timerFuel = new System.Windows.Forms.Timer();
-        TimeSpan stopwatch = new TimeSpan();
-        bool noFuel = false;
-        bool checkPoint_1 = false;
-        bool checkPoint_2 = false;
-        bool checkPoint_3 = false;
-        bool checkPoint_4 = false;
-        bool checkPoint_5 = false;
-        bool checkPoint_6 = false;
+        TimeSpan total = new TimeSpan();
+        TimeSpan Player1 = new TimeSpan(); //Player1 is een TimeSpan en player1 is een Player, is dit niet ingewikkeld?
+        TimeSpan Player2 = new TimeSpan(); // Same as above, maar Player player2 word nooit aangemaakt?
+        bool noFuel = false; //Moet nog per player worden gedaan.
+        string bestLab = ""; //Moet dit per persoon, of is dit beste rondetijd die speelbeurt?
         public Form1()
         {
             InitializeComponent();
 
             player1.carPos= new PointF(545f, 515f);
             player1.carSpeed = new PointF(0, 0);
-            track.track = new Bitmap(RaceGame.Properties.Resources.racetrack);
-            
+            track.track = new Bitmap(RaceGame.Properties.Resources.racetrack);            
             this.SetStyle(
             ControlStyles.UserPaint |
             ControlStyles.AllPaintingInWmPaint |
@@ -59,7 +54,7 @@ namespace RaceGame
             GameTimer.Interval = 10;
             GameTimer.Tick += new EventHandler(GameTimer_Tick);            
             KeyPreview = true;
-            timerFuel.Interval = 50;
+            timerFuel.Interval = 100;
             timerFuel.Tick += new EventHandler(timerFuel_Tick_1);
             this.ResizeEnd += new EventHandler(Form1_CreateBackBuffer);
             this.Load += new EventHandler(Form1_CreateBackBuffer);
@@ -76,14 +71,14 @@ namespace RaceGame
             {
                 GameTimer.Stop();
                 timerFuel.Stop();
-                timer1.Stop();
+                timer1.Stop();               
                 panel1.Visible = true;
                 fuelBar.Visible = false;
                 fuelLabel.Visible = false;
                 label2.Visible = false;
                 label1.Visible = false;
                 label4.Visible = false;
-                label3.Visible = true;
+                label3.Visible = false;
                 i++;
             }
             else
@@ -202,7 +197,7 @@ namespace RaceGame
                 label4.Text = Convert.ToString(countDownTimer);
                 label3.Text = "00:00:00:00";
             }
-            if (countDownTimer < -0.3)
+            if (countDownTimer < -0.3) //Waarom -0.3, ==-1 werkt ook toch?
             {
                 timer1.Stop();
                 label4.Text = "";
@@ -225,30 +220,49 @@ namespace RaceGame
         
         void GameTimer_Tick(object sender, EventArgs e)
         {
-            if (l == true && speed != 0)
+            if (l == true && (speed < -0.001f || speed > 0.001f))
             {
                 angle -= 0.03f;
             }
-            else if (r == true && speed != 0)
+            else if (r == true && (speed < -0.001f || speed > 0.001f))
             {
                 angle += 0.03f;
             }
             
             if (f == true && speed > -3)
             {
-                speed -= 0.3f;
+                speed -= 0.1f;
             }
-            else if (b== true && speed < 3)
+            else if (b== true && speed < 0.5)
             {
-                speed += 0.3f;
+                speed += 0.05f;
             }
-            //
+            if (f== false && speed < -0.001f)
+            {
+                speed += 0.05f;
+            }
+            else if(b == false && speed > 0.001f)
+            {
+                speed -= 0.05f;
+            }
+            else if(f == false && speed == -0.05)
+            {
+                speed = 0;
+            }
+            else if (b == false && speed == 0.05)
+            {
+                speed = 0;
+            }
             player1.carSpeed.X = (float)(speed * Math.Cos(angle));
             player1.carSpeed.Y = (float)(speed * Math.Sin(angle));
             player1.carPos.X += player1.carSpeed.X;
             player1.carPos.Y += player1.carSpeed.Y;
-            stopwatch = stopwatch.Add(TimeSpan.FromMilliseconds(10));
-            label3.Text =stopwatch.ToString();
+            total = total.Add(TimeSpan.FromMilliseconds(10));
+            Player1 = Player1.Add(TimeSpan.FromMilliseconds(10));
+            Player2 = Player2.Add(TimeSpan.FromMilliseconds(10));
+            label3.Text = total.ToString(); //Betere naam voor label3, zoals labelTijdPlayer1 ofzo?
+            label5.Text = Player1.ToString();//idem
+            label12.Text = Player2.ToString(); //idem
             label1.Text = Convert.ToString(fuel);
             distance += Math.Sqrt(Math.Pow(player1.carSpeed.X, 2) + Math.Pow(player1.carSpeed.Y, 2));
             Draw();
@@ -269,7 +283,7 @@ namespace RaceGame
                 speed = 0;
                 noFuel = true;              
             }
-            if( (player1.carPos.X + 25) > 425f && (player1.carPos.X + 25) < 650f && (player1.carPos.Y + 25) > 680 && (player1.carPos.Y + 25) < 750 && player1.carSpeed.X == 0 && player1.carSpeed.Y == 0)//checkt of balletje stil is in het aangegeven vak.
+            if( (player1.carPos.X + 25) > 425f && (player1.carPos.X + 25) < 650f && (player1.carPos.Y + 25) > 680 && (player1.carPos.Y + 25) < 750 && speed < 0.001f && speed > -0.001f)//checkt of balletje stil is in het aangegeven vak.
             {
                 
                 if (fuel < 100)
@@ -306,7 +320,7 @@ namespace RaceGame
             Application.Exit();
         }
 
-        void myForm_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
+        void myForm_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e) //Waarvoor is dit?
         {
             int myX = e.X;
             int myY = e.Y;
@@ -316,98 +330,90 @@ namespace RaceGame
 
         private void checkPoint()
         {
-            //checkpoint 1.
+            //checkpoint 1. op track 1, deze punten moeten dus in class voor track1 komen te staan ofzo.
             if ((player1.carPos.X + 25 >= 275 & player1.carPos.X + 25 <= 280) & (player1.carPos.Y >= 588 & player1.carPos.Y <= 668))
             {
-                checkPoint_1 = true;
-                label1.Text = "Checkpoint 1 reached";
+                player1.SetCheckpoint(1);
             }
-
-            if ((player1.carPos.X + 25 >= 165 & player1.carPos.X <= 170) & (player1.carPos.Y >= 74 & player1.carPos.Y <= 148) & checkPoint_1 == true)
+            //checkpoint 2???
+            if ((player1.carPos.X + 25 >= 165 & player1.carPos.X <= 170) & (player1.carPos.Y >= 74 & player1.carPos.Y <= 148) & player1.CheckCheckpoint(1) == true)
             {
-                checkPoint_2 = true;
-                label1.Text = "Checkpoint 2 reached";
+                player1.SetCheckpoint(2);
             }
-
-            if ((player1.carPos.X >= 434 & player1.carPos.X <= 499) & (player1.carPos.Y >= 192 & player1.carPos.Y <= 197) & checkPoint_2 == true)
+            //checkpoint 3???
+            if ((player1.carPos.X >= 434 & player1.carPos.X <= 499) & (player1.carPos.Y >= 192 & player1.carPos.Y <= 197) & player1.CheckCheckpoint(2) == true)
             {
-                checkPoint_3 = true;
-                label1.Text = "Checkpoint 3 reached";
+                player1.SetCheckpoint(3);
             }
-
-            if ((player1.carPos.X >= 578 & player1.carPos.X <= 583) & (player1.carPos.Y >= 414 & player1.carPos.Y <= 488) & checkPoint_3 == true)
+            //checkpoint 4???
+            if ((player1.carPos.X >= 578 & player1.carPos.X <= 583) & (player1.carPos.Y >= 414 & player1.carPos.Y <= 488) & player1.CheckCheckpoint(3) == true)
             {
-                checkPoint_4 = true;
-                label1.Text = "Checkpoint 4 reached";
+                player1.SetCheckpoint(4);
             }
-
-            if ((player1.carPos.X >= 852 & player1.carPos.X <= 857) & (player1.carPos.Y >= 0 & player1.carPos.Y <= 69) & checkPoint_4 == true)
+            //checkpoint 5???
+            if ((player1.carPos.X >= 852 & player1.carPos.X <= 857) & (player1.carPos.Y >= 0 & player1.carPos.Y <= 69) & player1.CheckCheckpoint(4) == true)
             {
-                checkPoint_5 = true;
-                label1.Text = "Checkpoint 5 reached";
+                player1.SetCheckpoint(5);
             }
-
-            if ((player1.carPos.X >= 793 & player1.carPos.X <= 798) & (player1.carPos.Y >= 589 & player1.carPos.Y <= 672) & checkPoint_5 == true)
+            //checkpoint 6???
+            if ((player1.carPos.X >= 793 & player1.carPos.X <= 798) & (player1.carPos.Y >= 589 & player1.carPos.Y <= 672) & player1.CheckCheckpoint(5) == true)
             {
-                checkPoint_6 = true;
-                label1.Text = "Checkpoint 6 reached";
+                player1.SetCheckpoint(6);
             }
         }
 
         private void finish()
         {
-            if ((player1.carPos.X >= 537 & player1.carPos.X <= 542) & (player1.carPos.Y >= 501 & player1.carPos.Y <= 580) & checkPoint_6 == true)
+            if ((player1.carPos.X >= 537 & player1.carPos.X <= 547) & (player1.carPos.Y >= 501 & player1.carPos.Y <= 768) & player1.CheckAndResetCheckpoint() == true)
             {
-                switch (label4.Text)
+                switch (j)
                 {
-                    case "Ronde: 1":
-                        label4.Text = "Ronde: 2";
-                        checkPoint_1 = false;
-                        checkPoint_2 = false;
-                        checkPoint_3 = false;
-                        checkPoint_4 = false;
-                        checkPoint_5 = false;
-                        checkPoint_6 = false;
+                    case 0:
+                        label6.Text = "Ronde: 2";
+                        bestLab = Player1.ToString();
+                        label8.Text = "Best lab: " + bestLab;
+                        Player1 = TimeSpan.Zero;
+                        j++;
                         break;
 
-                    case "Ronde: 2":
-                        label4.Text = "Ronde: 3";
-                        checkPoint_1 = false;
-                        checkPoint_2 = false;
-                        checkPoint_3 = false;
-                        checkPoint_4 = false;
-                        checkPoint_5 = false;
-                        checkPoint_6 = false;
+                    case 1:
+                        label6.Text = "Ronde: 3";
+                        if (TimeSpan.Parse(bestLab) < Player1)
+                        {
+                            bestLab = Player1.ToString(); //Hoe komt dit voor Player2?
+                        }
+                        Player1 = TimeSpan.Zero;
+                        j++;
                         break;
 
-                    case "Ronde: 3":
-                        label4.Text = "Ronde: 4";
-                        checkPoint_1 = false;
-                        checkPoint_2 = false;
-                        checkPoint_3 = false;
-                        checkPoint_4 = false;
-                        checkPoint_5 = false;
-                        checkPoint_6 = false;
+                    case 2:
+                        label6.Text = "Ronde: 4";
+                        if (TimeSpan.Parse(bestLab) < Player1)
+                        {
+                            bestLab = Player1.ToString();
+                        }
+                        Player1 = TimeSpan.Zero;
+                        j++;
                         break;
 
-                    case "Ronde: 4":
-                        label4.Text = "Ronde: 5";
-                        checkPoint_1 = false;
-                        checkPoint_2 = false;
-                        checkPoint_3 = false;
-                        checkPoint_4 = false;
-                        checkPoint_5 = false;
-                        checkPoint_6 = false;
+                    case 3:
+                        label6.Text = "Ronde: 5";
+                        if (TimeSpan.Parse(bestLab) < Player1)
+                        {
+                            bestLab = Player1.ToString();
+                        }
+                        Player1 = TimeSpan.Zero;
+                        j++;
                         break;
 
-                    case "Ronde: 5":
-                        label4.Text = "Finish";
-                        checkPoint_1 = false;
-                        checkPoint_2 = false;
-                        checkPoint_3 = false;
-                        checkPoint_4 = false;
-                        checkPoint_5 = false;
-                        checkPoint_6 = false;
+                    case 4:
+                        label6.Text = "Finish";
+                        if (TimeSpan.Parse(bestLab) < Player1)
+                        {
+                            bestLab = Player1.ToString();
+                        }
+                        Player1 = TimeSpan.Zero;
+                        j++;
                         break;
                 }
             }

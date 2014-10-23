@@ -58,19 +58,45 @@ namespace RaceGame
         }
 
         /// <summary>
+        /// Geeft bool waarde van checkpoint terug.
+        /// </summary>
+        /// <param name="checkpointNummer">Nummer van checkpoint waarvan je de waarde wilt hebben</param>
+        /// <returns>bool van checkpoint</returns>
+        public bool CheckCheckpoint(int checkpointNummer)
+        {
+            switch(checkpointNummer)
+            {
+                case 1:
+                    return checkedCheckpoint1;
+                case 2:
+                    return checkedCheckpoint2;
+                case 3:
+                    return checkedCheckpoint3;
+                case 4:
+                    return checkedCheckpoint4;
+                case 5:
+                    return checkedCheckpoint5;
+                case 6:
+                    return checkedCheckpoint6;
+            }
+            return false;
+        }
+
+        /// <summary>
         /// Checkt of alle checkpoints zijn gechacked.
         /// </summary>
         /// <returns>True als alles gechecked is en reset alles,
         /// false Als er checkpoints false zijn</returns>
         public bool CheckAndResetCheckpoint()
         {
-            if (checkedCheckpoint1 == true && checkedCheckpoint2 == true && checkedCheckpoint3 == true && checkedCheckpoint4 == true && checkedCheckpoint5 == true)
+            if (checkedCheckpoint1 == true && checkedCheckpoint2 == true && checkedCheckpoint3 == true && checkedCheckpoint4 == true && checkedCheckpoint5 == true && checkedCheckpoint6 == true)
             {
                 checkedCheckpoint1 = false;
                 checkedCheckpoint2 = false;
                 checkedCheckpoint3 = false;
                 checkedCheckpoint4 = false;
                 checkedCheckpoint5 = false;
+                checkedCheckpoint6 = false;
                 return true;
             }
             else
