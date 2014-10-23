@@ -87,16 +87,24 @@ namespace RaceGame
         /// </summary>
         /// <returns>True als alles gechecked is en reset alles,
         /// false Als er checkpoints false zijn</returns>
-        public bool CheckAndResetCheckpoint()
+        public void ResetCheckpoint()
         {
-            if (checkedCheckpoint1 == true && checkedCheckpoint2 == true && checkedCheckpoint3 == true && checkedCheckpoint4 == true && checkedCheckpoint5 == true && checkedCheckpoint6 == true)
-            {
+            
                 checkedCheckpoint1 = false;
                 checkedCheckpoint2 = false;
                 checkedCheckpoint3 = false;
                 checkedCheckpoint4 = false;
                 checkedCheckpoint5 = false;
                 checkedCheckpoint6 = false;
+               
+           
+           
+        }
+
+        public bool finishCheck()
+        {
+            if (checkedCheckpoint1 == true && checkedCheckpoint2 == true && checkedCheckpoint3 == true && checkedCheckpoint4 == true && checkedCheckpoint5 == true && checkedCheckpoint6 == true)
+            {
                 return true;
             }
             else
@@ -104,6 +112,5 @@ namespace RaceGame
                 return false;
             }
         }
-
     }
 }
