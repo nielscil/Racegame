@@ -27,7 +27,10 @@ namespace RaceGame
         double countDownTimer = 3;
         System.Windows.Forms.Timer GameTimer = new System.Windows.Forms.Timer();
         System.Windows.Forms.Timer timerFuel = new System.Windows.Forms.Timer();
-        TimeSpan total = new TimeSpan();        
+        TimeSpan total = new TimeSpan();
+        bool noFuel = false; //Moet nog per player worden gedaan.
+        string bestLab = ""; //Moet dit per persoon, of is dit beste rondetijd die speelbeurt?
+
         public Form1()
         {
             InitializeComponent();
@@ -160,8 +163,8 @@ namespace RaceGame
         {            
             total = total.Add(TimeSpan.FromMilliseconds(10));
             label3.Text = total.ToString(); //Betere naam voor label3, zoals labelTijdPlayer1 ofzo?
-            label5.Text = player1.time.ToString();//idem
-            label12.Text = player2.time.ToString(); //idem
+            label5.Text = player1.checkPointtime();//idem
+            //label12.Text = player2.time.ToString(); //idem
             label1.Text = Convert.ToString(player1.fuel);
             label13.Text = Convert.ToString(player2.fuel);
             player1.Race();
