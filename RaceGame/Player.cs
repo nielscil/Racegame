@@ -62,14 +62,14 @@ namespace RaceGame
 
         public void Finish()
         {
-            if ((carPos.X >= 537 & carPos.X <= 547) & (carPos.Y >= 501 & carPos.Y <= 768)) // check ckepoint toevoegen
+            if ((carPos.X >= track.finish_x1 & carPos.X <= track.finish_x2) & (carPos.Y >= track.finish_y1 & carPos.Y <= track.finish_y2) && FinishCheck() == true) // check ckepoint toevoegen
             {
                 switch (i)
                 {
                     case 0:
                         ronde = "Ronde: 2";
                         bestlab = time.ToString();
-                        bestlab = "Best lab: " + bestlab;
+                        bestlab = "Best lap: " + bestlab;
                         time = TimeSpan.Zero;
                         i++;
                         break;
@@ -402,5 +402,16 @@ namespace RaceGame
                 checkedCheckpoint6 = false;
         }
 
+        public bool FinishCheck()
+        {
+            if(checkedCheckpoint1 == true && checkedCheckpoint2 == true && checkedCheckpoint3 == true && checkedCheckpoint4 == true && checkedCheckpoint5 == true && checkedCheckpoint6 == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

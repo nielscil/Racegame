@@ -27,12 +27,12 @@ namespace RaceGame
         double countDownTimer = 3;
         System.Windows.Forms.Timer GameTimer = new System.Windows.Forms.Timer();
         System.Windows.Forms.Timer timerFuel = new System.Windows.Forms.Timer();
-        TimeSpan total, Player1 = new TimeSpan();        
+        TimeSpan total = new TimeSpan();        
         public Form1()
         {
             InitializeComponent();
             player1.carPos= new PointF(545f, 515f);
-            player1.carSpeed = new PointF(0, 0);
+            player2.carPos = new PointF(545f, 535f);
             track.track = new Bitmap(RaceGame.Properties.Resources.racetrack);            
             this.SetStyle(
             ControlStyles.UserPaint |
@@ -163,22 +163,28 @@ namespace RaceGame
             label5.Text = player1.time.ToString();//idem
             label12.Text = player2.time.ToString(); //idem
             label1.Text = Convert.ToString(player1.fuel);
+            label13.Text = Convert.ToString(player2.fuel);
             player1.Race();
             player2.Race();
+            player1.Checkpoints();
+            player2.Checkpoints();
             player1.Finish();
             player2.Finish();
             Draw();
-            checkPoint();
         }
 
         void timerFuel_Tick_1(object sender, EventArgs e)         
         {
             player1.Fuel();
+            player2.Fuel();
             fuelBar.Value = player1.fuel;
+            progressBar1.Value = player2.fuel;
             fuelBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            progressBar1.BackColor = Color.Silver;
             fuelBar.BackColor = Color.Silver;
-            fuelBar.ForeColor = player1.GetFuelColor();
-            
+            progressBar1.ForeColor = player2.GetFuelColor();
+            fuelBar.ForeColor = player1.GetFuelColor();           
          }
 
         private void button1_Click(object sender, EventArgs e)
@@ -197,16 +203,6 @@ namespace RaceGame
             int myY = e.Y;
 
             Console.WriteLine("X: " + myX + " Y: " + myY);
-        }
-
-        private void checkPoint()
-        {
-            
-        }
-
-        private void finish()
-        {
-            
         }
     }
 }
