@@ -9,6 +9,8 @@ namespace RaceGame
 {
     class Player
     {
+        Form1 form1 = new Form1();
+        private Track track = new Track();
         public string naam;
         private bool checkedCheckpoint1 = false;
         private bool checkedCheckpoint2 = false;
@@ -16,9 +18,97 @@ namespace RaceGame
         private bool checkedCheckpoint4 = false;
         private bool checkedCheckpoint5 = false;
         private bool checkedCheckpoint6 = false;
+        public bool noFuel = false;
         public PointF carPos;
         public PointF carSpeed;
-        public Bitmap Auto = new Bitmap(RaceGame.Properties.Resources.AutoVierkantRegenboog,30,30);
+        public string bestlab;
+        private Bitmap auto;
+        byte i = 0;
+
+        public void SetAuto(int nr)
+        {
+            switch(nr)
+            {
+                case 0:
+                    auto = new Bitmap(RaceGame.Properties.Resources.AutoVierkantRood, 30, 30);
+                    break;
+                case 1:
+                    auto = new Bitmap(RaceGame.Properties.Resources.AutoVierkantGroen, 30, 30);
+                    break;
+                case 2:
+                    auto = new Bitmap(RaceGame.Properties.Resources.AutoVierkantBlauw, 30, 30);
+                    break;
+                case 3:
+                    auto = new Bitmap(RaceGame.Properties.Resources.AutoVierkantGrijs, 30, 30);
+                    break;
+                case 4:
+                    auto = new Bitmap(RaceGame.Properties.Resources.AutoVierkantRegenboog, 30, 30);
+                    break;
+            }
+            
+        }
+
+        public Bitmap GetAuto()
+        {
+            return auto;
+        }
+
+        public void Finish()
+        {
+            if ((carPos.X >= 537 & carPos.X <= 547) & (carPos.Y >= 501 & carPos.Y <= 768) & CheckAndResetCheckpoint() == true)
+            {
+                switch (i)
+                {
+                    case 0:
+                        form1.label6.Text = "Ronde: 2";
+                        bestlab = Player1.ToString();
+                        label8.Text = "Best lab: " + player1.bestlab;
+                        Player1 = TimeSpan.Zero;
+                        j++;
+                        break;
+
+                    case 1:
+                        label6.Text = "Ronde: 3";
+                        if (TimeSpan.Parse(bestLab) < Player1)
+                        {
+                            bestLab = Player1.ToString(); //Hoe komt dit voor Player2?
+                        }
+                        Player1 = TimeSpan.Zero;
+                        j++;
+                        break;
+
+                    case 2:
+                        label6.Text = "Ronde: 4";
+                        if (TimeSpan.Parse(bestLab) < Player1)
+                        {
+                            bestLab = Player1.ToString();
+                        }
+                        Player1 = TimeSpan.Zero;
+                        j++;
+                        break;
+
+                    case 3:
+                        label6.Text = "Ronde: 5";
+                        if (TimeSpan.Parse(bestLab) < Player1)
+                        {
+                            bestLab = Player1.ToString();
+                        }
+                        Player1 = TimeSpan.Zero;
+                        j++;
+                        break;
+
+                    case 4:
+                        label6.Text = "Finish";
+                        if (TimeSpan.Parse(bestLab) < Player1)
+                        {
+                            bestLab = Player1.ToString();
+                        }
+                        Player1 = TimeSpan.Zero;
+                        j++;
+                        break;
+                }
+            }
+        }
 
         /// <summary>
         /// zet checkpoint op true

@@ -18,29 +18,22 @@ namespace RaceGame
     //Of dat er iets mee gedaan moet worden.
     public partial class Form1 : Form
     {
-        Player player1 = new Player();
+        Player player1, player2 = new Player();
         Track track = new Track();
-
         Bitmap Backbuffer;
         Bitmap paused = new Bitmap(RaceGame.Properties.Resources.text_paused_resized);
-        float angle = 0; //Moet nog per player worden gedaan.
-        float speed = 0; //Moet nog per player worden gedaan.
+        float angle, speed = 0; //Moet nog per player worden gedaan.
         bool r, l, f, b = false; //Moet nog per player worden gedaan.
-        int i,j = 0;
+        int i, j = 0;
         int fuel = 100; //Moet nog per player worden gedaan.
         double distance = 0; //Moet nog per player worden gedaan.
         double countDownTimer = 2;
         System.Windows.Forms.Timer GameTimer = new System.Windows.Forms.Timer();
         System.Windows.Forms.Timer timerFuel = new System.Windows.Forms.Timer();
-        TimeSpan total = new TimeSpan();
-        TimeSpan Player1 = new TimeSpan(); //Player1 is een TimeSpan en player1 is een Player, is dit niet ingewikkeld?
-        TimeSpan Player2 = new TimeSpan(); // Same as above, maar Player player2 word nooit aangemaakt?
-        bool noFuel = false; //Moet nog per player worden gedaan.
-        string bestLab = ""; //Moet dit per persoon, of is dit beste rondetijd die speelbeurt?
+        TimeSpan total, Player1 = new TimeSpan();        
         public Form1()
         {
             InitializeComponent();
-
             player1.carPos= new PointF(545f, 515f);
             player1.carSpeed = new PointF(0, 0);
             track.track = new Bitmap(RaceGame.Properties.Resources.racetrack);            
@@ -99,53 +92,42 @@ namespace RaceGame
         }
         void Form1_keyUp(object sender, System.Windows.Forms.KeyEventArgs e)// wanneer toets losgelaten wordt, gebeurt dit
         {
-            if (e.KeyCode == Keys.Left)
+            switch(e.KeyCode)
             {
-                l = false;
-            }
-            else if (e.KeyCode == Keys.Right)
-            {
-                r = false;
-            }
-            if (e.KeyCode == Keys.Down)
-            {
-                b = false;
-            }
-            else if (e.KeyCode == Keys.Up)
-            {
-                f = false;
+                case Keys.Left:
+                    l = false;
+                    break;
+                case Keys.Right:
+                    r = false;
+                    break;
+                case Keys.Up:
+                    f = false;
+                    break;
+                case Keys.Down:
+                    b = false;
+                    break;
             }
         }
         void Form1_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)// wanneer toets ingedrukt wordt, gebeurt dit
         {
-            if(noFuel == false)
-            {
                 switch(e.KeyCode)
                 {
-                    case Keys.Left:
-                        {
-                            l = true;
-                        }
+                    case Keys.Left:                       
+                        l = true;
                         break;
-                case Keys.Right:
-                    {
+                    case Keys.Right:
                         r = true;
-                    }
-                    break;
-                case Keys.Up:
-                    {
+                        break;
+                    case Keys.Up:
                         f = true;
-                    }
-                    break;
-                case Keys.Down:
-                    {
+                        break;
+                    case Keys.Down:
                         b = true;
-                    }
-                    break;
+                        break;
+                    case Keys.Escape:
+                        ESC();
+                        break;
                 }
-            }
-            if (e.KeyCode == Keys.Escape)
-                ESC();                  
         }
         void Form1_Paint(object sender, PaintEventArgs e)
         {
@@ -183,7 +165,7 @@ namespace RaceGame
                     System.Drawing.Pen pen = new System.Drawing.Pen(System.Drawing.Brushes.Black);
                     g.DrawImage(track.track, 0, 0, 1024, 768);
                     Invalidate();
-                    g.DrawImage(rotateCenter(player1.Auto, angle), player1.carPos);
+                    g.DrawImage(rotateCenter(player1.GetAuto(), angle), player1.carPos);
                 }
             }
         }
@@ -201,19 +183,14 @@ namespace RaceGame
             {
                 timer1.Stop();
                 label4.Text = "";
-                
+               
             }
             if (countDownTimer == 0)
-            {
-               
-                label4.Text = "GO!";
-                
-                
+            {               
+                label4.Text = "GO!";                               
                 GameTimer.Start();
                 timerFuel.Start();
-
-                countDownTimer--;
-                
+                countDownTimer--;                
             }
             
         }
@@ -228,20 +205,20 @@ namespace RaceGame
             {
                 angle += 0.03f;
             }
-            
-            if (f == true && speed > -3)
+
+            if (f == true && noFuel == false && speed > -3)
             {
                 speed -= 0.1f;
             }
-            else if (b== true && speed < 0.5)
+            else if (b == true && noFuel == false  && speed < 0.5)
             {
                 speed += 0.05f;
             }
-            if (f== false && speed < -0.001f)
+            if (f== false && noFuel == false && speed < -0.001f)
             {
                 speed += 0.05f;
             }
-            else if(b == false && speed > 0.001f)
+            else if(b == false && noFuel == false && speed > 0.001f)
             {
                 speed -= 0.05f;
             }
@@ -259,10 +236,9 @@ namespace RaceGame
             player1.carPos.Y += player1.carSpeed.Y;
             total = total.Add(TimeSpan.FromMilliseconds(10));
             Player1 = Player1.Add(TimeSpan.FromMilliseconds(10));
-            Player2 = Player2.Add(TimeSpan.FromMilliseconds(10));
             label3.Text = total.ToString(); //Betere naam voor label3, zoals labelTijdPlayer1 ofzo?
             label5.Text = Player1.ToString();//idem
-            label12.Text = Player2.ToString(); //idem
+            label12.Text = Player1.ToString(); //idem
             label1.Text = Convert.ToString(fuel);
             distance += Math.Sqrt(Math.Pow(player1.carSpeed.X, 2) + Math.Pow(player1.carSpeed.Y, 2));
             Draw();
@@ -364,59 +340,7 @@ namespace RaceGame
 
         private void finish()
         {
-            if ((player1.carPos.X >= 537 & player1.carPos.X <= 547) & (player1.carPos.Y >= 501 & player1.carPos.Y <= 768) & player1.CheckAndResetCheckpoint() == true)
-            {
-                switch (j)
-                {
-                    case 0:
-                        label6.Text = "Ronde: 2";
-                        bestLab = Player1.ToString();
-                        label8.Text = "Best lab: " + bestLab;
-                        Player1 = TimeSpan.Zero;
-                        j++;
-                        break;
-
-                    case 1:
-                        label6.Text = "Ronde: 3";
-                        if (TimeSpan.Parse(bestLab) < Player1)
-                        {
-                            bestLab = Player1.ToString(); //Hoe komt dit voor Player2?
-                        }
-                        Player1 = TimeSpan.Zero;
-                        j++;
-                        break;
-
-                    case 2:
-                        label6.Text = "Ronde: 4";
-                        if (TimeSpan.Parse(bestLab) < Player1)
-                        {
-                            bestLab = Player1.ToString();
-                        }
-                        Player1 = TimeSpan.Zero;
-                        j++;
-                        break;
-
-                    case 3:
-                        label6.Text = "Ronde: 5";
-                        if (TimeSpan.Parse(bestLab) < Player1)
-                        {
-                            bestLab = Player1.ToString();
-                        }
-                        Player1 = TimeSpan.Zero;
-                        j++;
-                        break;
-
-                    case 4:
-                        label6.Text = "Finish";
-                        if (TimeSpan.Parse(bestLab) < Player1)
-                        {
-                            bestLab = Player1.ToString();
-                        }
-                        Player1 = TimeSpan.Zero;
-                        j++;
-                        break;
-                }
-            }
+            
         }
     }
 }
