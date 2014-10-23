@@ -20,10 +20,12 @@ namespace RaceGame
     {
         Player player1 = new Player();
         Player player2 = new Player();
+
         Track track = new Track();
+
         Bitmap Backbuffer;
         Bitmap paused = new Bitmap(RaceGame.Properties.Resources.text_paused_resized);
-        int i = 0;
+        byte i = 0;
         double countDownTimer = 3;
         System.Windows.Forms.Timer GameTimer = new System.Windows.Forms.Timer();
         System.Windows.Forms.Timer timerFuel = new System.Windows.Forms.Timer();
@@ -33,11 +35,16 @@ namespace RaceGame
             InitializeComponent();
             player1.carPos= new PointF(545f, 515f);
             player1.carSpeed = new PointF(0, 0);
+
+            player2.carPos = new PointF(545f, 535f);
+            player2.carSpeed = new PointF(0, 0);
+
             track.track = new Bitmap(RaceGame.Properties.Resources.racetrack);            
             this.SetStyle(
             ControlStyles.UserPaint |
             ControlStyles.AllPaintingInWmPaint |
             ControlStyles.DoubleBuffer, true);
+
             timer1.Interval = 1;
             timer1.Tick += new EventHandler(timer1_Tick);
             timer1.Start();
@@ -46,12 +53,15 @@ namespace RaceGame
             KeyPreview = true;
             timerFuel.Interval = 100;
             timerFuel.Tick += new EventHandler(timerFuel_Tick_1);
+
             this.ResizeEnd += new EventHandler(Form1_CreateBackBuffer);
             this.Load += new EventHandler(Form1_CreateBackBuffer);
             this.Paint += new PaintEventHandler(Form1_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(Form1_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(Form1_keyUp);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(myForm_MouseClick);
+
+            //Maakt het fullscreen (Y)
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
         }
@@ -130,6 +140,7 @@ namespace RaceGame
                 }
             }
         }
+        #region timers
         void timer1_Tick(object sender, EventArgs e)
         {
             Draw();
@@ -168,7 +179,8 @@ namespace RaceGame
             player1.Finish();
             player2.Finish();
             Draw();
-            checkPoint();
+            player1.Checkpoints();
+            player2.Checkpoints();
         }
 
         void timerFuel_Tick_1(object sender, EventArgs e)         
@@ -180,7 +192,7 @@ namespace RaceGame
             fuelBar.ForeColor = player1.GetFuelColor();
             
          }
-
+        #endregion
         private void button1_Click(object sender, EventArgs e)
         {
             Application.Restart();            
@@ -197,16 +209,6 @@ namespace RaceGame
             int myY = e.Y;
 
             Console.WriteLine("X: " + myX + " Y: " + myY);
-        }
-
-        private void checkPoint()
-        {
-            
-        }
-
-        private void finish()
-        {
-            
         }
     }
 }

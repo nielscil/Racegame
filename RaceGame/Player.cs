@@ -15,19 +15,13 @@ namespace RaceGame
         public string naam;
         private bool l,r,f,b = false;
         private float speed,angle = 0f;
-        public int fuel = 100;
+        public byte fuel = 100;
         public double distance = 0;
-        private bool checkedCheckpoint1 = false;
-        private bool checkedCheckpoint2 = false;
-        private bool checkedCheckpoint3 = false;
-        private bool checkedCheckpoint4 = false;
-        private bool checkedCheckpoint5 = false;
-        private bool checkedCheckpoint6 = false;
+        private bool checkedCheckpoint1, checkedCheckpoint2, checkedCheckpoint3 = false;
+        private bool checkedCheckpoint4, checkedCheckpoint5, checkedCheckpoint6 = false;
         public bool noFuel = false;
-        public PointF carPos;
-        public PointF carSpeed;
-        public string ronde;
-        public string bestlab;
+        public PointF carPos, carSpeed;
+        public string ronde, bestlab;
         private Bitmap auto = new Bitmap(RaceGame.Properties.Resources.AutoVierkantRood, 30, 30);
         public TimeSpan time = new TimeSpan();
         byte i = 0;
@@ -158,7 +152,18 @@ namespace RaceGame
             carPos.Y += carSpeed.Y;
             distance += Math.Sqrt(Math.Pow(carSpeed.X, 2) + Math.Pow(carSpeed.Y, 2));
         }
-
+        
+        public Bitmap rotateCenter()
+        {
+            Bitmap returnBitmap = new Bitmap(auto.Width, auto.Height + 1);
+            Graphics g = Graphics.FromImage(returnBitmap);
+            g.TranslateTransform((float)auto.Width / 2, (float)auto.Height / 2);
+            g.RotateTransform(angle * (float)(57.1));
+            g.TranslateTransform(-(float)auto.Width / 2, -(float)auto.Height / 2);
+            g.DrawImage(auto, auto.Width / 2 - auto.Height / 2, auto.Height / 2 - auto.Width / 2, auto.Height, auto.Width);
+            return returnBitmap;
+        }
+        #region fuel
         public void Fuel()
         {
             if (distance >= Math.Sqrt(Math.Pow(50, 2) + Math.Pow(70, 2)))
@@ -169,7 +174,7 @@ namespace RaceGame
             if (fuel == 0)
             {
                 speed = 0;
-                noFuel = true;              
+                noFuel = true;
             }
             if ((carPos.X + 25) > 425f && (carPos.X + 25) < 650f && (carPos.Y + 25) > 680 && (carPos.Y + 25) < 750 && speed < 0.001f && speed > -0.001f)//checkt of balletje stil is in het aangegeven vak.
             {
@@ -180,43 +185,9 @@ namespace RaceGame
             }
         }
 
-        public void Checkpoints()
-        {
-            //checkpoint 1. op track 1, deze punten moeten dus in class voor track1 komen te staan ofzo.
-            if ((carPos.X + 25 >= track.checkp1_x1 & carPos.X + 25 <= track.checkp1_x2) & (carPos.Y >= track.checkp1_y1 & carPos.Y <= track.checkp1_y2))
-            {
-                SetCheckpoint(1);
-            }
-            //checkpoint 2???
-            if ((carPos.X + 25 >= track.checkp2_x1 & carPos.X <= track.checkp2_x2) & (carPos.Y >= track.checkp2_y1 & carPos.Y <= track.checkp2_y2) & CheckCheckpoint(1) == true)
-            {
-                SetCheckpoint(2);
-            }
-            //checkpoint 3???
-            if ((carPos.X >= track.checkp3_x1 & carPos.X <= track.checkp2_x2) & (carPos.Y >= track.checkp3_y1 & carPos.Y <= track.checkp3_y2) & CheckCheckpoint(2) == true)
-            {
-                SetCheckpoint(3);
-            }
-            //checkpoint 4???
-            if ((carPos.X >= track.checkp4_x1 & carPos.X <= track.checkp4_x2) & (carPos.Y >= track.checkp4_y1 & carPos.Y <= track.checkp4_y2) & CheckCheckpoint(3) == true)
-            {
-                SetCheckpoint(4);
-            }
-            //checkpoint 5???
-            if ((carPos.X >= track.checkp5_x1 & carPos.X <= track.checkp5_x2) & (carPos.Y >= track.checkp5_y1 & carPos.Y <= track.checkp5_y2) & CheckCheckpoint(4) == true)
-            {
-                SetCheckpoint(5);
-            }
-            //checkpoint 6???
-            if ((carPos.X >= track.checkp6_x1 & carPos.X <= track.checkp6_x1) & (carPos.Y >= track.checkp6_y1 & carPos.Y <= track.checkp6_y2) & CheckCheckpoint(5) == true)
-            {
-                SetCheckpoint(6);
-            }
-        }
-
         public Color GetFuelColor()
         {
-            if(fuel >= 50)
+            if (fuel >= 50)
             {
                 return Color.Green;
             }
@@ -233,18 +204,8 @@ namespace RaceGame
                 return Color.Red;
             }
         }
-
-        public Bitmap rotateCenter()
-        {
-            Bitmap returnBitmap = new Bitmap(auto.Width, auto.Height + 1);
-            Graphics g = Graphics.FromImage(returnBitmap);
-            g.TranslateTransform((float)auto.Width / 2, (float)auto.Height / 2);
-            g.RotateTransform(angle * (float)(57.1));
-            g.TranslateTransform(-(float)auto.Width / 2, -(float)auto.Height / 2);
-            g.DrawImage(auto, auto.Width / 2 - auto.Height / 2, auto.Height / 2 - auto.Width / 2, auto.Height, auto.Width);
-            return returnBitmap;
-        }
-
+        #endregion
+        #region Sturen
         public void Key_down(object sender, System.Windows.Forms.KeyEventArgs e,byte player)
         {
             if (player == 0)
@@ -324,6 +285,41 @@ namespace RaceGame
                 }
             }
         }
+        #endregion
+        #region checkpoint methodes
+        public void Checkpoints()
+        {
+            //checkpoint 1. op track 1, deze punten moeten dus in class voor track1 komen te staan ofzo.
+            if ((carPos.X + 25 >= track.checkp1_x1 & carPos.X + 25 <= track.checkp1_x2) & (carPos.Y >= track.checkp1_y1 & carPos.Y <= track.checkp1_y2))
+            {
+                SetCheckpoint(1);
+            }
+            //checkpoint 2???
+            if ((carPos.X + 25 >= track.checkp2_x1 & carPos.X <= track.checkp2_x2) & (carPos.Y >= track.checkp2_y1 & carPos.Y <= track.checkp2_y2) & CheckCheckpoint(1) == true)
+            {
+                SetCheckpoint(2);
+            }
+            //checkpoint 3???
+            if ((carPos.X >= track.checkp3_x1 & carPos.X <= track.checkp2_x2) & (carPos.Y >= track.checkp3_y1 & carPos.Y <= track.checkp3_y2) & CheckCheckpoint(2) == true)
+            {
+                SetCheckpoint(3);
+            }
+            //checkpoint 4???
+            if ((carPos.X >= track.checkp4_x1 & carPos.X <= track.checkp4_x2) & (carPos.Y >= track.checkp4_y1 & carPos.Y <= track.checkp4_y2) & CheckCheckpoint(3) == true)
+            {
+                SetCheckpoint(4);
+            }
+            //checkpoint 5???
+            if ((carPos.X >= track.checkp5_x1 & carPos.X <= track.checkp5_x2) & (carPos.Y >= track.checkp5_y1 & carPos.Y <= track.checkp5_y2) & CheckCheckpoint(4) == true)
+            {
+                SetCheckpoint(5);
+            }
+            //checkpoint 6???
+            if ((carPos.X >= track.checkp6_x1 & carPos.X <= track.checkp6_x1) & (carPos.Y >= track.checkp6_y1 & carPos.Y <= track.checkp6_y2) & CheckCheckpoint(5) == true)
+            {
+                SetCheckpoint(6);
+            }
+        }
 
         /// <summary>
         /// zet checkpoint op true
@@ -355,9 +351,6 @@ namespace RaceGame
 
                 case 6:
                     checkedCheckpoint6 = true;
-                    break;
-
-                default:
                     break;
             }
         }
@@ -401,6 +394,6 @@ namespace RaceGame
                 checkedCheckpoint5 = false;
                 checkedCheckpoint6 = false;
         }
-
+        #endregion
     }
 }
