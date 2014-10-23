@@ -12,8 +12,8 @@ namespace RaceGame
         public byte track_nr;
         public Bitmap collissionMap;
         public Bitmap track;
-        public int checkp1_x1, checkp1_x2, checkp2_x1, checkp2_x2, checkp3_x1, checkp3_x2, checkp4_x1, checkp4_x2, checkp5_x1, checkp5_x2, checkp6_x1, checkp6_x2;
-        public int checkp1_y1, checkp1_y2, checkp2_y1, checkp2_y2, checkp3_y1, checkp3_y2, checkp4_y1, checkp4_y2, checkp5_y1, checkp5_y2, checkp6_y1, checkp6_y2;
+        public int checkp1_x1, checkp1_x2, checkp2_x1, checkp2_x2, checkp3_x1, checkp3_x2, checkp4_x1, checkp4_x2, checkp5_x1, checkp5_x2, checkp6_x1, checkp6_x2,finish_x1,finish_x2;
+        public int checkp1_y1, checkp1_y2, checkp2_y1, checkp2_y2, checkp3_y1, checkp3_y2, checkp4_y1, checkp4_y2, checkp5_y1, checkp5_y2, checkp6_y1, checkp6_y2, finish_y1, finish_y2;
         //
 
         public void SetTrack(byte trk)
@@ -48,6 +48,10 @@ namespace RaceGame
                     checkp5_y2 = 857;
                     checkp6_y1 = 793;
                     checkp6_y2 = 798;
+                    finish_x1 = 537;
+                    finish_x2 = 547;
+                    finish_y1 = 501;
+                    finish_y2 = 768;
                     break;
                 case 1:
                     track = new Bitmap(1,22);
@@ -76,6 +80,10 @@ namespace RaceGame
                     checkp5_y2 = 857;
                     checkp6_y1 = 793;
                     checkp6_y2 = 798;
+                    finish_x1 = 537;
+                    finish_x2 = 547;
+                    finish_y1 = 501;
+                    finish_y2 = 768;
                     break;
                 case 2:
                     track = new Bitmap(1,22);
@@ -104,6 +112,10 @@ namespace RaceGame
                     checkp5_y2 = 857;
                     checkp6_y1 = 793;
                     checkp6_y2 = 798;
+                    finish_x1 = 537;
+                    finish_x2 = 547;
+                    finish_y1 = 501;
+                    finish_y2 = 768;
                     break;
                 case 3:
                     track = new Bitmap(1,22);
@@ -132,6 +144,10 @@ namespace RaceGame
                     checkp5_y2 = 857;
                     checkp6_y1 = 793;
                     checkp6_y2 = 798;
+                    finish_x1 = 537;
+                    finish_x2 = 547;
+                    finish_y1 = 501;
+                    finish_y2 = 768;
                     break;
                 case 4:
                     track = new Bitmap(1,22);
@@ -160,6 +176,10 @@ namespace RaceGame
                     checkp5_y2 = 857;
                     checkp6_y1 = 793;
                     checkp6_y2 = 798;
+                    finish_x1 = 537;
+                    finish_x2 = 547;
+                    finish_y1 = 501;
+                    finish_y2 = 768;
                     break;
                 case 5:
                     track = new Bitmap(1,22);
@@ -188,6 +208,10 @@ namespace RaceGame
                     checkp5_y2 = 857;
                     checkp6_y1 = 793;
                     checkp6_y2 = 798;
+                    finish_x1 = 537;
+                    finish_x2 = 547;
+                    finish_y1 = 501;
+                    finish_y2 = 768;
                     break;
                 case 6:
                     track = new Bitmap(1,22);
@@ -216,6 +240,10 @@ namespace RaceGame
                     checkp5_y2 = 857;
                     checkp6_y1 = 793;
                     checkp6_y2 = 798;
+                    finish_x1 = 537;
+                    finish_x2 = 547;
+                    finish_y1 = 501;
+                    finish_y2 = 768;
                     break;
             }
         }
