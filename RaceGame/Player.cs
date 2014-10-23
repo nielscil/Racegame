@@ -28,9 +28,11 @@ namespace RaceGame
         public PointF carSpeed;
         public string ronde;
         public string bestlab;
+        public string breaktime;
         private Bitmap auto = new Bitmap(RaceGame.Properties.Resources.AutoVierkantRood, 30, 30);
         public TimeSpan time = new TimeSpan();
         byte i = 0;
+        byte checkpointcounter = 0;
 
         public void SetAuto(int nr)
         {
@@ -181,38 +183,60 @@ namespace RaceGame
                 }
             }
         }
+        public string checkPointtimeplayer()
+        {
+            for (int i = 0; i < checkpointcounter; )
+            {
 
+                breaktime = time.ToString();
+                i++;
+            }
+            return breaktime;
+        }
+        
         public void Checkpoints()
         {
             //checkpoint 1. op track 1, deze punten moeten dus in class voor track1 komen te staan ofzo.
             if ((carPos.X + 25 >= track.checkp1_x1 & carPos.X + 25 <= track.checkp1_x2) & (carPos.Y >= track.checkp1_y1 & carPos.Y <= track.checkp1_y2))
             {
                 SetCheckpoint(1);
+                checkpointcounter++;
+                checkPointtimeplayer();
             }
             //checkpoint 2???
             if ((carPos.X + 25 >= track.checkp2_x1 & carPos.X <= track.checkp2_x2) & (carPos.Y >= track.checkp2_y1 & carPos.Y <= track.checkp2_y2) & CheckCheckpoint(1) == true)
             {
                 SetCheckpoint(2);
+                checkpointcounter++;
+                checkPointtimeplayer();
             }
             //checkpoint 3???
             if ((carPos.X >= track.checkp3_x1 & carPos.X <= track.checkp2_x2) & (carPos.Y >= track.checkp3_y1 & carPos.Y <= track.checkp3_y2) & CheckCheckpoint(2) == true)
             {
                 SetCheckpoint(3);
+                checkpointcounter++;
+                checkPointtimeplayer();
             }
             //checkpoint 4???
             if ((carPos.X >= track.checkp4_x1 & carPos.X <= track.checkp4_x2) & (carPos.Y >= track.checkp4_y1 & carPos.Y <= track.checkp4_y2) & CheckCheckpoint(3) == true)
             {
                 SetCheckpoint(4);
+                checkpointcounter++;
+                checkPointtimeplayer();
             }
             //checkpoint 5???
             if ((carPos.X >= track.checkp5_x1 & carPos.X <= track.checkp5_x2) & (carPos.Y >= track.checkp5_y1 & carPos.Y <= track.checkp5_y2) & CheckCheckpoint(4) == true)
             {
                 SetCheckpoint(5);
+                checkpointcounter++;
+                checkPointtimeplayer();
             }
             //checkpoint 6???
             if ((carPos.X >= track.checkp6_x1 & carPos.X <= track.checkp6_x1) & (carPos.Y >= track.checkp6_y1 & carPos.Y <= track.checkp6_y2) & CheckCheckpoint(5) == true)
             {
                 SetCheckpoint(6);
+                checkpointcounter++;
+                checkPointtimeplayer();
             }
         }
 

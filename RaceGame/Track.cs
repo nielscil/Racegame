@@ -24,8 +24,8 @@ namespace RaceGame
                 case 0:
                     track = new Bitmap(RaceGame.Properties.Resources.racetrack);
                     collissionMap = new Bitmap(1, 22);
-                    checkp1_x1 = 275;
-                    checkp1_x2 = 280;
+                    checkp1_x1 = 250;
+                    checkp1_x2 = 350;
                     checkp2_x1 = 165;
                     checkp2_x2 = 170;
                     checkp3_x1 = 434;
@@ -36,8 +36,8 @@ namespace RaceGame
                     checkp5_x2 = 857;
                     checkp6_x1 = 793;
                     checkp6_x2 = 798;
-                    checkp1_y1 = 275;
-                    checkp1_y2 = 280;
+                    checkp1_y1 = 250;
+                    checkp1_y2 = 350;
                     checkp2_y1 = 165;
                     checkp2_y2 = 170;
                     checkp3_y1 = 434;

@@ -161,7 +161,7 @@ namespace RaceGame
         {            
             total = total.Add(TimeSpan.FromMilliseconds(10));
             label3.Text = total.ToString(); //Betere naam voor label3, zoals labelTijdPlayer1 ofzo?
-            label5.Text = player1.time.ToString();//idem
+            label5.Text = player1.breaktime; //player1.time.ToString();//idem
             label12.Text = player2.time.ToString(); //idem
             label1.Text = Convert.ToString(player1.fuel);
             label13.Text = Convert.ToString(player2.fuel);
