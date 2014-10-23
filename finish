@@ -1,0 +1,89 @@
+        private void finish()
+        {
+            if ((player1.carPos.X >= 537 & player1.carPos.X <= 547) & (player1.carPos.Y >= 501 & player1.carPos.Y <= 768) & player1.finishCheck() == true)
+            {
+                switch (j)
+                {
+                    case 0:
+                        label6.Text = "Ronde: 2";
+                        bestLab = Player1.ToString();
+                        label8.Text = "Best lab: " + bestLab;
+                        Player1 = TimeSpan.Zero;
+                        player1.ResetCheckpoint();
+                        j++;
+                        break;
+
+                    case 1:
+                        label6.Text = "Ronde: 3";
+                        if (TimeSpan.Parse(bestLab) < Player1)
+                        {
+                            bestLab = Player1.ToString(); //Hoe komt dit voor Player2?
+                        }
+                        Player1 = TimeSpan.Zero;
+                        player1.ResetCheckpoint();
+                        j++;
+                        break;
+
+                    case 2:
+                        label6.Text = "Ronde: 4";
+                        if (TimeSpan.Parse(bestLab) < Player1)
+                        {
+                            bestLab = Player1.ToString();
+                        }
+                        Player1 = TimeSpan.Zero;
+                        player1.ResetCheckpoint();
+                        j++;
+                        break;
+
+                    case 3:
+                        label6.Text = "Ronde: 5";
+                        if (TimeSpan.Parse(bestLab) < Player1)
+                        {
+                            bestLab = Player1.ToString();
+                        }
+                        Player1 = TimeSpan.Zero;
+                        player1.ResetCheckpoint();
+                        j++;
+                        break;
+
+                    case 4:
+                        label6.Text = "Finish";
+                        if (TimeSpan.Parse(bestLab) < Player1)
+                        {
+                            bestLab = Player1.ToString();
+                        }
+                        Player1 = TimeSpan.Zero;
+                        player1.ResetCheckpoint();
+                        j++;
+                        break;
+                }
+                
+                
+                --------------------------------------------------------------------------------
+                player class:
+                
+                
+        public void ResetCheckpoint()
+        {
+                checkedCheckpoint1 = false;
+                checkedCheckpoint2 = false;
+                checkedCheckpoint3 = false;
+                checkedCheckpoint4 = false;
+                checkedCheckpoint5 = false;
+                checkedCheckpoint6 = false;
+        }
+
+        public bool finishCheck()
+        {
+            if (checkedCheckpoint1 == true && checkedCheckpoint2 == true && checkedCheckpoint3 == true && checkedCheckpoint4 == true && checkedCheckpoint5 == true && checkedCheckpoint6 == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+                
+                
+                
