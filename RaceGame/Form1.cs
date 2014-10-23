@@ -407,10 +407,14 @@ namespace RaceGame
                         label6.Text = "Ronde: 3";
                         //if (TimeSpan.Parse(bestLab) < Player1)
                        // {
-                        var now = TimeSpan.;
+                      //  var now = TimeSpan.;
+                        Double lastlap = Convert.ToDouble(label8);
 
+                        Double curentlap = Convert.ToDouble(Player1);
+                        if (curentlap > lastlap )
+                        {
                             label8.Text = Player1.ToString(); //Hoe komt dit voor Player2? = zet er een 2 voor?
-                       
+                        }
                        // }
                         Player1 = TimeSpan.Zero;
                         player1.ResetCheckpoint();
