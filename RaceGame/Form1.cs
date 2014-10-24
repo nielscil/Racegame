@@ -172,6 +172,8 @@ namespace RaceGame
             label3.Text = total.ToString();
             label8.Text = player1.laptime;
             label6.Text = player1.ronde;
+            label9.Text = player2.laptime;
+            label11.Text = player2.ronde;
             if (debug != true)
             {
                 label5.Text = player1.breaktime;

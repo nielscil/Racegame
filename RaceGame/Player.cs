@@ -29,7 +29,7 @@ namespace RaceGame
         public PointF carSpeed;
         public string ronde = "Ronde 1";
         public string bestlap;
-        public string breaktime;
+        public string breaktime = "00:00:00";
         private Bitmap auto;
         public string laptime = "00:00:00";
         public TimeSpan time = new TimeSpan();

@@ -223,26 +223,23 @@
             // 
             // label8
             // 
-            this.label8.AutoSize = true;
             this.label8.BackColor = System.Drawing.Color.Transparent;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(391, 648);
+            this.label8.Location = new System.Drawing.Point(416, 648);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(143, 20);
+            this.label8.Size = new System.Drawing.Size(100, 20);
             this.label8.TabIndex = 10;
-            this.label8.Text = "Best Lap: 00:00:00";
-            
+            this.label8.Text = "00:00:00";
             // 
             // label9
             // 
-            this.label9.AutoSize = true;
             this.label9.BackColor = System.Drawing.Color.Transparent;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(550, 648);
+            this.label9.Location = new System.Drawing.Point(577, 648);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(143, 20);
+            this.label9.Size = new System.Drawing.Size(90, 20);
             this.label9.TabIndex = 14;
-            this.label9.Text = "Best Lap: 00:00:00";
+            this.label9.Text = "00:00:00";
             // 
             // label10
             // 
@@ -270,9 +267,9 @@
             // 
             this.label12.BackColor = System.Drawing.Color.Transparent;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(566, 628);
+            this.label12.Location = new System.Drawing.Point(577, 628);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(93, 20);
+            this.label12.Size = new System.Drawing.Size(90, 20);
             this.label12.TabIndex = 11;
             this.label12.Text = "00:00:00";
             // 
