@@ -19,17 +19,14 @@ namespace RaceGame
     public partial class Form1 : Form
     {
         Player player1 = new Player();
+        Player player2 = new Player();
+
         Track track = new Track();
 
         Bitmap Backbuffer;
         Bitmap paused = new Bitmap(RaceGame.Properties.Resources.text_paused_resized);
-        float angle = 0; //Moet nog per player worden gedaan.
-        float speed = 0; //Moet nog per player worden gedaan.
-        bool r, l, f, b = false; //Moet nog per player worden gedaan.
-        int i,j = 0;
-        int fuel = 100; //Moet nog per player worden gedaan.
-        double distance = 0; //Moet nog per player worden gedaan.
-        double countDownTimer = 2;
+        byte i = 0;
+        double countDownTimer = 3;
         System.Windows.Forms.Timer GameTimer = new System.Windows.Forms.Timer();
         System.Windows.Forms.Timer timerFuel = new System.Windows.Forms.Timer();
         TimeSpan total = new TimeSpan();
@@ -41,14 +38,18 @@ namespace RaceGame
         public Form1()
         {
             InitializeComponent();
-
             player1.carPos= new PointF(545f, 515f);
             player1.carSpeed = new PointF(0, 0);
+
+            player2.carPos = new PointF(545f, 535f);
+            player2.carSpeed = new PointF(0, 0);
+
             track.track = new Bitmap(RaceGame.Properties.Resources.racetrack);            
             this.SetStyle(
             ControlStyles.UserPaint |
             ControlStyles.AllPaintingInWmPaint |
             ControlStyles.DoubleBuffer, true);
+
             timer1.Interval = 1;
             timer1.Tick += new EventHandler(timer1_Tick);
             timer1.Start();
@@ -57,12 +58,15 @@ namespace RaceGame
             KeyPreview = true;
             timerFuel.Interval = 100;
             timerFuel.Tick += new EventHandler(timerFuel_Tick_1);
+
             this.ResizeEnd += new EventHandler(Form1_CreateBackBuffer);
             this.Load += new EventHandler(Form1_CreateBackBuffer);
             this.Paint += new PaintEventHandler(Form1_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(Form1_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(Form1_keyUp);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(myForm_MouseClick);
+
+            //Maakt het fullscreen (Y)
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
         }
@@ -74,12 +78,12 @@ namespace RaceGame
                 timerFuel.Stop();
                 timer1.Stop();               
                 panel1.Visible = true;
-                fuelBar.Visible = false;
-                fuelLabel.Visible = false;
+                progressBarPlayer1Fuel.Visible = false;
+                labelPlayer1Fuel.Visible = false;
                 label2.Visible = false;
-                label1.Visible = false;
-                label4.Visible = false;
-                label3.Visible = false;
+                labelPlayer1FuelHoeveel.Visible = false;
+                labelCountdown.Visible = false;
+                labelTimer.Visible = false;
                 i++;
             }
             else
@@ -88,65 +92,27 @@ namespace RaceGame
                 GameTimer.Start();
                 timerFuel.Start();
                 timer1.Start();
-                fuelBar.Visible = true;
-                fuelLabel.Visible = true;
+                progressBarPlayer1Fuel.Visible = true;
+                labelPlayer1Fuel.Visible = true;
                 label2.Visible = true;
-                label1.Visible = true;
-                label4.Visible = true;
-                label3.Visible = true;
+                labelPlayer1FuelHoeveel.Visible = true;
+                labelCountdown.Visible = true;
+                labelTimer.Visible = true;
                 i = 0;
             }
            
         }
         void Form1_keyUp(object sender, System.Windows.Forms.KeyEventArgs e)// wanneer toets losgelaten wordt, gebeurt dit
         {
-            if (e.KeyCode == Keys.Left)
-            {
-                l = false;
-            }
-            else if (e.KeyCode == Keys.Right)
-            {
-                r = false;
-            }
-            if (e.KeyCode == Keys.Down)
-            {
-                b = false;
-            }
-            else if (e.KeyCode == Keys.Up)
-            {
-                f = false;
-            }
+            player1.Key_up(sender, e,0);
+            player2.Key_up(sender, e,1);
         }
         void Form1_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)// wanneer toets ingedrukt wordt, gebeurt dit
         {
-            if(noFuel == false)
-            {
-                switch(e.KeyCode)
-                {
-                    case Keys.Left:
-                        {
-                            l = true;
-                        }
-                        break;
-                case Keys.Right:
-                    {
-                        r = true;
-                    }
-                    break;
-                case Keys.Up:
-                    {
-                        f = true;
-                    }
-                    break;
-                case Keys.Down:
-                    {
-                        b = true;
-                    }
-                    break;
-                }
-            }
+            player1.Key_down(sender,e,0);
+            player2.Key_down(sender,e,1);
             if (e.KeyCode == Keys.Escape)
-                ESC();                  
+                ESC();
         }
         void Form1_Paint(object sender, PaintEventArgs e)
         {
@@ -164,17 +130,7 @@ namespace RaceGame
             Backbuffer = new Bitmap(1024, 768);
         }
 
-        Bitmap rotateCenter(Image b, float angle)
-        {
-            Bitmap returnBitmap = new Bitmap(b.Width, b.Height + 1);
-            Graphics g = Graphics.FromImage(returnBitmap);
-            g.TranslateTransform((float)b.Width / 2, (float)b.Height / 2);
-            g.RotateTransform(angle * (float)(57.1));
-            g.TranslateTransform(-(float)b.Width / 2, -(float)b.Height / 2);
-            g.DrawImage(b, b.Width / 2 - b.Height / 2, b.Height / 2 - b.Width / 2, b.Height, b.Width);
-
-            return returnBitmap;
-        }
+        
         void Draw()
         {
             using (var g = Graphics.FromImage(Backbuffer))
@@ -184,10 +140,12 @@ namespace RaceGame
                     System.Drawing.Pen pen = new System.Drawing.Pen(System.Drawing.Brushes.Black);
                     g.DrawImage(track.track, 0, 0, 1024, 768);
                     Invalidate();
-                    g.DrawImage(rotateCenter(player1.Auto, angle), player1.carPos);
+                    g.DrawImage(player1.rotateCenter(), player1.carPos);
+                    g.DrawImage(player2.rotateCenter(), player2.carPos);
                 }
             }
         }
+        #region timers
         void timer1_Tick(object sender, EventArgs e)
         {
             Draw();
@@ -195,122 +153,51 @@ namespace RaceGame
             {
                 timer1.Interval = 1000;
                 countDownTimer = countDownTimer - 0.5;
-                label4.Text = Convert.ToString(countDownTimer);
-                label3.Text = "00:00:00:00";
+                labelCountdown.Text = Convert.ToString(countDownTimer);
+                labelTimer.Text = "00:00:00:00";
             }
             if (countDownTimer < -0.3) //Waarom -0.3, ==-1 werkt ook toch?
             {
                 timer1.Stop();
-                label4.Text = "";
-                
+                labelCountdown.Text = "";
+               
             }
             if (countDownTimer == 0)
-            {
-               
-                label4.Text = "GO!";
-                
-                
+            {               
+                labelCountdown.Text = "GO!";                               
                 GameTimer.Start();
                 timerFuel.Start();
-
-                countDownTimer--;
-                
+                countDownTimer--;                
             }
             
         }
         
         void GameTimer_Tick(object sender, EventArgs e)
         {
-            if (l == true && (speed < -0.001f || speed > 0.001f))
-            {
-                angle -= 0.03f;
-            }
-            else if (r == true && (speed < -0.001f || speed > 0.001f))
-            {
-                angle += 0.03f;
-            }
-            
-            if (f == true && speed > -3)
-            {
-                speed -= 0.1f;
-            }
-            else if (b== true && speed < 0.5)
-            {
-                speed += 0.05f;
-            }
-            if (f== false && speed < -0.001f)
-            {
-                speed += 0.02f;
-            }
-            else if(b == false && speed > 0.001f)
-            {
-                speed -= 0.02f;
-            }
-            else if(f == false && speed == -0.05)
-            {
-                speed = 0;
-            }
-            else if (b == false && speed == 0.05)
-            {
-                speed = 0;
-            }
-            player1.carSpeed.X = (float)(speed * Math.Cos(angle));
-            player1.carSpeed.Y = (float)(speed * Math.Sin(angle));
-            player1.carPos.X += player1.carSpeed.X;
-            player1.carPos.Y += player1.carSpeed.Y;
             total = total.Add(TimeSpan.FromMilliseconds(10));
-            Player1 = Player1.Add(TimeSpan.FromMilliseconds(10));
-            Player2 = Player2.Add(TimeSpan.FromMilliseconds(10));
-            label3.Text = total.ToString(); //Betere naam voor label3, zoals labelTijdPlayer1 ofzo?
-  //          label5.Text =Player1.ToString();//idem
-  //          label12.Text = Player2.ToString(); //idem
-            label1.Text = Convert.ToString(fuel);
-            distance += Math.Sqrt(Math.Pow(player1.carSpeed.X, 2) + Math.Pow(player1.carSpeed.Y, 2));
+            labelTimer.Text = total.ToString(); //Betere naam voor label3, zoals labelTijdPlayer1 ofzo?
+            labelPlayer1RondeTijd.Text = player1.time.ToString();
+            labelPlayer2RondeTijd.Text = player2.time.ToString();
+            labelPlayer1FuelHoeveel.Text = Convert.ToString(player1.fuel);
+            player1.Race();
+            player2.Race();
+            player1.Finish();
+            player2.Finish();
             Draw();
-            checkPoint();
-            finish();
+            player1.Checkpoints();
+            player2.Checkpoints();
         }
 
         void timerFuel_Tick_1(object sender, EventArgs e)         
         {
+            player1.Fuel();
+            progressBarPlayer1Fuel.Value = player1.fuel;
+            progressBarPlayer1Fuel.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            progressBarPlayer1Fuel.BackColor = Color.Silver;
+            progressBarPlayer1Fuel.ForeColor = player1.GetFuelColor();
             
-            if (distance >= Math.Sqrt(Math.Pow(50, 2) + Math.Pow(70, 2)))
-            {
-                fuel--;
-                distance = 0;
-            }
-            if (fuel == 0)
-            {
-                speed = 0;
-                noFuel = true;              
-            }
-            if( (player1.carPos.X + 25) > 425f && (player1.carPos.X + 25) < 650f && (player1.carPos.Y + 25) > 680 && (player1.carPos.Y + 25) < 750 && speed < 0.001f && speed > -0.001f)//checkt of balletje stil is in het aangegeven vak.
-            {
-                
-                if (fuel < 100)
-                {
-                    fuel++;
-                }
-
-            }
-            fuelBar.Value = fuel;
-            fuelBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            fuelBar.BackColor = Color.Silver;
-            fuelBar.ForeColor = Color.Green;
-            if (fuel < 50 && fuel > 30)
-            {
-                fuelBar.ForeColor = Color.Orange;
-            }
-            else if(fuel <= 30 && fuel > 10)
-            {
-                fuelBar.ForeColor = Color.OrangeRed;
-            }
-            else if(fuel <=10)
-            {
-                fuelBar.ForeColor = Color.Red;
-            }
          }
-
+        #endregion
         private void button1_Click(object sender, EventArgs e)
         {
             Application.Restart();            
@@ -321,7 +208,7 @@ namespace RaceGame
             Application.Exit();
         }
 
-        void myForm_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e) //Waarvoor is dit?
+        void myForm_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             int myX = e.X;
             int myY = e.Y;
@@ -333,7 +220,7 @@ namespace RaceGame
         {
             for (int i = 0; i < checkpointcounter; )
             {
-                label5.Text = Player1.ToString();
+                labelPlayer1RondeTijd.Text = Player1.ToString();
                 i++;
             }
 
@@ -381,72 +268,6 @@ namespace RaceGame
                 player1.SetCheckpoint(6);
                 checkpointcounter++;
                 checkPointtimeplayer1();
-            }
-        }
-
-        private void finish()
-        {
-            if ((player1.carPos.X >= 537 & player1.carPos.X <= 547) & (player1.carPos.Y >= 501 & player1.carPos.Y <= 768) & player1.finishCheck() == true)
-            {
-                switch (j)
-                {
-                    case 0:
-                        label6.Text = "Ronde: 2";  
-                       // label8.Text = "Best lab: " + bestLab;
-                        
-                        //bestLab = timestuff.ToString();
-                        label8.Text = Player1.ToString();
-                        Player1 = TimeSpan.Zero;
-                       
-                        player1.ResetCheckpoint();
-                        
-                        j++;
-                        break;
-
-                    case 1:
-                        label6.Text = "Ronde: 3";
-                        //if (TimeSpan.Parse(bestLab) < Player1)
-                       // {
-                      //  var now = TimeSpan.;
-                        Double lastlap = Convert.ToDouble(label8);
-
-                        Double curentlap = Convert.ToDouble(Player1);
-                        if (curentlap > lastlap )
-                        {
-                            label8.Text = Player1.ToString(); //Hoe komt dit voor Player2? = zet er een 2 voor?
-                        }
-                       // }
-                        Player1 = TimeSpan.Zero;
-                        player1.ResetCheckpoint();
-                        j++;
-                        break;
-
-                    case 2:
-                        label6.Text = "Ronde: 4";
-                       
-                        label8.Text = Player1.ToString();
-                        
-                        Player1 = TimeSpan.Zero;
-                        player1.ResetCheckpoint();
-                        j++;
-                        break;
-
-                    case 3:
-                        label6.Text = "Ronde: 5";
-                        label8.Text = Player1.ToString();
-                        Player1 = TimeSpan.Zero;
-                        player1.ResetCheckpoint();
-                        j++;
-                        break;
-
-                    case 4:
-                        label6.Text = "Finish";
-                        label8.Text = Player1.ToString();
-                        Player1 = TimeSpan.Zero;
-                        player1.ResetCheckpoint();
-                        j++;
-                        break;
-                }
             }
         }
     }
