@@ -18,25 +18,26 @@ namespace RaceGame
     //Of dat er iets mee gedaan moet worden.
     public partial class Form1 : Form
     {
+        //Track track = new Track();
         Player player1 = new Player();
-        Player player2 = new Player();
-        Track track = new Track();
+        Player player2 = new Player();        
         Bitmap Backbuffer;
         Bitmap paused = new Bitmap(RaceGame.Properties.Resources.text_paused_resized);
         int i = 0;
         double countDownTimer = 3;
         System.Windows.Forms.Timer GameTimer = new System.Windows.Forms.Timer();
         System.Windows.Forms.Timer timerFuel = new System.Windows.Forms.Timer();
+        bool debug = false;
         TimeSpan total = new TimeSpan();
-        bool noFuel = false; //Moet nog per player worden gedaan.
-        string bestLab = ""; //Moet dit per persoon, of is dit beste rondetijd die speelbeurt?
 
         public Form1()
         {
             InitializeComponent();
+            //track.SetTrack(0);
+            player1.SetAuto(0);
+            player2.SetAuto(0);
             player1.carPos= new PointF(545f, 515f);
             player2.carPos = new PointF(545f, 535f);
-            track.track = new Bitmap(RaceGame.Properties.Resources.racetrack);            
             this.SetStyle(
             ControlStyles.UserPaint |
             ControlStyles.AllPaintingInWmPaint |
@@ -58,6 +59,7 @@ namespace RaceGame
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
         }
+
         void ESC()
         {
             if (i == 0)
@@ -126,7 +128,7 @@ namespace RaceGame
                 if (Backbuffer != null)
                 {
                     System.Drawing.Pen pen = new System.Drawing.Pen(System.Drawing.Brushes.Black);
-                    g.DrawImage(track.track, 0, 0, 1024, 768);
+                    g.DrawImage(player1.GetTrack(), 0, 0, 1024, 768);
                     Invalidate();
                     g.DrawImage(player1.rotateCenter(), player1.carPos);
                     g.DrawImage(player2.rotateCenter(), player2.carPos);
@@ -136,6 +138,8 @@ namespace RaceGame
         void timer1_Tick(object sender, EventArgs e)
         {
             Draw();
+            if(debug != true)
+            {
             if (countDownTimer != 0)
             {
                 timer1.Interval = 1000;
@@ -156,15 +160,26 @@ namespace RaceGame
                 timerFuel.Start();
                 countDownTimer--;                
             }
-            
+            }else
+            {
+                GameTimer.Start();
+            }
         }
         
         void GameTimer_Tick(object sender, EventArgs e)
         {            
             total = total.Add(TimeSpan.FromMilliseconds(10));
-            label3.Text = total.ToString(); //Betere naam voor label3, zoals labelTijdPlayer1 ofzo?
-            label5.Text = player1.checkPointtime();//idem
-            //label12.Text = player2.time.ToString(); //idem
+            label3.Text = total.ToString();
+            if (debug != true)
+            {
+                label5.Text = player1.breaktime;
+                label12.Text = player2.breaktime;
+            }
+            else
+            {
+                label5.Text = Convert.ToString(player1.carPos.X);
+                label12.Text = Convert.ToString(player1.carPos.Y);
+            }
             label1.Text = Convert.ToString(player1.fuel);
             label13.Text = Convert.ToString(player2.fuel);
             player1.Race();

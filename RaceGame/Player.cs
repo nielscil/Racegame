@@ -11,7 +11,8 @@ namespace RaceGame
     class Player
     {
         //private Form1 form1 = new Form1();
-        private Track track = new Track();
+        Track track = new Track();
+        List<TimeSpan> bestlap1 = new List<TimeSpan>();
         public string naam;
         private bool l,r,f,b = false;
         private float speed,angle = 0f;
@@ -28,10 +29,11 @@ namespace RaceGame
         public PointF carSpeed;
         public string ronde;
         public string bestlap;
-        public string timer;
-        private Bitmap auto = new Bitmap(RaceGame.Properties.Resources.AutoVierkantRood, 30, 30);
+        public string breaktime;
+        private Bitmap auto;
         public TimeSpan time = new TimeSpan();
-        byte i, checkpointcounter = 0;
+        byte track_nr, i = 0;
+        byte checkpointcounter = 0;
 
         public void SetAuto(int nr)
         {
@@ -51,9 +53,19 @@ namespace RaceGame
                     break;
                 case 4:
                     auto = new Bitmap(RaceGame.Properties.Resources.AutoVierkantRegenboog, 30, 30);
-                    break;
+                    break; 
             }
-            
+            track.SetTrack(track_nr);
+        }
+
+        public void SetTrack(byte track_nr)
+        {
+            this.track_nr = track_nr;
+        }
+
+        public Bitmap GetTrack()
+        {
+            return track.track;
         }
 
         public Bitmap GetAuto()
@@ -65,61 +77,50 @@ namespace RaceGame
         {
             for (int i = 0; i < checkpointcounter; )
             {
-                timer = time.ToString();
+                breaktime = time.ToString();
                 i++;             
             }
-            return timer;
+            return breaktime;
         }
 
         public void Finish()
         {
-            if ((carPos.X >= track.finish_x1 & carPos.X <= track.finish_x2) & (carPos.Y >= track.finish_y1 & carPos.Y <= track.finish_y2) && finishCheck() == true) // check ckepoint toevoegen
+           // if ((carPos.X >= track.finish_x1 & carPos.X <= track.finish_x2) & (carPos.Y >= track.finish_y1 & carPos.Y <= track.finish_y2) && finishCheck() == true) // check ckepoint toevoegen
             {
                 switch (i)
                 {
                     case 0:
                         ronde = "Ronde: 2";
-                        bestlap = time.ToString();
-                        bestlap = "Best lap: " + bestlap;
+                        bestlap1.Add(time);
+                        bestlap = bestlap1.ToString();
                         time = TimeSpan.Zero;
                         i++;
                         break;
 
                     case 1:
                         ronde = "Ronde: 3";
-                        //if (TimeSpan.Parse(bestlab) < time)
-                        {
-                            bestlap = time.ToString(); //Hoe komt dit voor Player2?
-                        }
+
                         time = TimeSpan.Zero;
                         i++;
                         break;
 
                     case 2:
                         ronde = "Ronde: 4";
-                       // if (TimeSpan.Parse(bestlab) < time)
-                        {
-                            bestlap = time.ToString();
-                        }
+
                         time = TimeSpan.Zero;
                         i++;
                         break;
                     case 3:
                         ronde = "Ronde: 5";
                        // if (TimeSpan.Parse(bestlab) < time)
-                        {
-                            bestlap = time.ToString();
-                        }
+
                         time = TimeSpan.Zero;
                         i++;
                         break;
 
                     case 4:
                         ronde = "Finish";
-                        //if (TimeSpan.Parse(bestlab) < time)
-                        {
-                            bestlap = time.ToString();
-                        }
+
                         time = TimeSpan.Zero;
                         i++;
                         break;
@@ -138,7 +139,7 @@ namespace RaceGame
                 angle += 0.03f;
             }
 
-            if (f == true && noFuel == false && speed > -3)
+            if (f == true && noFuel == false && speed > -2)
             {
                 speed -= 0.1f;
             }
@@ -180,8 +181,10 @@ namespace RaceGame
             if (fuel == 0)
             {
                 speed = 0;
-                noFuel = true;              
+                noFuel = true;
             }
+            else
+                noFuel = false;
             if ((carPos.X + 25) > 425f && (carPos.X + 25) < 650f && (carPos.Y + 25) > 680 && (carPos.Y + 25) < 750 && speed < 0.001f && speed > -0.001f)//checkt of balletje stil is in het aangegeven vak.
             {
                 if (fuel < 100)
@@ -190,11 +193,11 @@ namespace RaceGame
                 }
             }
         }
-
+        
         public void Checkpoints()
         {
             //checkpoint 1. op track 1, deze punten moeten dus in class voor track1 komen te staan ofzo.
-            if ((carPos.X + 25 >= track.checkp1_x1 & carPos.X + 25 <= track.checkp1_x2) & (carPos.Y >= track.checkp1_y1 & carPos.Y <= track.checkp1_y2))
+            if ((carPos.X + 25 >= track.GetCheckpointPosX(1) & carPos.X + 25 <= track.GetCheckpointPosX(2) & (carPos.Y >= track.GetCheckpointPosY(1) & carPos.Y <= track.GetCheckpointPosY(2))))
             {
                 SetCheckpoint(1);
                 checkpointcounter++;
@@ -208,7 +211,7 @@ namespace RaceGame
                 checkPointtime();
             }
             //checkpoint 3???
-            if ((carPos.X >= track.checkp3_x1 & carPos.X <= track.checkp2_x2) & (carPos.Y >= track.checkp3_y1 & carPos.Y <= track.checkp3_y2) & CheckCheckpoint(2) == true)
+            if ((carPos.X >= track.checkp3_x1 & carPos.X <= track.checkp3_x2) & (carPos.Y >= track.checkp3_y1 & carPos.Y <= track.checkp3_y2) & CheckCheckpoint(2) == true)
             {
                 SetCheckpoint(3);
                 checkpointcounter++;
