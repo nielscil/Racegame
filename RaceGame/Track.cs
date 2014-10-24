@@ -21,8 +21,8 @@ namespace RaceGame
             switch(trk)
             {
                 case 0:
-                    track = new Bitmap(RaceGame.Properties.Resources.racetrack);
-                    collissionMap = new Bitmap(1, 22);
+                    track = new Bitmap(RaceGame.Properties.Resources.Afrika1);
+                    collissionMap = new Bitmap(RaceGame.Properties.Resources.Afrika);
                     //cp1
                     checkp1_x1 = 260;
                     checkp1_x2 = 280;
@@ -60,8 +60,8 @@ namespace RaceGame
                     finish_y2 = 768;
                     break;
                 case 1:
-                    track = new Bitmap(1,22);
-                    collissionMap = new Bitmap(1, 22);
+                    track = new Bitmap(RaceGame.Properties.Resources.Antarctica1);
+                    collissionMap = new Bitmap(RaceGame.Properties.Resources.Antarctica);
                     checkp1_x1 = 275;
                     checkp1_x2 = 280;
                     checkp2_x1 = 165;
@@ -92,8 +92,8 @@ namespace RaceGame
                     finish_y2 = 768;
                     break;
                 case 2:
-                    track = new Bitmap(1,22);
-                    collissionMap = new Bitmap(1, 22);
+                    track = new Bitmap(RaceGame.Properties.Resources.Australie1);
+                    collissionMap = new Bitmap(RaceGame.Properties.Resources.Australie);
                     checkp1_x1 = 275;
                     checkp1_x2 = 280;
                     checkp2_x1 = 165;
@@ -124,8 +124,8 @@ namespace RaceGame
                     finish_y2 = 768;
                     break;
                 case 3:
-                    track = new Bitmap(1,22);
-                    collissionMap = new Bitmap(1, 22);
+                    track = new Bitmap(RaceGame.Properties.Resources.Azie1);
+                    collissionMap = new Bitmap(RaceGame.Properties.Resources.Azie);
                     checkp1_x1 = 275;
                     checkp1_x2 = 280;
                     checkp2_x1 = 165;
@@ -156,8 +156,8 @@ namespace RaceGame
                     finish_y2 = 768;
                     break;
                 case 4:
-                    track = new Bitmap(1,22);
-                    collissionMap = new Bitmap(1, 22);
+                    track = new Bitmap(RaceGame.Properties.Resources.Europa1);
+                    collissionMap = new Bitmap(RaceGame.Properties.Resources.Europa);
                     checkp1_x1 = 275;
                     checkp1_x2 = 280;
                     checkp2_x1 = 165;
@@ -188,8 +188,8 @@ namespace RaceGame
                     finish_y2 = 768;
                     break;
                 case 5:
-                    track = new Bitmap(1,22);
-                    collissionMap = new Bitmap(1, 22);
+                    track = new Bitmap(RaceGame.Properties.Resources.Noord_Amerika1);
+                    collissionMap = new Bitmap(RaceGame.Properties.Resources.Noord_Amerika);
                     checkp1_x1 = 275;
                     checkp1_x2 = 280;
                     checkp2_x1 = 165;
@@ -220,8 +220,8 @@ namespace RaceGame
                     finish_y2 = 768;
                     break;
                 case 6:
-                    track = new Bitmap(1,22);
-                    collissionMap = new Bitmap(1, 22);
+                    track = new Bitmap(RaceGame.Properties.Resources.Zuid_Amerika1);
+                    collissionMap = new Bitmap(RaceGame.Properties.Resources.Zuid_Amerika);
                     checkp1_x1 = 275;
                     checkp1_x2 = 280;
                     checkp2_x1 = 165;

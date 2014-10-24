@@ -28,8 +28,7 @@ namespace RaceGame
         public PointF carPos;
         public PointF carSpeed;
         public string ronde = "Ronde 1";
-        public string bestlap;
-        public string breaktime;
+        public string breaktime = "00:00:00";
         private Bitmap auto;
         public string laptime = "00:00:00";
         public TimeSpan time = new TimeSpan();
@@ -189,13 +188,15 @@ namespace RaceGame
             else if (b == false && speed == 0.05)
             {
                 speed = 0;
-            }
+            }           
             time = time.Add(TimeSpan.FromMilliseconds(10));
             carSpeed.X = (float)(speed * Math.Cos(angle));
             carSpeed.Y = (float)(speed * Math.Sin(angle));
             carPos.X += carSpeed.X;
             carPos.Y += carSpeed.Y;
             distance += Math.Sqrt(Math.Pow(carSpeed.X, 2) + Math.Pow(carSpeed.Y, 2));
+            Checkpoints();
+            Finish();
         }
 
         public void Fuel()

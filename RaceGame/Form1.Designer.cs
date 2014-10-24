@@ -314,7 +314,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.BackgroundImage = global::RaceGame.Properties.Resources.racetrack;
+            this.BackgroundImage = global::RaceGame.Properties.Resources.Zuid_Amerika1;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(1008, 729);
             this.Controls.Add(this.label13);
