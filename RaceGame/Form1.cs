@@ -18,7 +18,6 @@ namespace RaceGame
     //Of dat er iets mee gedaan moet worden.
     public partial class Form1 : Form
     {
-        //Track track = new Track();
         Player player1 = new Player();
         Player player2 = new Player();        
         Bitmap Backbuffer;
@@ -33,11 +32,10 @@ namespace RaceGame
         public Form1()
         {
             InitializeComponent();
-            //track.SetTrack(0);
-            player1.SetAuto(0);
-            player2.SetAuto(0);
-            player1.carPos= new PointF(545f, 515f);
-            player2.carPos = new PointF(545f, 535f);
+            player1.SetTrack(0);
+            player2.SetTrack(0);
+            player1.SetAuto(0,0);
+            player2.SetAuto(1,1);
             this.SetStyle(
             ControlStyles.UserPaint |
             ControlStyles.AllPaintingInWmPaint |
@@ -173,6 +171,8 @@ namespace RaceGame
             label8.Text = player1.laptime;
             label9.Text = player2.laptime;
             label6.Text = player1.ronde;
+            label9.Text = player2.laptime;
+            label11.Text = player2.ronde;
             if (debug != true)
             {
                 label5.Text = player1.breaktime;
