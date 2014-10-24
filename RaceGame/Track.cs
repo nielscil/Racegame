@@ -49,8 +49,8 @@ namespace RaceGame
                     checkp5_y1 = 338;
                     checkp5_y2 = 348;
                     //cp6
-                    checkp6_x1 = 793;
-                    checkp6_x2 = 798;
+                    checkp6_x1 = 790;
+                    checkp6_x2 = 795;
                     checkp6_y1 = 578;
                     checkp6_y2 = 674;
                     //finish

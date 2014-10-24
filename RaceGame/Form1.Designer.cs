@@ -231,6 +231,7 @@
             this.label8.Size = new System.Drawing.Size(143, 20);
             this.label8.TabIndex = 10;
             this.label8.Text = "Best Lap: 00:00:00";
+            
             // 
             // label9
             // 
@@ -313,6 +314,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.BackgroundImage = global::RaceGame.Properties.Resources.racetrack;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(1008, 729);
             this.Controls.Add(this.label13);

@@ -27,11 +27,13 @@ namespace RaceGame
         public bool noFuel = false;
         public PointF carPos;
         public PointF carSpeed;
-        public string ronde;
+        public string ronde = "Ronde 1";
         public string bestlap;
         public string breaktime;
         private Bitmap auto;
+        public string laptime = "00:00:00";
         public TimeSpan time = new TimeSpan();
+        public TimeSpan besttime = new TimeSpan();
         byte track_nr, i = 0;
         byte checkpointcounter = 0;
 
@@ -75,54 +77,79 @@ namespace RaceGame
 
         public string checkPointtime()
         {
-            for (int i = 0; i < checkpointcounter; )
-            {
+          
                 breaktime = time.ToString();
-                i++;             
-            }
+                           
+            
             return breaktime;
         }
 
         public void Finish()
         {
-           // if ((carPos.X >= track.finish_x1 & carPos.X <= track.finish_x2) & (carPos.Y >= track.finish_y1 & carPos.Y <= track.finish_y2) && finishCheck() == true) // check ckepoint toevoegen
+            
+           if ((carPos.X >= track.finish_x1 & carPos.X <= track.finish_x2) & (carPos.Y >= track.finish_y1 & carPos.Y <= track.finish_y2) && checkedCheckpoint6 == true) // check ckepoint toevoegen
             {
                 switch (i)
                 {
                     case 0:
                         ronde = "Ronde: 2";
                         bestlap1.Add(time);
-                        bestlap = bestlap1.ToString();
+                        //bestlap = bestlap1.ToString();
+                       // int result = TimeSpan.Compare(time, besttime);
+                        laptime = time.ToString();
+                        besttime = time;
                         time = TimeSpan.Zero;
                         i++;
+                        checkedCheckpoint6 = false;
                         break;
 
                     case 1:
                         ronde = "Ronde: 3";
-
+                        
+                        int result = TimeSpan.Compare(time, besttime);
+                        if (result == -1)
+                        {
+                            laptime = time.ToString();
+                        }
                         time = TimeSpan.Zero;
                         i++;
+                        checkedCheckpoint6 = false;
                         break;
 
                     case 2:
                         ronde = "Ronde: 4";
-
+                        result = TimeSpan.Compare(time, besttime);
+                        if (result == -1)
+                        {
+                            laptime = time.ToString();
+                        }
                         time = TimeSpan.Zero;
                         i++;
+                        checkedCheckpoint6 = false;
                         break;
                     case 3:
                         ronde = "Ronde: 5";
                        // if (TimeSpan.Parse(bestlab) < time)
-
+                        result = TimeSpan.Compare(time, besttime);
+                        if (result == -1)
+                        {
+                            laptime = time.ToString();
+                        }
                         time = TimeSpan.Zero;
                         i++;
+                        checkedCheckpoint6 = false;
                         break;
 
                     case 4:
                         ronde = "Finish";
-
+                        result = TimeSpan.Compare(time, besttime);
+                        if (result == -1)
+                        {
+                            laptime = time.ToString();
+                        }
                         time = TimeSpan.Zero;
                         i++;
+                        checkedCheckpoint6 = false;
                         break;
                 }
             }
@@ -139,7 +166,7 @@ namespace RaceGame
                 angle += 0.03f;
             }
 
-            if (f == true && noFuel == false && speed > -2)
+            if (f == true && noFuel == false && speed > -3)
             {
                 speed -= 0.1f;
             }
@@ -193,49 +220,50 @@ namespace RaceGame
                 }
             }
         }
+  
         
         public void Checkpoints()
         {
             //checkpoint 1. op track 1, deze punten moeten dus in class voor track1 komen te staan ofzo.
-            if ((carPos.X + 25 >= track.GetCheckpointPosX(1) & carPos.X + 25 <= track.GetCheckpointPosX(2) & (carPos.Y >= track.GetCheckpointPosY(1) & carPos.Y <= track.GetCheckpointPosY(2))))
+            if ((carPos.X + 25 >= track.GetCheckpointPosX(1) && carPos.X + 25 <= track.GetCheckpointPosX(2) && (carPos.Y >= track.GetCheckpointPosY(1) && carPos.Y <= track.GetCheckpointPosY(2))))
             {
                 SetCheckpoint(1);
-                checkpointcounter++;
+              //  checkpointcounter++;
                 checkPointtime();
             }
             //checkpoint 2???
-            if ((carPos.X + 25 >= track.checkp2_x1 & carPos.X <= track.checkp2_x2) & (carPos.Y >= track.checkp2_y1 & carPos.Y <= track.checkp2_y2) & CheckCheckpoint(1) == true)
+            if ((carPos.X + 25 >= track.checkp2_x1 && carPos.X <= track.checkp2_x2)&& (carPos.Y >= track.checkp2_y1 && carPos.Y <= track.checkp2_y2) && CheckCheckpoint(1) == true)
             {
                 SetCheckpoint(2);
-                checkpointcounter++;
+               // checkpointcounter++;
                 checkPointtime();
             }
             //checkpoint 3???
-            if ((carPos.X >= track.checkp3_x1 & carPos.X <= track.checkp3_x2) & (carPos.Y >= track.checkp3_y1 & carPos.Y <= track.checkp3_y2) & CheckCheckpoint(2) == true)
+            if ((carPos.X >= track.checkp3_x1 && carPos.X <= track.checkp3_x2) && (carPos.Y >= track.checkp3_y1 && carPos.Y <= track.checkp3_y2) && CheckCheckpoint(2) == true)
             {
                 SetCheckpoint(3);
                 checkpointcounter++;
                 checkPointtime();
             }
             //checkpoint 4???
-            if ((carPos.X >= track.checkp4_x1 & carPos.X <= track.checkp4_x2) & (carPos.Y >= track.checkp4_y1 & carPos.Y <= track.checkp4_y2) & CheckCheckpoint(3) == true)
+            if ((carPos.X >= track.checkp4_x1 && carPos.X <= track.checkp4_x2) && (carPos.Y >= track.checkp4_y1 && carPos.Y <= track.checkp4_y2) && CheckCheckpoint(3) == true)
             {
                 SetCheckpoint(4);
-                checkpointcounter++;
+               // checkpointcounter++;
                 checkPointtime();
             }
             //checkpoint 5???
-            if ((carPos.X >= track.checkp5_x1 & carPos.X <= track.checkp5_x2) & (carPos.Y >= track.checkp5_y1 & carPos.Y <= track.checkp5_y2) & CheckCheckpoint(4) == true)
+            if ((carPos.X >= track.checkp5_x1 && carPos.X <= track.checkp5_x2) && (carPos.Y >= track.checkp5_y1 && carPos.Y <= track.checkp5_y2) && CheckCheckpoint(4) == true)
             {
                 SetCheckpoint(5);
-                checkpointcounter++;
+               // checkpointcounter++;
                 checkPointtime();
             }
             //checkpoint 6???
-            if ((carPos.X >= track.checkp6_x1 & carPos.X <= track.checkp6_x1) & (carPos.Y >= track.checkp6_y1 & carPos.Y <= track.checkp6_y2) & CheckCheckpoint(5) == true)
+            if ((carPos.X >= track.checkp6_x1 && carPos.X <= track.checkp6_x2) && (carPos.Y >= track.checkp6_y1 && carPos.Y <= track.checkp6_y2) && CheckCheckpoint(5) == true)
             {
                 SetCheckpoint(6);
-                checkpointcounter++;
+                //checkpointcounter++;
                 checkPointtime();
             }
         }

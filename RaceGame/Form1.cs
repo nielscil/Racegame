@@ -170,10 +170,13 @@ namespace RaceGame
         {            
             total = total.Add(TimeSpan.FromMilliseconds(10));
             label3.Text = total.ToString();
+            label8.Text = player1.laptime;
+            label6.Text = player1.ronde;
             if (debug != true)
             {
                 label5.Text = player1.breaktime;
                 label12.Text = player2.breaktime;
+                
             }
             else
             {
@@ -222,5 +225,7 @@ namespace RaceGame
 
             Console.WriteLine("X: " + myX + " Y: " + myY);
         }
+
+
     }
 }
