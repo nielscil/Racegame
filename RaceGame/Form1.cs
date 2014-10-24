@@ -14,8 +14,6 @@ using System.Windows;
 
 namespace RaceGame
 {
-    //Met commentaar heb ik even een todo lijst toegevoegd bij de code die miss verrandert kan worden.(Eelke/Wolfgang) :D
-    //Of dat er iets mee gedaan moet worden.
     public partial class Form1 : Form
     {
         Player player1 = new Player();
@@ -30,11 +28,8 @@ namespace RaceGame
         System.Windows.Forms.Timer GameTimer = new System.Windows.Forms.Timer();
         System.Windows.Forms.Timer timerFuel = new System.Windows.Forms.Timer();
         TimeSpan total = new TimeSpan();
-        TimeSpan Player1 = new TimeSpan(); //Player1 is een TimeSpan en player1 is een Player, is dit niet ingewikkeld?
-        TimeSpan Player2 = new TimeSpan(); // Same as above, maar Player player2 word nooit aangemaakt?
-        bool noFuel = false; //Moet nog per player worden gedaan.
         byte checkpointcounter = 0;
-        string bestLab = ""; //Moet dit per persoon, of is dit beste rondetijd die speelbeurt?
+        string bestLab = "";
         public Form1()
         {
             InitializeComponent();
@@ -66,7 +61,7 @@ namespace RaceGame
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(Form1_keyUp);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(myForm_MouseClick);
 
-            //Maakt het fullscreen (Y)
+            //Maakt het fullscreen
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
         }
@@ -214,61 +209,6 @@ namespace RaceGame
             int myY = e.Y;
 
             Console.WriteLine("X: " + myX + " Y: " + myY);
-        }
-
-        private void checkPointtimeplayer1()
-        {
-            for (int i = 0; i < checkpointcounter; )
-            {
-                labelPlayer1RondeTijd.Text = Player1.ToString();
-                i++;
-            }
-
-        }
-        private void checkPoint()
-        {
-            //checkpoint 1. op track 1, deze punten moeten dus in class voor track1 komen te staan ofzo.
-            if ((player1.carPos.X + 25 >= 275 & player1.carPos.X + 25 <= 280) & (player1.carPos.Y >= 588 & player1.carPos.Y <= 668))
-            {
-                player1.SetCheckpoint(1);
-                checkpointcounter++;
-                checkPointtimeplayer1();
-            }
-            //checkpoint 2???
-            if ((player1.carPos.X + 25 >= 165 & player1.carPos.X <= 170) & (player1.carPos.Y >= 74 & player1.carPos.Y <= 148) & player1.CheckCheckpoint(1) == true)
-            {
-                player1.SetCheckpoint(2);
-                checkpointcounter++;
-                checkPointtimeplayer1();
-            }
-            //checkpoint 3???
-            if ((player1.carPos.X >= 434 & player1.carPos.X <= 499) & (player1.carPos.Y >= 192 & player1.carPos.Y <= 197) & player1.CheckCheckpoint(2) == true)
-            {
-                player1.SetCheckpoint(3);
-                checkpointcounter++;
-                checkPointtimeplayer1();
-            }
-            //checkpoint 4???
-            if ((player1.carPos.X >= 578 & player1.carPos.X <= 583) & (player1.carPos.Y >= 414 & player1.carPos.Y <= 488) & player1.CheckCheckpoint(3) == true)
-            {
-                player1.SetCheckpoint(4);
-                checkpointcounter++;
-                checkPointtimeplayer1();
-            }
-            //checkpoint 5???
-            if ((player1.carPos.X >= 852 & player1.carPos.X <= 857) & (player1.carPos.Y >= 0 & player1.carPos.Y <= 69) & player1.CheckCheckpoint(4) == true)
-            {
-                player1.SetCheckpoint(5);
-                checkpointcounter++;
-                checkPointtimeplayer1();
-            }
-            //checkpoint 6???
-            if ((player1.carPos.X >= 793 & player1.carPos.X <= 798) & (player1.carPos.Y >= 589 & player1.carPos.Y <= 672) & player1.CheckCheckpoint(5) == true)
-            {
-                player1.SetCheckpoint(6);
-                checkpointcounter++;
-                checkPointtimeplayer1();
-            }
         }
     }
 }
