@@ -44,14 +44,17 @@
             this.labelPlayer1FuelHoeveel = new System.Windows.Forms.Label();
             this.labelCountdown = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.labelPlayer1RondeTijd = new System.Windows.Forms.Label();
+            this.labelPlayer1CheckTijd = new System.Windows.Forms.Label();
             this.labelPlayer1RondeNummer = new System.Windows.Forms.Label();
             this.labelPlayer1 = new System.Windows.Forms.Label();
-            this.labelPlayer1BestLap = new System.Windows.Forms.Label();
-            this.labelPlayer2BestLap = new System.Windows.Forms.Label();
+            this.labelPlayer1RondeTijd = new System.Windows.Forms.Label();
+            this.labelPlayer2RondeTijd = new System.Windows.Forms.Label();
             this.labelPlayer2 = new System.Windows.Forms.Label();
             this.labelPlayer2RondeNummer = new System.Windows.Forms.Label();
-            this.labelPlayer2RondeTijd = new System.Windows.Forms.Label();
+            this.labelPlayer2CheckTijd = new System.Windows.Forms.Label();
+            this.labelPlayer2Fuel = new System.Windows.Forms.Label();
+            this.progressBarPlayer2Fuel = new System.Windows.Forms.ProgressBar();
+            this.labelPlayer2FuelHoeveel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -120,7 +123,7 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.buttonRestart);
             this.panel1.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.panel1.Location = new System.Drawing.Point(593, 70);
+            this.panel1.Location = new System.Drawing.Point(256, 70);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(647, 476);
             this.panel1.TabIndex = 1;
@@ -128,9 +131,9 @@
             // 
             // buttonStop
             // 
-            this.buttonStop.Location = new System.Drawing.Point(90, 201);
+            this.buttonStop.Location = new System.Drawing.Point(75, 191);
             this.buttonStop.Name = "buttonStop";
-            this.buttonStop.Size = new System.Drawing.Size(83, 32);
+            this.buttonStop.Size = new System.Drawing.Size(112, 40);
             this.buttonStop.TabIndex = 4;
             this.buttonStop.Text = "Stop";
             this.buttonStop.UseVisualStyleBackColor = true;
@@ -150,7 +153,7 @@
             // 
             this.buttonRestart.Location = new System.Drawing.Point(75, 119);
             this.buttonRestart.Name = "buttonRestart";
-            this.buttonRestart.Size = new System.Drawing.Size(111, 39);
+            this.buttonRestart.Size = new System.Drawing.Size(112, 40);
             this.buttonRestart.TabIndex = 1;
             this.buttonRestart.Text = "Restart";
             this.buttonRestart.UseVisualStyleBackColor = true;
@@ -186,15 +189,15 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // labelPlayer1RondeTijd
+            // labelPlayer1CheckTijd
             // 
-            this.labelPlayer1RondeTijd.BackColor = System.Drawing.Color.Transparent;
-            this.labelPlayer1RondeTijd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPlayer1RondeTijd.Location = new System.Drawing.Point(416, 628);
-            this.labelPlayer1RondeTijd.Name = "labelPlayer1RondeTijd";
-            this.labelPlayer1RondeTijd.Size = new System.Drawing.Size(100, 23);
-            this.labelPlayer1RondeTijd.TabIndex = 7;
-            this.labelPlayer1RondeTijd.Text = "00:00:00";
+            this.labelPlayer1CheckTijd.BackColor = System.Drawing.Color.Transparent;
+            this.labelPlayer1CheckTijd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPlayer1CheckTijd.Location = new System.Drawing.Point(416, 628);
+            this.labelPlayer1CheckTijd.Name = "labelPlayer1CheckTijd";
+            this.labelPlayer1CheckTijd.Size = new System.Drawing.Size(100, 23);
+            this.labelPlayer1CheckTijd.TabIndex = 7;
+            this.labelPlayer1CheckTijd.Text = "00:00:00";
             // 
             // labelPlayer1RondeNummer
             // 
@@ -218,27 +221,27 @@
             this.labelPlayer1.TabIndex = 9;
             this.labelPlayer1.Text = "Player 1";
             // 
-            // labelPlayer1BestLap
+            // labelPlayer1RondeTijd
             // 
-            this.labelPlayer1BestLap.AutoSize = true;
-            this.labelPlayer1BestLap.BackColor = System.Drawing.Color.Transparent;
-            this.labelPlayer1BestLap.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPlayer1BestLap.Location = new System.Drawing.Point(391, 648);
-            this.labelPlayer1BestLap.Name = "labelPlayer1BestLap";
-            this.labelPlayer1BestLap.Size = new System.Drawing.Size(143, 20);
-            this.labelPlayer1BestLap.TabIndex = 10;
-            this.labelPlayer1BestLap.Text = "Best Lap: 00:00:00";
+            this.labelPlayer1RondeTijd.AutoSize = true;
+            this.labelPlayer1RondeTijd.BackColor = System.Drawing.Color.Transparent;
+            this.labelPlayer1RondeTijd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPlayer1RondeTijd.Location = new System.Drawing.Point(391, 648);
+            this.labelPlayer1RondeTijd.Name = "labelPlayer1RondeTijd";
+            this.labelPlayer1RondeTijd.Size = new System.Drawing.Size(106, 20);
+            this.labelPlayer1RondeTijd.TabIndex = 10;
+            this.labelPlayer1RondeTijd.Text = "Lap: 00:00:00";
             // 
-            // labelPlayer2BestLap
+            // labelPlayer2RondeTijd
             // 
-            this.labelPlayer2BestLap.AutoSize = true;
-            this.labelPlayer2BestLap.BackColor = System.Drawing.Color.Transparent;
-            this.labelPlayer2BestLap.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPlayer2BestLap.Location = new System.Drawing.Point(550, 648);
-            this.labelPlayer2BestLap.Name = "labelPlayer2BestLap";
-            this.labelPlayer2BestLap.Size = new System.Drawing.Size(143, 20);
-            this.labelPlayer2BestLap.TabIndex = 14;
-            this.labelPlayer2BestLap.Text = "Best Lap: 00:00:00";
+            this.labelPlayer2RondeTijd.AutoSize = true;
+            this.labelPlayer2RondeTijd.BackColor = System.Drawing.Color.Transparent;
+            this.labelPlayer2RondeTijd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPlayer2RondeTijd.Location = new System.Drawing.Point(550, 648);
+            this.labelPlayer2RondeTijd.Name = "labelPlayer2RondeTijd";
+            this.labelPlayer2RondeTijd.Size = new System.Drawing.Size(106, 20);
+            this.labelPlayer2RondeTijd.TabIndex = 14;
+            this.labelPlayer2RondeTijd.Text = "Lap: 00:00:00";
             // 
             // labelPlayer2
             // 
@@ -262,15 +265,48 @@
             this.labelPlayer2RondeNummer.TabIndex = 12;
             this.labelPlayer2RondeNummer.Text = "Ronde: 1";
             // 
-            // labelPlayer2RondeTijd
+            // labelPlayer2CheckTijd
             // 
-            this.labelPlayer2RondeTijd.BackColor = System.Drawing.Color.Transparent;
-            this.labelPlayer2RondeTijd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPlayer2RondeTijd.Location = new System.Drawing.Point(566, 628);
-            this.labelPlayer2RondeTijd.Name = "labelPlayer2RondeTijd";
-            this.labelPlayer2RondeTijd.Size = new System.Drawing.Size(93, 20);
-            this.labelPlayer2RondeTijd.TabIndex = 11;
-            this.labelPlayer2RondeTijd.Text = "00:00:00";
+            this.labelPlayer2CheckTijd.BackColor = System.Drawing.Color.Transparent;
+            this.labelPlayer2CheckTijd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPlayer2CheckTijd.Location = new System.Drawing.Point(566, 628);
+            this.labelPlayer2CheckTijd.Name = "labelPlayer2CheckTijd";
+            this.labelPlayer2CheckTijd.Size = new System.Drawing.Size(93, 20);
+            this.labelPlayer2CheckTijd.TabIndex = 11;
+            this.labelPlayer2CheckTijd.Text = "00:00:00";
+            // 
+            // labelPlayer2Fuel
+            // 
+            this.labelPlayer2Fuel.AutoSize = true;
+            this.labelPlayer2Fuel.BackColor = System.Drawing.Color.Transparent;
+            this.labelPlayer2Fuel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPlayer2Fuel.Location = new System.Drawing.Point(898, 635);
+            this.labelPlayer2Fuel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelPlayer2Fuel.Name = "labelPlayer2Fuel";
+            this.labelPlayer2Fuel.Size = new System.Drawing.Size(83, 37);
+            this.labelPlayer2Fuel.TabIndex = 16;
+            this.labelPlayer2Fuel.Text = "Fuel";
+            // 
+            // progressBarPlayer2Fuel
+            // 
+            this.progressBarPlayer2Fuel.BackColor = System.Drawing.Color.White;
+            this.progressBarPlayer2Fuel.Location = new System.Drawing.Point(897, 674);
+            this.progressBarPlayer2Fuel.Margin = new System.Windows.Forms.Padding(2);
+            this.progressBarPlayer2Fuel.Name = "progressBarPlayer2Fuel";
+            this.progressBarPlayer2Fuel.Size = new System.Drawing.Size(100, 41);
+            this.progressBarPlayer2Fuel.TabIndex = 17;
+            // 
+            // labelPlayer2FuelHoeveel
+            // 
+            this.labelPlayer2FuelHoeveel.AutoSize = true;
+            this.labelPlayer2FuelHoeveel.BackColor = System.Drawing.Color.Transparent;
+            this.labelPlayer2FuelHoeveel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPlayer2FuelHoeveel.Location = new System.Drawing.Point(821, 683);
+            this.labelPlayer2FuelHoeveel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelPlayer2FuelHoeveel.Name = "labelPlayer2FuelHoeveel";
+            this.labelPlayer2FuelHoeveel.Size = new System.Drawing.Size(72, 37);
+            this.labelPlayer2FuelHoeveel.TabIndex = 18;
+            this.labelPlayer2FuelHoeveel.Text = "100";
             // 
             // Form1
             // 
@@ -280,14 +316,17 @@
             this.BackgroundImage = global::RaceGame.Properties.Resources.racetrack;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(1008, 730);
-            this.Controls.Add(this.labelPlayer2BestLap);
+            this.Controls.Add(this.labelPlayer2FuelHoeveel);
+            this.Controls.Add(this.progressBarPlayer2Fuel);
+            this.Controls.Add(this.labelPlayer2Fuel);
+            this.Controls.Add(this.labelPlayer2RondeTijd);
             this.Controls.Add(this.labelPlayer2);
             this.Controls.Add(this.labelPlayer2RondeNummer);
-            this.Controls.Add(this.labelPlayer2RondeTijd);
-            this.Controls.Add(this.labelPlayer1BestLap);
+            this.Controls.Add(this.labelPlayer2CheckTijd);
+            this.Controls.Add(this.labelPlayer1RondeTijd);
             this.Controls.Add(this.labelPlayer1);
             this.Controls.Add(this.labelPlayer1RondeNummer);
-            this.Controls.Add(this.labelPlayer1RondeTijd);
+            this.Controls.Add(this.labelPlayer1CheckTijd);
             this.Controls.Add(this.labelPlayer1FuelHoeveel);
             this.Controls.Add(this.fuelAmount);
             this.Controls.Add(this.labelPlayer1Fuel);
@@ -324,14 +363,17 @@
         private System.Windows.Forms.Label labelPlayer1FuelHoeveel;
         private System.Windows.Forms.Label labelCountdown;
         public System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Label labelPlayer1RondeTijd;
+        private System.Windows.Forms.Label labelPlayer1CheckTijd;
         private System.Windows.Forms.Label labelPlayer1RondeNummer;
         private System.Windows.Forms.Label labelPlayer1;
-        private System.Windows.Forms.Label labelPlayer1BestLap;
-        private System.Windows.Forms.Label labelPlayer2BestLap;
+        private System.Windows.Forms.Label labelPlayer1RondeTijd;
+        private System.Windows.Forms.Label labelPlayer2RondeTijd;
         private System.Windows.Forms.Label labelPlayer2;
         private System.Windows.Forms.Label labelPlayer2RondeNummer;
-        private System.Windows.Forms.Label labelPlayer2RondeTijd;
+        private System.Windows.Forms.Label labelPlayer2CheckTijd;
+        private System.Windows.Forms.Label labelPlayer2Fuel;
+        private System.Windows.Forms.ProgressBar progressBarPlayer2Fuel;
+        private System.Windows.Forms.Label labelPlayer2FuelHoeveel;
 
     }
 }

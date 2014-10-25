@@ -84,19 +84,26 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="racetrack.jpg" />
+    <Content Include="Resources\Afrika.bmp" />
+    <Content Include="Resources\Afrika.jpg" />
+    <Content Include="Resources\Antarctica.bmp" />
+    <Content Include="Resources\Antarctica.jpg" />
+    <Content Include="Resources\Australië.bmp" />
+    <Content Include="Resources\Australië.jpg" />
+    <Content Include="Resources\Azië.bmp" />
+    <Content Include="Resources\Azië.jpg" />
+    <Content Include="Resources\Europa.bmp" />
+    <Content Include="Resources\Europa.jpg" />
+    <Content Include="Resources\Noord-Amerika.bmp" />
+    <Content Include="Resources\Noord-Amerika.jpg" />
+    <Content Include="Resources\Zuid-Amerika.bmp" />
+    <Content Include="Resources\Zuid-Amerika.jpg" />
     <None Include="Resources\text_paused_resized.png" />
-    <None Include="Resources\text_paused_000000.png" />
     <None Include="Resources\AutoVierkantRegenboog.png" />
     <None Include="Resources\AutoVierkantGroen.png" />
     <None Include="Resources\AutoVierkantGrijs.png" />
     <None Include="Resources\AutoVierkantBlauw.png" />
     <None Include="Resources\AutoVierkantRood.png" />
-    <None Include="Resources\AutoGrijs.png" />
-    <None Include="Resources\AutoBlauw.png" />
-    <None Include="Resources\AutoRood.png" />
-    <None Include="Resources\AutoRegenboog.png" />
-    <None Include="Resources\AutoGroen.png" />
-    <None Include="Resources\racetrack1.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -18,38 +18,31 @@ namespace RaceGame
     {
         Player player1 = new Player();
         Player player2 = new Player();
-
-        Track track = new Track();
-
         Bitmap Backbuffer;
         Bitmap paused = new Bitmap(RaceGame.Properties.Resources.text_paused_resized);
         byte i = 0;
         double countDownTimer = 3;
         System.Windows.Forms.Timer GameTimer = new System.Windows.Forms.Timer();
         System.Windows.Forms.Timer timerFuel = new System.Windows.Forms.Timer();
+        bool debug = false;
         TimeSpan total = new TimeSpan();
-        byte checkpointcounter = 0;
-        string bestLab = "";
+
         public Form1()
         {
             InitializeComponent();
-            player1.carPos= new PointF(545f, 515f);
-            player1.carSpeed = new PointF(0, 0);
-
-            player2.carPos = new PointF(545f, 535f);
-            player2.carSpeed = new PointF(0, 0);
-
-            track.track = new Bitmap(RaceGame.Properties.Resources.racetrack);            
+            player1.SetTrack(0);
+            player2.SetTrack(0);
+            player1.SetAuto(0, 0);
+            player2.SetAuto(1, 1);
             this.SetStyle(
             ControlStyles.UserPaint |
             ControlStyles.AllPaintingInWmPaint |
             ControlStyles.DoubleBuffer, true);
-
             timer1.Interval = 1;
             timer1.Tick += new EventHandler(timer1_Tick);
             timer1.Start();
             GameTimer.Interval = 10;
-            GameTimer.Tick += new EventHandler(GameTimer_Tick);            
+            GameTimer.Tick += new EventHandler(GameTimer_Tick);
             KeyPreview = true;
             timerFuel.Interval = 100;
             timerFuel.Tick += new EventHandler(timerFuel_Tick_1);
@@ -59,7 +52,6 @@ namespace RaceGame
             this.Paint += new PaintEventHandler(Form1_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(Form1_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(Form1_keyUp);
-            this.MouseClick += new System.Windows.Forms.MouseEventHandler(myForm_MouseClick);
 
             //Maakt het fullscreen
             FormBorderStyle = FormBorderStyle.None;
@@ -71,7 +63,7 @@ namespace RaceGame
             {
                 GameTimer.Stop();
                 timerFuel.Stop();
-                timer1.Stop();               
+                timer1.Stop();
                 panel1.Visible = true;
                 progressBarPlayer1Fuel.Visible = false;
                 labelPlayer1Fuel.Visible = false;
@@ -95,17 +87,17 @@ namespace RaceGame
                 labelTimer.Visible = true;
                 i = 0;
             }
-           
+
         }
         void Form1_keyUp(object sender, System.Windows.Forms.KeyEventArgs e)// wanneer toets losgelaten wordt, gebeurt dit
         {
-            player1.Key_up(sender, e,0);
-            player2.Key_up(sender, e,1);
+            player1.Key_up(sender, e, 0);
+            player2.Key_up(sender, e, 1);
         }
         void Form1_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)// wanneer toets ingedrukt wordt, gebeurt dit
         {
-            player1.Key_down(sender,e,0);
-            player2.Key_down(sender,e,1);
+            player1.Key_down(sender, e, 0);
+            player2.Key_down(sender, e, 1);
             if (e.KeyCode == Keys.Escape)
                 ESC();
         }
@@ -125,7 +117,7 @@ namespace RaceGame
             Backbuffer = new Bitmap(1024, 768);
         }
 
-        
+
         void Draw()
         {
             using (var g = Graphics.FromImage(Backbuffer))
@@ -133,7 +125,7 @@ namespace RaceGame
                 if (Backbuffer != null)
                 {
                     System.Drawing.Pen pen = new System.Drawing.Pen(System.Drawing.Brushes.Black);
-                    g.DrawImage(track.track, 0, 0, 1024, 768);
+                    g.DrawImage(player1.GetTrack(), 0, 0, 1024, 768);
                     Invalidate();
                     g.DrawImage(player1.rotateCenter(), player1.carPos);
                     g.DrawImage(player2.rotateCenter(), player2.carPos);
@@ -144,71 +136,86 @@ namespace RaceGame
         void timer1_Tick(object sender, EventArgs e)
         {
             Draw();
-            if (countDownTimer != 0)
+            if (debug == false)
             {
-                timer1.Interval = 1000;
-                countDownTimer = countDownTimer - 0.5;
-                labelCountdown.Text = Convert.ToString(countDownTimer);
-                labelTimer.Text = "00:00:00:00";
+                if (countDownTimer != 0)
+                {
+                    timer1.Interval = 1000;
+                    countDownTimer = countDownTimer - 0.5;
+                    labelCountdown.Text = Convert.ToString(countDownTimer);
+                    labelTimer.Text = "00:00:00:00";
+                }
+                if (countDownTimer < -0.3) //Waarom -0.3, ==-1 werkt ook toch?
+                {
+                    timer1.Stop();
+                    labelCountdown.Text = "";
+
+
+                }
+                if (countDownTimer == 0)
+                {
+                    labelCountdown.Text = "GO!";
+
+                    GameTimer.Start();
+                    timerFuel.Start();
+                    countDownTimer--;
+                }
+
             }
-            if (countDownTimer < -0.3) //Waarom -0.3, ==-1 werkt ook toch?
+            else
             {
-                timer1.Stop();
-                labelCountdown.Text = "";
-               
-            }
-            if (countDownTimer == 0)
-            {               
-                labelCountdown.Text = "GO!";                               
                 GameTimer.Start();
-                timerFuel.Start();
-                countDownTimer--;                
             }
-            
         }
-        
+
         void GameTimer_Tick(object sender, EventArgs e)
         {
             total = total.Add(TimeSpan.FromMilliseconds(10));
-            labelTimer.Text = total.ToString(); //Betere naam voor label3, zoals labelTijdPlayer1 ofzo?
-            labelPlayer1RondeTijd.Text = player1.time.ToString();
-            labelPlayer2RondeTijd.Text = player2.time.ToString();
+            labelTimer.Text = total.ToString();
+            labelPlayer1RondeTijd.Text = player1.laptime;
+            labelPlayer2RondeTijd.Text = player2.laptime;
+            labelPlayer1RondeNummer.Text = player1.ronde;
+            labelPlayer2RondeNummer.Text = player2.ronde;
+            if (debug == false)
+            {
+                labelPlayer1CheckTijd.Text = player1.breaktime;
+                labelPlayer2CheckTijd.Text= player2.breaktime;
+
+            }
+            else
+            {
+                labelPlayer1CheckTijd.Text = Convert.ToString(player1.carPos.X);
+                labelPlayer2CheckTijd.Text = Convert.ToString(player1.carPos.Y);
+            }
             labelPlayer1FuelHoeveel.Text = Convert.ToString(player1.fuel);
+            labelPlayer2FuelHoeveel.Text = Convert.ToString(player2.fuel);
             player1.Race();
             player2.Race();
-            player1.Finish();
-            player2.Finish();
             Draw();
-            player1.Checkpoints();
-            player2.Checkpoints();
         }
 
-        void timerFuel_Tick_1(object sender, EventArgs e)         
+        void timerFuel_Tick_1(object sender, EventArgs e)
         {
             player1.Fuel();
+            player2.Fuel();
             progressBarPlayer1Fuel.Value = player1.fuel;
+            progressBarPlayer2Fuel.Value = player2.fuel;
             progressBarPlayer1Fuel.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            progressBarPlayer2Fuel.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             progressBarPlayer1Fuel.BackColor = Color.Silver;
+            progressBarPlayer2Fuel.BackColor = Color.Silver;
             progressBarPlayer1Fuel.ForeColor = player1.GetFuelColor();
-            
-         }
+            progressBarPlayer2Fuel.ForeColor = player1.GetFuelColor();
+        }
         #endregion
         private void button1_Click(object sender, EventArgs e)
         {
-            Application.Restart();            
+            Application.Restart();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             Application.Exit();
-        }
-
-        void myForm_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
-        {
-            int myX = e.X;
-            int myY = e.Y;
-
-            Console.WriteLine("X: " + myX + " Y: " + myY);
         }
     }
 }
