@@ -174,11 +174,11 @@ namespace RaceGame
                 angle += 0.03f;
             }
 
-            if (f == true && noFuel == false && speed > -3)
+            if (f == true && noFuel == false && speed > -3 && collideBlock == false)
             {
                 speed -= 0.1f;
             }
-            else if (b == true && noFuel == false && speed < 0.5)
+            else if (b == true && noFuel == false && speed < 0.5 && collideBlock == false)
             {
                 speed += 0.05f;
             }
