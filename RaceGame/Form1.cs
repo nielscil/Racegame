@@ -72,6 +72,7 @@ namespace RaceGame
                 label1.Visible = false;
                 label4.Visible = false;
                 label3.Visible = false;
+                //Andere labels
                 i++;
             }
             else
@@ -86,6 +87,7 @@ namespace RaceGame
                 label1.Visible = true;
                 label4.Visible = true;
                 label3.Visible = true;
+                //Andere labels
                 i = 0;
             }
 

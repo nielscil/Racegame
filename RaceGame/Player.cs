@@ -56,22 +56,6 @@ namespace RaceGame
             track.SetTrack(track_nr);
             SetCarPos(player);
         }
-        public void SetCarPos(byte invoer)
-        {
-            switch(invoer)
-            {
-                case 0:
-                    carPos = track.carPos1;
-                    break;
-                case 1:
-                    carPos = track.carPos2;
-                    break;
-
-            }
-            track.SetTrack(track_nr);
-            SetCarPos(player);
-
-        }
 		
         public void SetCarPos(byte invoer)
         {

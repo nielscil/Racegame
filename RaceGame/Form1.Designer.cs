@@ -102,7 +102,7 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.button1);
             this.panel1.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.panel1.Location = new System.Drawing.Point(452, 228);
+            this.panel1.Location = new System.Drawing.Point(260, 93);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(647, 476);
             this.panel1.TabIndex = 1;
@@ -311,6 +311,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(1098, 729);
             this.Controls.Add(this.fuelLabel);
             this.Controls.Add(this.fuelBar);
