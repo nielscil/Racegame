@@ -32,6 +32,8 @@ namespace RaceGame
         public TimeSpan time = new TimeSpan();
         public TimeSpan besttime = new TimeSpan();
         byte track_nr, i = 0;
+        Bitmap collisionMap = new Bitmap(RaceGame.Properties.Resources.Afrika);
+        bool collideBlock = false;
 
         public void SetAuto(byte nr,byte player)
         {
@@ -204,6 +206,7 @@ namespace RaceGame
             distance += Math.Sqrt(Math.Pow(carSpeed.X, 2) + Math.Pow(carSpeed.Y, 2));
             Checkpoints();
             Finish();
+            groundFactor();
         }
 
         #region fuel
@@ -466,6 +469,33 @@ namespace RaceGame
             else
             {
                 return false;
+            }
+        }
+
+        public void groundFactor()
+        {
+            Color RGB = collisionMap.GetPixel(Convert.ToInt32(carPos.X + 15), Convert.ToInt32(carPos.Y + 15));
+            if (RGB.R == 255 && RGB.G == 0 && RGB.B == 0)
+            {
+                collideBlock = true;
+                if (b == true)
+                {
+                    speed = -0.5f;
+                }
+                else
+                {
+                    speed = 0.5f;
+                }
+            }
+            else
+            {
+                collideBlock = false;
+            }
+
+            if (RGB.R == 255 && RGB.G == 255 && RGB.B == 255)
+            {
+                for (float i = speed; i <= -1f; i++)
+                    speed = speed + 0.25f;
             }
         }
         #endregion
