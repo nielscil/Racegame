@@ -103,7 +103,7 @@ namespace RaceGame
                 switch (i)
                 {
                     case 0:
-                        ronde = "Ronde: 2";
+                        ronde = "Round: 2";
                         bestlap1.Add(time);
                         laptime = time.ToString();
                         besttime = time;
@@ -113,7 +113,7 @@ namespace RaceGame
                         break;
 
                     case 1:
-                        ronde = "Ronde: 3";
+                        ronde = "Round: 3";
                         
                         int result = TimeSpan.Compare(time, besttime);
                         if (result == -1)
@@ -126,7 +126,7 @@ namespace RaceGame
                         break;
 
                     case 2:
-                        ronde = "Ronde: 4";
+                        ronde = "Round: 4";
                         result = TimeSpan.Compare(time, besttime);
                         if (result == -1)
                         {
@@ -137,7 +137,7 @@ namespace RaceGame
                         checkedCheckpoint6 = false;
                         break;
                     case 3:
-                        ronde = "Ronde: 5";
+                        ronde = "Round: 5";
                         result = TimeSpan.Compare(time, besttime);
                         if (result == -1)
                         {

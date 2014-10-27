@@ -171,7 +171,7 @@
             // 
             this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(433, 623);
+            this.label5.Location = new System.Drawing.Point(433, 626);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(100, 23);
             this.label5.TabIndex = 18;
@@ -186,7 +186,7 @@
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(74, 20);
             this.label6.TabIndex = 19;
-            this.label6.Text = "Ronde: 1";
+            this.label6.Text = "Round: 1";
             // 
             // label8
             // 
@@ -238,7 +238,7 @@
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(74, 20);
             this.label11.TabIndex = 23;
-            this.label11.Text = "Ronde: 1";
+            this.label11.Text = "Round: 1";
             // 
             // label14
             // 
