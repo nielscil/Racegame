@@ -28,7 +28,6 @@ namespace RaceGame
         public PointF carPos;
         public PointF carSpeed;
         public string ronde = "Ronde 1";
-        public string bestlap;
         public string breaktime = "00:00:00";
         private Bitmap auto;
         public string laptime = "00:00:00";
@@ -242,7 +241,7 @@ namespace RaceGame
             if ((carPos.X >= track.checkp3_x1 && carPos.X <= track.checkp3_x2) && (carPos.Y >= track.checkp3_y1 && carPos.Y <= track.checkp3_y2) && CheckCheckpoint(2) == true)
             {
                 SetCheckpoint(3);
-                checkpointcounter++;
+             //   checkpointcounter++;
                 checkPointtime();
             }
             //checkpoint 4???
