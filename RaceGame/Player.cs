@@ -96,7 +96,7 @@ namespace RaceGame
 
         public void Finish()
         {
-            if ((carPos.X >= track.finish_x1 & carPos.X <= track.finish_x2) & (carPos.Y >= track.finish_y1 & carPos.Y <= track.finish_y2))
+            if ((carPos.X >= track.finish_x1 && carPos.X <= track.finish_x2) && (carPos.Y >= track.finish_y1 && carPos.Y <= track.finish_y2) && checkedCheckpoint6 == true)
             {
                 switch (i)
                 {
