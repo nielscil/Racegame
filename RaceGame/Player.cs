@@ -3,30 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
-using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
+using System.Threading.Tasks;
 
 namespace RaceGame
 {
     class Player
     {
         //private Form1 form1 = new Form1();
-        Track track = new Track();
+        private Track track = new Track();
         List<TimeSpan> bestlap1 = new List<TimeSpan>();
-        public string naam;
-        private bool l,r,f,b = false;
-        private float speed,angle = 0f;
-        public int fuel = 100;
+        private bool l, r, f, b = false;
+        private float speed, angle = 0f;
+        public byte fuel = 100;
+		
         public double distance = 0;
-        private bool checkedCheckpoint1 = false;
-        private bool checkedCheckpoint2 = false;
-        private bool checkedCheckpoint3 = false;
-        private bool checkedCheckpoint4 = false;
-        private bool checkedCheckpoint5 = false;
-        private bool checkedCheckpoint6 = false;
+        private bool checkedCheckpoint1, checkedCheckpoint2, checkedCheckpoint3 = false;
+        private bool checkedCheckpoint4, checkedCheckpoint5, checkedCheckpoint6 = false;
         public bool noFuel = false;
-        public PointF carPos;
-        public PointF carSpeed;
+		
+        public PointF carPos, carSpeed;
+		
         public string ronde = "Ronde 1";
         public string breaktime = "00:00:00";
         private Bitmap auto;
@@ -37,7 +35,7 @@ namespace RaceGame
 
         public void SetAuto(byte nr,byte player)
         {
-            switch(nr)
+            switch (nr)
             {
                 case 0:
                     auto = new Bitmap(RaceGame.Properties.Resources.AutoVierkantRood, 30, 30);
@@ -68,6 +66,23 @@ namespace RaceGame
                 case 1:
                     carPos = track.carPos2;
                     break;
+
+            }
+            track.SetTrack(track_nr);
+            SetCarPos(player);
+
+        }
+		
+        public void SetCarPos(byte invoer)
+        {
+            switch (invoer)
+            {
+                case 0:
+                    carPos = track.carPos1;
+                    break;
+                case 1:
+                    carPos = track.carPos2;
+                    break;
             }
         }
 
@@ -89,7 +104,7 @@ namespace RaceGame
         public string checkPointtime()
         {
           
-                breaktime = time.ToString();
+            breaktime = time.ToString();
                            
             
             return breaktime;
@@ -97,8 +112,7 @@ namespace RaceGame
 
         public void Finish()
         {
-            
-           if ((carPos.X >= track.finish_x1 & carPos.X <= track.finish_x2) & (carPos.Y >= track.finish_y1 & carPos.Y <= track.finish_y2) && checkedCheckpoint6 == true) // check ckepoint toevoegen
+            if ((carPos.X >= track.finish_x1 & carPos.X <= track.finish_x2) & (carPos.Y >= track.finish_y1 & carPos.Y <= track.finish_y2))
             {
                 switch (i)
                 {
@@ -178,19 +192,19 @@ namespace RaceGame
             {
                 speed -= 0.1f;
             }
-            else if (b == true && noFuel == false  && speed < 0.5)
+            else if (b == true && noFuel == false && speed < 0.5)
             {
                 speed += 0.05f;
             }
-            if (f== false && noFuel == false && speed < -0.001f)
+            if (f == false && noFuel == false && speed < -0.001f)
             {
                 speed += 0.05f;
             }
-            else if(b == false && noFuel == false && speed > 0.001f)
+            else if (b == false && noFuel == false && speed > 0.001f)
             {
                 speed -= 0.05f;
             }
-            else if(f == false && speed == -0.05)
+            else if (f == false && speed == -0.05)
             {
                 speed = 0;
             }
@@ -208,6 +222,7 @@ namespace RaceGame
             Finish();
         }
 
+        #region fuel
         public void Fuel()
         {
             if (distance >= Math.Sqrt(Math.Pow(50, 2) + Math.Pow(70, 2)))
@@ -230,7 +245,121 @@ namespace RaceGame
                 }
             }
         }
-       
+
+        public Color GetFuelColor()
+        {
+            if (fuel >= 50)
+            {
+                return Color.Green;
+            }
+            else if (fuel < 50 && fuel > 30)
+            {
+                return Color.Orange;
+            }
+            else if (fuel <= 30 && fuel > 10)
+            {
+                return Color.OrangeRed;
+            }
+            else //if (fuel <= 10)
+            {
+                return Color.Red;
+            }
+        }
+        #endregion
+		
+        #region Sturen
+        public Bitmap rotateCenter()
+        {
+            Bitmap returnBitmap = new Bitmap(auto.Width, auto.Height + 1);
+            Graphics g = Graphics.FromImage(returnBitmap);
+            g.TranslateTransform((float)auto.Width / 2, (float)auto.Height / 2);
+            g.RotateTransform(angle * (float)(57.1));
+            g.TranslateTransform(-(float)auto.Width / 2, -(float)auto.Height / 2);
+            g.DrawImage(auto, auto.Width / 2 - auto.Height / 2, auto.Height / 2 - auto.Width / 2, auto.Height, auto.Width);
+            return returnBitmap;
+        }
+        public void Key_down(object sender, System.Windows.Forms.KeyEventArgs e, byte player)
+        {
+            if (player == 0)
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.Left:
+                        l = true;
+                        break;
+                    case Keys.Right:
+                        r = true;
+                        break;
+                    case Keys.Up:
+                        f = true;
+                        break;
+                    case Keys.Down:
+                        b = true;
+                        break;
+                }
+            }
+            else if (player == 1)
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.A:
+                        l = true;
+                        break;
+                    case Keys.D:
+                        r = true;
+                        break;
+                    case Keys.W:
+                        f = true;
+                        break;
+                    case Keys.S:
+                        b = true;
+                        break;
+                }
+            }
+        }
+
+        public void Key_up(object sender, System.Windows.Forms.KeyEventArgs e, byte player)
+        {
+            if (player == 0)
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.Left:
+                        l = false;
+                        break;
+                    case Keys.Right:
+                        r = false;
+                        break;
+                    case Keys.Up:
+                        f = false;
+                        break;
+                    case Keys.Down:
+                        b = false;
+                        break;
+                }
+            }
+            else if (player == 1)
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.A:
+                        l = false;
+                        break;
+                    case Keys.D:
+                        r = false;
+                        break;
+                    case Keys.W:
+                        f = false;
+                        break;
+                    case Keys.S:
+                        b = false;
+                        break;
+                }
+            }
+        }
+        #endregion
+		
+        #region checkpoint methodes
         public void Checkpoints()
         {
             //checkpoint 1. op track 1, deze punten moeten dus in class voor track1 komen te staan ofzo.
@@ -240,7 +369,7 @@ namespace RaceGame
                 checkPointtime();
             }
             //checkpoint 2???
-            if ((carPos.X + 25 >= track.checkp2_x1 && carPos.X <= track.checkp2_x2)&& (carPos.Y >= track.checkp2_y1 && carPos.Y <= track.checkp2_y2) && CheckCheckpoint(1) == true)
+            if ((carPos.X + 25 >= track.checkp2_x1 && carPos.X <= track.checkp2_x2) && (carPos.Y >= track.checkp2_y1 && carPos.Y <= track.checkp2_y2) && CheckCheckpoint(1) == true)
             {
                 SetCheckpoint(2);
                 checkPointtime();
@@ -268,117 +397,6 @@ namespace RaceGame
             {
                 SetCheckpoint(6);
                 checkPointtime();
-            }
-        }
-
-        public Color GetFuelColor()
-        {
-            if(fuel >= 50)
-            {
-                return Color.Green;
-            }
-            else if (fuel < 50 && fuel > 30)
-            {
-                return Color.Orange;
-            }
-            else if (fuel <= 30 && fuel > 10)
-            {
-                return Color.OrangeRed;
-            }
-            else //if (fuel <= 10)
-            {
-                return Color.Red;
-            }
-        }
-
-        public Bitmap rotateCenter()
-        {
-            Bitmap returnBitmap = new Bitmap(auto.Width, auto.Height + 1);
-            Graphics g = Graphics.FromImage(returnBitmap);
-            g.TranslateTransform((float)auto.Width / 2, (float)auto.Height / 2);
-            g.RotateTransform(angle * (float)(57.1));
-            g.TranslateTransform(-(float)auto.Width / 2, -(float)auto.Height / 2);
-            g.DrawImage(auto, auto.Width / 2 - auto.Height / 2, auto.Height / 2 - auto.Width / 2, auto.Height, auto.Width);
-            return returnBitmap;
-        }
-
-        public void Key_down(object sender, System.Windows.Forms.KeyEventArgs e,byte player)
-        {
-            if (player == 0)
-            {
-                switch (e.KeyCode)
-                {
-                    case Keys.Left:
-                        l = true;
-                        break;
-                    case Keys.Right:
-                        r = true;
-                        break;
-                    case Keys.Up:
-                        f = true;
-                        break;
-                    case Keys.Down:
-                        b = true;
-                        break;
-                }
-            }
-            else if (player == 1)
-            {
-                switch (e.KeyCode)
-                {
-                    case Keys.A:
-                        l = true;
-                        break;
-                    case Keys.D:
-                        r = true;
-                        break;
-                    case Keys.W:
-                        f = true;
-                        break;
-                    case Keys.S:
-                        b = true;
-                        break;
-                }
-            }
-        }
-
-        public void Key_up(object sender, System.Windows.Forms.KeyEventArgs e,byte player)
-        {
-            if (player == 0)
-            {
-                switch (e.KeyCode)
-                {
-                    case Keys.Left:
-                        l = false;
-                        break;
-                    case Keys.Right:
-                        r = false;
-                        break;
-                    case Keys.Up:
-                        f = false;
-                        break;
-                    case Keys.Down:
-                        b = false;
-                        break;
-                }
-            }
-            else if (player == 1)
-            {
-                switch (e.KeyCode)
-                {
-                    case Keys.A:
-                        l = false;
-                        break;
-                    case Keys.D:
-                        r = false;
-                        break;
-                    case Keys.W:
-                        f = false;
-                        break;
-                    case Keys.S:
-                        b = false;
-                        break;
-                }
             }
         }
 
@@ -413,9 +431,6 @@ namespace RaceGame
                 case 6:
                     checkedCheckpoint6 = true;
                     break;
-
-                default:
-                    break;
             }
         }
 
@@ -426,7 +441,7 @@ namespace RaceGame
         /// <returns>bool van checkpoint</returns>
         public bool CheckCheckpoint(int checkpointNummer)
         {
-            switch(checkpointNummer)
+            switch (checkpointNummer)
             {
                 case 1:
                     return checkedCheckpoint1;
@@ -451,12 +466,12 @@ namespace RaceGame
         /// false Als er checkpoints false zijn</returns>
         public void ResetCheckpoint()
         {
-                checkedCheckpoint1 = false;
-                checkedCheckpoint2 = false;
-                checkedCheckpoint3 = false;
-                checkedCheckpoint4 = false;
-                checkedCheckpoint5 = false;
-                checkedCheckpoint6 = false;
+            checkedCheckpoint1 = false;
+            checkedCheckpoint2 = false;
+            checkedCheckpoint3 = false;
+            checkedCheckpoint4 = false;
+            checkedCheckpoint5 = false;
+            checkedCheckpoint6 = false;
         }
         public bool finishCheck()
         {
@@ -469,5 +484,6 @@ namespace RaceGame
                 return false;
             }
         }
+        #endregion
     }
 }

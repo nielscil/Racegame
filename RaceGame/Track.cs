@@ -14,13 +14,13 @@ namespace RaceGame
         public Bitmap track;
         public PointF carPos1;
         public PointF carPos2;
+		
         public int checkp1_x1, checkp1_x2, checkp2_x1, checkp2_x2, checkp3_x1, checkp3_x2, checkp4_x1, checkp4_x2, checkp5_x1, checkp5_x2, checkp6_x1, checkp6_x2,finish_x1,finish_x2;
         public int checkp1_y1, checkp1_y2, checkp2_y1, checkp2_y2, checkp3_y1, checkp3_y2, checkp4_y1, checkp4_y2, checkp5_y1, checkp5_y2, checkp6_y1, checkp6_y2, finish_y1, finish_y2;
-       
         public void SetTrack(byte trk)
         {
             track_nr = trk;
-            switch(trk)
+            switch (trk)
             {
                 case 0:
                     track = new Bitmap(RaceGame.Properties.Resources.Afrika1);
@@ -64,6 +64,7 @@ namespace RaceGame
                     carPos1 = new PointF(545f, 515f);
                     carPos2 = new PointF(545f, 535f);
                     break;
+
                 case 1:
                     track = new Bitmap(RaceGame.Properties.Resources.Antarctica1);
                     collissionMap = new Bitmap(RaceGame.Properties.Resources.Antarctica);
@@ -382,6 +383,5 @@ namespace RaceGame
             }
             return -1;
         }
-        
     }
 }

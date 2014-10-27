@@ -114,18 +114,11 @@
     <None Include="Resources\Antarctica.jpg" />
     <None Include="Resources\Antarctica.bmp" />
     <None Include="Resources\text_paused_resized.png" />
-    <None Include="Resources\text_paused_000000.png" />
     <None Include="Resources\AutoVierkantRegenboog.png" />
     <None Include="Resources\AutoVierkantGroen.png" />
     <None Include="Resources\AutoVierkantGrijs.png" />
     <None Include="Resources\AutoVierkantBlauw.png" />
     <None Include="Resources\AutoVierkantRood.png" />
-    <None Include="Resources\AutoGrijs.png" />
-    <None Include="Resources\AutoBlauw.png" />
-    <None Include="Resources\AutoRood.png" />
-    <None Include="Resources\AutoRegenboog.png" />
-    <None Include="Resources\AutoGroen.png" />
-    <None Include="Resources\racetrack1.bmp" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
