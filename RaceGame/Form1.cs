@@ -184,7 +184,13 @@ namespace RaceGame
                     System.Drawing.Pen pen = new System.Drawing.Pen(System.Drawing.Brushes.Black);
                     g.DrawImage(track.track, 0, 0, 1024, 768);
                     Invalidate();
+<<<<<<< Updated upstream
                     g.DrawImage(rotateCenter(player1.Auto, angle), player1.carPos);
+=======
+                    g.DrawImage(player1.rotateCenter(), player1.carPos);
+                    g.DrawImage(player2.rotateCenter(), player2.carPos);
+                    carCollision();
+>>>>>>> Stashed changes
                 }
             }
         }
@@ -267,8 +273,11 @@ namespace RaceGame
             label1.Text = Convert.ToString(fuel);
             distance += Math.Sqrt(Math.Pow(player1.carSpeed.X, 2) + Math.Pow(player1.carSpeed.Y, 2));
             Draw();
+<<<<<<< Updated upstream
             checkPoint();
             finish();
+=======
+>>>>>>> Stashed changes
         }
 
         void timerFuel_Tick_1(object sender, EventArgs e)         
@@ -331,7 +340,11 @@ namespace RaceGame
 
         private void checkPointtimeplayer1()
         {
+<<<<<<< Updated upstream
             for (int i = 0; i < checkpointcounter; )
+=======
+            if ((((player1.carPos.X >= player1.carPos.X -30) && (player1.carPos.X <= player1.carPos.X)) != ((player2.carPos.X >= player2.carPos.X -30) && (player2.carPos.X <= player2.carPos.X))) && (((player1.carPos.Y >= player1.carPos.Y -30) && (player1.carPos.Y <= player1.carPos.Y)) == ((player2.carPos.Y >= player2.carPos.Y -30) && (player2.carPos.Y <= player2.carPos.Y))))
+>>>>>>> Stashed changes
             {
                 label5.Text = Player1.ToString();
                 i++;
