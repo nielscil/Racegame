@@ -67,7 +67,6 @@ namespace RaceGame
                 timer1.Stop();               
                 panel1.Visible = true;
                 fuelBar.Visible = false;
-                fuelLabel.Visible = false;
                 label2.Visible = false;
                 label1.Visible = false;
                 label4.Visible = false;
@@ -81,7 +80,6 @@ namespace RaceGame
                 timerFuel.Start();
                 timer1.Start();
                 fuelBar.Visible = true;
-                fuelLabel.Visible = true;
                 label2.Visible = true;
                 label1.Visible = true;
                 label4.Visible = true;
@@ -230,7 +228,5 @@ namespace RaceGame
 
             Console.WriteLine("X: " + myX + " Y: " + myY);
         }
-
-
     }
 }

@@ -49,13 +49,19 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label13 = new System.Windows.Forms.Label();
-            this.fuelLabel = new System.Windows.Forms.Label();
             this.fuelBar = new System.Windows.Forms.ProgressBar();
             this.label1 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.progressBar2 = new System.Windows.Forms.ProgressBar();
+            this.label14 = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.progressBar3 = new System.Windows.Forms.ProgressBar();
+            this.label15 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // contextMenuStrip1
@@ -102,7 +108,7 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.button1);
             this.panel1.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.panel1.Location = new System.Drawing.Point(237, 12);
+            this.panel1.Location = new System.Drawing.Point(1049, 70);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(647, 476);
             this.panel1.TabIndex = 1;
@@ -240,71 +246,111 @@
             this.label11.TabIndex = 23;
             this.label11.Text = "Ronde: 1";
             // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.BackColor = System.Drawing.Color.Transparent;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(928, 633);
-            this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(83, 37);
-            this.label14.TabIndex = 26;
-            this.label14.Text = "Fuel";
-            // 
             // progressBar1
             // 
             this.progressBar1.BackColor = System.Drawing.Color.White;
-            this.progressBar1.Location = new System.Drawing.Point(920, 681);
+            this.progressBar1.Location = new System.Drawing.Point(72, 17);
             this.progressBar1.Margin = new System.Windows.Forms.Padding(2);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(100, 41);
+            this.progressBar1.Size = new System.Drawing.Size(100, 21);
             this.progressBar1.TabIndex = 27;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
             this.label13.BackColor = System.Drawing.Color.Transparent;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(835, 685);
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(17, 17);
             this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(72, 37);
+            this.label13.Size = new System.Drawing.Size(51, 25);
             this.label13.TabIndex = 28;
             this.label13.Text = "100";
-            // 
-            // fuelLabel
-            // 
-            this.fuelLabel.AutoSize = true;
-            this.fuelLabel.BackColor = System.Drawing.Color.Transparent;
-            this.fuelLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fuelLabel.Location = new System.Drawing.Point(11, 633);
-            this.fuelLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.fuelLabel.Name = "fuelLabel";
-            this.fuelLabel.Size = new System.Drawing.Size(83, 37);
-            this.fuelLabel.TabIndex = 29;
-            this.fuelLabel.Text = "Fuel";
             // 
             // fuelBar
             // 
             this.fuelBar.BackColor = System.Drawing.Color.White;
-            this.fuelBar.Location = new System.Drawing.Point(11, 677);
+            this.fuelBar.Location = new System.Drawing.Point(19, 20);
             this.fuelBar.Margin = new System.Windows.Forms.Padding(2);
             this.fuelBar.Name = "fuelBar";
-            this.fuelBar.Size = new System.Drawing.Size(100, 41);
+            this.fuelBar.Size = new System.Drawing.Size(100, 21);
             this.fuelBar.TabIndex = 30;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(118, 681);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(123, 20);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(72, 37);
+            this.label1.Size = new System.Drawing.Size(75, 21);
             this.label1.TabIndex = 31;
             this.label1.Text = "100";
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.Transparent;
+            this.panel2.Controls.Add(this.label14);
+            this.panel2.Controls.Add(this.progressBar2);
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Controls.Add(this.fuelBar);
+            this.panel2.Location = new System.Drawing.Point(2, 663);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(200, 100);
+            this.panel2.TabIndex = 32;
+            // 
+            // progressBar2
+            // 
+            this.progressBar2.BackColor = System.Drawing.Color.White;
+            this.progressBar2.Location = new System.Drawing.Point(19, 60);
+            this.progressBar2.Margin = new System.Windows.Forms.Padding(2);
+            this.progressBar2.Name = "progressBar2";
+            this.progressBar2.Size = new System.Drawing.Size(100, 21);
+            this.progressBar2.TabIndex = 32;
+            // 
+            // label14
+            // 
+            this.label14.BackColor = System.Drawing.Color.Transparent;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(123, 60);
+            this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(75, 21);
+            this.label14.TabIndex = 33;
+            this.label14.Text = "100";
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.Transparent;
+            this.panel3.Controls.Add(this.label15);
+            this.panel3.Controls.Add(this.progressBar3);
+            this.panel3.Controls.Add(this.progressBar1);
+            this.panel3.Controls.Add(this.label13);
+            this.panel3.Location = new System.Drawing.Point(816, 663);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(200, 100);
+            this.panel3.TabIndex = 33;
+            // 
+            // progressBar3
+            // 
+            this.progressBar3.BackColor = System.Drawing.Color.White;
+            this.progressBar3.Location = new System.Drawing.Point(72, 63);
+            this.progressBar3.Margin = new System.Windows.Forms.Padding(2);
+            this.progressBar3.Name = "progressBar3";
+            this.progressBar3.Size = new System.Drawing.Size(100, 21);
+            this.progressBar3.TabIndex = 29;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.BackColor = System.Drawing.Color.Transparent;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(17, 63);
+            this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(51, 25);
+            this.label15.TabIndex = 30;
+            this.label15.Text = "100";
             // 
             // Form1
             // 
@@ -313,13 +359,9 @@
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.BackgroundImage = global::RaceGame.Properties.Resources.Afrika1;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(1098, 729);
-            this.Controls.Add(this.fuelLabel);
-            this.Controls.Add(this.fuelBar);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.label14);
-            this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.label13);
+            this.ClientSize = new System.Drawing.Size(1098, 775);
+            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label6);
@@ -340,6 +382,9 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -366,12 +411,16 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label fuelLabel;
         private System.Windows.Forms.ProgressBar fuelBar;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.ProgressBar progressBar2;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.ProgressBar progressBar3;
 
     }
 }

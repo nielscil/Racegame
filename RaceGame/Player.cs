@@ -234,37 +234,37 @@ namespace RaceGame
         public void Checkpoints()
         {
             //checkpoint 1. op track 1, deze punten moeten dus in class voor track1 komen te staan ofzo.
-            if ((carPos.X + 25 >= track.GetCheckpointPosX(1) && carPos.X + 25 <= track.GetCheckpointPosX(2) && (carPos.Y >= track.GetCheckpointPosY(1) && carPos.Y <= track.GetCheckpointPosY(2))))
+            if ((carPos.X + 15 >= track.GetCheckpointPosX(1) && carPos.X + 15 <= track.GetCheckpointPosX(2) && (carPos.Y >= track.GetCheckpointPosY(1) && carPos.Y <= track.GetCheckpointPosY(2))))
             {
                 SetCheckpoint(1);
                 checkPointtime();
             }
             //checkpoint 2???
-            if ((carPos.X + 25 >= track.checkp2_x1 && carPos.X <= track.checkp2_x2)&& (carPos.Y >= track.checkp2_y1 && carPos.Y <= track.checkp2_y2) && CheckCheckpoint(1) == true)
+            if ((carPos.X + 15 >= track.checkp2_x1 && carPos.X + 15 <= track.checkp2_x2)&& (carPos.Y + 15 >= track.checkp2_y1 && carPos.Y + 15 <= track.checkp2_y2) && CheckCheckpoint(1) == true)
             {
                 SetCheckpoint(2);
                 checkPointtime();
             }
             //checkpoint 3???
-            if ((carPos.X >= track.checkp3_x1 && carPos.X <= track.checkp3_x2) && (carPos.Y >= track.checkp3_y1 && carPos.Y <= track.checkp3_y2) && CheckCheckpoint(2) == true)
+            if ((carPos.X +15 >= track.checkp3_x1 && carPos.X +15 <= track.checkp3_x2) && (carPos.Y +15 >= track.checkp3_y1 && carPos.Y + 15 <= track.checkp3_y2) && CheckCheckpoint(2) == true)
             {
                 SetCheckpoint(3);
                 checkPointtime();
             }
             //checkpoint 4???
-            if ((carPos.X >= track.checkp4_x1 && carPos.X <= track.checkp4_x2) && (carPos.Y >= track.checkp4_y1 && carPos.Y <= track.checkp4_y2) && CheckCheckpoint(3) == true)
+            if ((carPos.X +15 >= track.checkp4_x1 && carPos.X +15 <= track.checkp4_x2) && (carPos.Y +15 >= track.checkp4_y1 && carPos.Y +15 <= track.checkp4_y2) && CheckCheckpoint(3) == true)
             {
                 SetCheckpoint(4);
                 checkPointtime();
             }
             //checkpoint 5???
-            if ((carPos.X >= track.checkp5_x1 && carPos.X <= track.checkp5_x2) && (carPos.Y >= track.checkp5_y1 && carPos.Y <= track.checkp5_y2) && CheckCheckpoint(4) == true)
+            if ((carPos.X +15 >= track.checkp5_x1 && carPos.X +15 <= track.checkp5_x2) && (carPos.Y +15 >= track.checkp5_y1 && carPos.Y +15 <= track.checkp5_y2) && CheckCheckpoint(4) == true)
             {
                 SetCheckpoint(5);
                 checkPointtime();
             }
             //checkpoint 6???
-            if ((carPos.X >= track.checkp6_x1 && carPos.X <= track.checkp6_x2) && (carPos.Y >= track.checkp6_y1 && carPos.Y <= track.checkp6_y2) && CheckCheckpoint(5) == true)
+            if ((carPos.X +15 >= track.checkp6_x1 && carPos.X +15 <= track.checkp6_x2) && (carPos.Y +15>= track.checkp6_y1 && carPos.Y +15 <= track.checkp6_y2) && CheckCheckpoint(5) == true)
             {
                 SetCheckpoint(6);
                 checkPointtime();
@@ -296,7 +296,7 @@ namespace RaceGame
             Bitmap returnBitmap = new Bitmap(auto.Width, auto.Height + 1);
             Graphics g = Graphics.FromImage(returnBitmap);
             g.TranslateTransform((float)auto.Width / 2, (float)auto.Height / 2);
-            g.RotateTransform(angle * (float)(57.1));
+            g.RotateTransform(angle * (float)(57.15));
             g.TranslateTransform(-(float)auto.Width / 2, -(float)auto.Height / 2);
             g.DrawImage(auto, auto.Width / 2 - auto.Height / 2, auto.Height / 2 - auto.Width / 2, auto.Height, auto.Width);
             return returnBitmap;
