@@ -11,6 +11,21 @@
     <AssemblyName>RaceGame</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -84,6 +99,20 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="racetrack.jpg" />
+    <None Include="Resources\Afrika.jpg" />
+    <None Include="Resources\Afrika.bmp" />
+    <None Include="Resources\Zuid-Amerika.jpg" />
+    <None Include="Resources\Zuid-Amerika.bmp" />
+    <None Include="Resources\Noord-Amerika.jpg" />
+    <None Include="Resources\Noord-Amerika.bmp" />
+    <None Include="Resources\Europa.jpg" />
+    <None Include="Resources\Europa.bmp" />
+    <None Include="Resources\Azië.jpg" />
+    <None Include="Resources\Azië.bmp" />
+    <None Include="Resources\Australië.jpg" />
+    <None Include="Resources\Australië.bmp" />
+    <None Include="Resources\Antarctica.jpg" />
+    <None Include="Resources\Antarctica.bmp" />
     <None Include="Resources\text_paused_resized.png" />
     <None Include="Resources\text_paused_000000.png" />
     <None Include="Resources\AutoVierkantRegenboog.png" />
@@ -97,6 +126,23 @@
     <None Include="Resources\AutoRegenboog.png" />
     <None Include="Resources\AutoGroen.png" />
     <None Include="Resources\racetrack1.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
