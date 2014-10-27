@@ -11,31 +11,28 @@ namespace RaceGame
 {
     class Player
     {
-        //private Form1 form1 = new Form1();
+        public string name;
         private Track track = new Track();
         List<TimeSpan> bestlap1 = new List<TimeSpan>();
         private bool l, r, f, b = false;
         private float speed, angle = 0f;
-        public byte fuel = 100;
-		
+        public byte fuel = 100;		
         public double distance = 0;
         private bool checkedCheckpoint1, checkedCheckpoint2, checkedCheckpoint3 = false;
         private bool checkedCheckpoint4, checkedCheckpoint5, checkedCheckpoint6 = false;
-        public bool noFuel = false;
-		
-        public PointF carPos, carSpeed;
-		
-        public string ronde = "Ronde 1";
+        public bool noFuel = false;		
+        public PointF carPos, carSpeed;		
+        public string ronde = "Lap 1";
         public string breaktime = "00:00:00";
         private Bitmap auto;
         public string laptime = "00:00:00";
         public TimeSpan time = new TimeSpan();
         public TimeSpan besttime = new TimeSpan();
         byte track_nr, i = 0;
-        Bitmap collisionMap = new Bitmap(RaceGame.Properties.Resources.Afrika);
+        Bitmap collisionMap;
         bool collideBlock = false;
 
-        public void SetAuto(byte nr,byte player)
+        public void SetAuto(byte nr,byte player,string naam)
         {
             switch (nr)
             {
@@ -56,6 +53,8 @@ namespace RaceGame
                     break; 
             }
             track.SetTrack(track_nr);
+            name = naam;
+            collisionMap = GetCollissionTrack();
             SetCarPos(player);
         }
 		
@@ -81,6 +80,10 @@ namespace RaceGame
         {
             return track.track;
         }
+        public Bitmap GetCollissionTrack()
+        {
+            return track.collissionMap;
+        }
 
         public Bitmap GetAuto()
         {
@@ -104,7 +107,6 @@ namespace RaceGame
                 {
                     case 0:
                         ronde = "Ronde: 2";
-                        bestlap1.Add(time);
                         laptime = time.ToString();
                         besttime = time;
                         time = TimeSpan.Zero;
@@ -119,6 +121,7 @@ namespace RaceGame
                         if (result == -1)
                         {
                             laptime = time.ToString();
+                            besttime = time;
                         }
                         time = TimeSpan.Zero;
                         i++;
@@ -131,6 +134,7 @@ namespace RaceGame
                         if (result == -1)
                         {
                             laptime = time.ToString();
+                            besttime = time;
                         }
                         time = TimeSpan.Zero;
                         i++;
@@ -142,6 +146,7 @@ namespace RaceGame
                         if (result == -1)
                         {
                             laptime = time.ToString();
+                            besttime = time;
                         }
                         time = TimeSpan.Zero;
                         i++;
@@ -154,6 +159,7 @@ namespace RaceGame
                         if (result == -1)
                         {
                             laptime = time.ToString();
+                            besttime = time;
                         }
                         time = TimeSpan.Zero;
                         i++;

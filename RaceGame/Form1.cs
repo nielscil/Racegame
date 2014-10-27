@@ -18,46 +18,40 @@ namespace RaceGame
     {
         Player player1 = new Player();
         Player player2 = new Player();
-        Bitmap Backbuffer;
+        public string naam1, naam2;
+        Bitmap Backbuffer = new Bitmap(1024,768);
         Bitmap paused = new Bitmap(RaceGame.Properties.Resources.text_paused_resized);
         byte i = 0;
         double countDownTimer = 3;
         System.Windows.Forms.Timer GameTimer = new System.Windows.Forms.Timer();
         System.Windows.Forms.Timer timerFuel = new System.Windows.Forms.Timer();
-        bool debug = false;
+        bool debug, test = false;
+        public byte trk, car1, car2 = 0;
         TimeSpan total = new TimeSpan();
-
         public Form1()
         {
             InitializeComponent();
-            player1.SetTrack(0);
-            player2.SetTrack(0);
-            player1.SetAuto(0, 0);
-            player2.SetAuto(1, 1);
             this.SetStyle(
             ControlStyles.UserPaint |
             ControlStyles.AllPaintingInWmPaint |
             ControlStyles.DoubleBuffer, true);
             timer1.Interval = 1;
             timer1.Tick += new EventHandler(timer1_Tick);
-            timer1.Start();
             GameTimer.Interval = 10;
             GameTimer.Tick += new EventHandler(GameTimer_Tick);
             KeyPreview = true;
             timerFuel.Interval = 100;
             timerFuel.Tick += new EventHandler(timerFuel_Tick_1);
-
             this.ResizeEnd += new EventHandler(Form1_CreateBackBuffer);
             this.Load += new EventHandler(Form1_CreateBackBuffer);
             this.Paint += new PaintEventHandler(Form1_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(Form1_KeyDown);
-            this.KeyUp += new System.Windows.Forms.KeyEventHandler(Form1_keyUp);
-
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(Form1_keyUp);            
             //Maakt het fullscreen
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
+            timer1.Start();
         }
-
         void ESC()
         {
             if (i == 0)
@@ -111,7 +105,6 @@ namespace RaceGame
                 e.Graphics.DrawImageUnscaled(Backbuffer, System.Drawing.Point.Empty);
             }
         }
-
         void Form1_CreateBackBuffer(object sender, EventArgs e)
         {
             if (Backbuffer != null)
@@ -119,8 +112,6 @@ namespace RaceGame
 
             Backbuffer = new Bitmap(1024, 768);
         }
-
-
         void Draw()
         {
             using (var g = Graphics.FromImage(Backbuffer))
@@ -138,6 +129,14 @@ namespace RaceGame
         #region timers
         void timer1_Tick(object sender, EventArgs e)
         {
+            if (test == false)
+            {
+                player1.SetTrack(trk);
+                player2.SetTrack(trk);
+                player1.SetAuto(car1, 0,naam1);
+                player2.SetAuto(car2, 1,naam2);
+                test = true;
+            }
             Draw();
             if(debug != true)
             {
@@ -217,12 +216,10 @@ namespace RaceGame
         {
             Application.Restart();
         }
-
         private void button3_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
-
         void myForm_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e) //Waarvoor is dit?
         {
             int myX = e.X;
