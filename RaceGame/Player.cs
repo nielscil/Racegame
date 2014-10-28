@@ -11,28 +11,36 @@ namespace RaceGame
 {
     class Player
     {
-        public string name;
+        //private Form1 form1 = new Form1();
         private Track track = new Track();
+        List<TimeSpan> bestlap1 = new List<TimeSpan>();
         private bool l, r, f, b = false;
         private float speed, angle = 0f;
-        public byte fuel = 100;		
+        public byte fuel = 100;
+        public byte hp = 100;
+        public int actualspeed = 0;
         public double distance = 0;
+        public double distanceSand = 0;
         private bool checkedCheckpoint1, checkedCheckpoint2, checkedCheckpoint3 = false;
         private bool checkedCheckpoint4, checkedCheckpoint5, checkedCheckpoint6 = false;
-        public bool noFuel,finished = false;		
-        public PointF carPos, carSpeed;		
+        public bool noFuel = false;
+        public bool noHP = false;
+        public bool onSand = false;
+		//public Random r = new Random();
+        public bool pitstopvisit = false;
+        public PointF carPos, carSpeed;
+        public int pitstopcount = 0;
         public string ronde = "Lap 1";
         public string breaktime = "00:00:00";
         private Bitmap auto;
         public string laptime = "00:00:00";
         public TimeSpan time = new TimeSpan();
-        public TimeSpan Totaal = new TimeSpan();
         public TimeSpan besttime = new TimeSpan();
         byte track_nr, i = 0;
-        Bitmap collisionMap;
+        Bitmap collisionMap = new Bitmap(RaceGame.Properties.Resources.Afrika);
         bool collideBlock = false;
 
-        public void SetAuto(byte nr,byte player,string naam)
+        public void SetAuto(byte nr,byte player)
         {
             switch (nr)
             {
@@ -53,8 +61,6 @@ namespace RaceGame
                     break; 
             }
             track.SetTrack(track_nr);
-            name = naam;
-            collisionMap = GetCollissionTrack();
             SetCarPos(player);
         }
 		
@@ -74,19 +80,11 @@ namespace RaceGame
         public void SetTrack(byte track_nr)
         {
             this.track_nr = track_nr;
-            if (track_nr == 3)
-            {
-                angle = 1.57075f;
-            }
         }
 
         public Bitmap GetTrack()
         {
             return track.track;
-        }
-        public Bitmap GetCollissionTrack()
-        {
-            return track.collissionMap;
         }
 
         public Bitmap GetAuto()
@@ -110,22 +108,23 @@ namespace RaceGame
                 switch (i)
                 {
                     case 0:
-                        ronde = "Ronde: 2";
+                        ronde = "Lap 2";
+                        bestlap1.Add(time);
                         laptime = time.ToString();
                         besttime = time;
                         time = TimeSpan.Zero;
+                        checkPointtime();
                         i++;
                         checkedCheckpoint6 = false;
                         break;
 
                     case 1:
-                        ronde = "Ronde: 3";
+                        ronde = "Lap 3";
                         
                         int result = TimeSpan.Compare(time, besttime);
                         if (result == -1)
                         {
                             laptime = time.ToString();
-                            besttime = time;
                         }
                         time = TimeSpan.Zero;
                         i++;
@@ -133,24 +132,22 @@ namespace RaceGame
                         break;
 
                     case 2:
-                        ronde = "Ronde: 4";
+                        ronde = "Lap 4";
                         result = TimeSpan.Compare(time, besttime);
                         if (result == -1)
                         {
                             laptime = time.ToString();
-                            besttime = time;
                         }
                         time = TimeSpan.Zero;
                         i++;
                         checkedCheckpoint6 = false;
                         break;
                     case 3:
-                        ronde = "Ronde: 5";
+                        ronde = "Lap 5";
                         result = TimeSpan.Compare(time, besttime);
                         if (result == -1)
                         {
                             laptime = time.ToString();
-                            besttime = time;
                         }
                         time = TimeSpan.Zero;
                         i++;
@@ -163,11 +160,9 @@ namespace RaceGame
                         if (result == -1)
                         {
                             laptime = time.ToString();
-                            besttime = time;
                         }
                         time = TimeSpan.Zero;
                         i++;
-                        finished = true;
                         checkedCheckpoint6 = false;
                         break;
                 }
@@ -176,20 +171,31 @@ namespace RaceGame
 
         public void Race()
         {
+            actualspeed = Convert.ToInt32(speed - (speed * 40));
             if (l == true && (speed < -0.001f || speed > 0.001f))
             {
-                angle -= 0.03f;
+                if (b != true)
+                {
+                    angle -= 0.03f;
+                }
+                else
+                angle += 0.03f;
             }
             else if (r == true && (speed < -0.001f || speed > 0.001f))
             {
-                angle += 0.03f;
+                if (b != true)
+                {
+                    angle += 0.03f;
+                }
+                else
+                    angle -= 0.03f;
             }
 
-            if (f == true && noFuel == false && speed > -3 && collideBlock == false)
+            if (f == true && noFuel == false && speed > -20)
             {
-                speed -= 0.1f;
+                speed -= 1.1f;
             }
-            else if (b == true && noFuel == false && speed < 0.5 && collideBlock == false)
+            else if (b == true && noFuel == false && speed < 0.5)
             {
                 speed += 0.05f;
             }
@@ -215,11 +221,10 @@ namespace RaceGame
             carPos.X += carSpeed.X;
             carPos.Y += carSpeed.Y;
             distance += Math.Sqrt(Math.Pow(carSpeed.X, 2) + Math.Pow(carSpeed.Y, 2));
+            distanceSand += Math.Sqrt(Math.Pow(carSpeed.X, 2) + Math.Pow(carSpeed.Y, 2));
             Checkpoints();
             Finish();
             groundFactor();
-            if (finished == false)
-                Totaal = Totaal.Add(TimeSpan.FromMilliseconds(10));
         }
 
         #region fuel
@@ -237,12 +242,73 @@ namespace RaceGame
             }
             else
                 noFuel = false;
-            if ((carPos.X + 25) > track.pit_x1 && (carPos.X + 25) < track.pit_x2 && (carPos.Y + 25) > track.pit_y1 && (carPos.Y + 25) < track.pit_y2 && speed < 0.001f && speed > -0.001f)
+            if ((carPos.X + 25) > 425f && (carPos.X + 25) < 650f && (carPos.Y + 25) > 680 && (carPos.Y + 25) < 750 && speed < 0.001f && speed > -0.001f)//checkt of balletje stil is in het aangegeven vak.
             {
                 if (fuel < 100)
                 {
                     fuel++;
                 }
+               
+            }
+        }
+
+        
+        public void HP()
+        {
+
+            if (hp > 0 && onSand == true && distanceSand >= Math.Sqrt(Math.Pow(3, 2) + Math.Pow(5, 2)))
+            {
+                hp--;
+                distanceSand = 0;
+            }
+            if (collideBlock == true && hp > 20 )
+            {
+                for (int i = 0; i < 20; i++)
+                {
+                    hp--; 
+                }
+                
+            }
+
+            if (collideBlock == true && hp <= 20)
+            {
+                hp = 0;
+            }
+            if (hp == 0)
+            {
+                speed = 0;
+                noHP = true;
+            }
+            else
+                noHP = false;
+            if ((carPos.X + 25) > 425f && (carPos.X + 25) < 650f && (carPos.Y + 25) > 680 && (carPos.Y + 25) < 750 && speed < 0.001f && speed > -0.001f)//checkt of balletje stil is in het aangegeven vak.
+           {
+                if (hp < 100)
+                {
+                     hp++;
+                }
+                pitstopvisit = true;
+            }
+            
+        }
+
+        public Color GetHPColor()
+        {
+            if (hp >= 50)
+            {
+                return Color.Purple;
+            }
+            else if (hp < 50 && hp > 30)
+            {
+                return Color.HotPink;
+            }
+            else if (hp <= 30 && hp > 10)
+            {
+                return Color.Pink;
+            }
+            else //if (fuel <= 10)
+            {
+                return Color.MistyRose;
             }
         }
 
@@ -273,7 +339,7 @@ namespace RaceGame
             Bitmap returnBitmap = new Bitmap(auto.Width, auto.Height + 1);
             Graphics g = Graphics.FromImage(returnBitmap);
             g.TranslateTransform((float)auto.Width / 2, (float)auto.Height / 2);
-            g.RotateTransform(angle * (float)(57.15));
+            g.RotateTransform(angle * (float)(57.1));
             g.TranslateTransform(-(float)auto.Width / 2, -(float)auto.Height / 2);
             g.DrawImage(auto, auto.Width / 2 - auto.Height / 2, auto.Height / 2 - auto.Width / 2, auto.Height, auto.Width);
             return returnBitmap;
@@ -362,37 +428,42 @@ namespace RaceGame
         #region checkpoint methodes
         public void Checkpoints()
         {
-            //checkpoint 1
-            if ((carPos.X + 25 >= track.checkp1_x1 && carPos.X + 25 <= track.checkp1_x2 && (carPos.Y >= track.checkp1_y1 && carPos.Y <= track.checkp1_y2)))
+            //checkpoint 1. op track 1, deze punten moeten dus in class voor track1 komen te staan ofzo.
+            if ((carPos.X + 25 >= track.GetCheckpointPosX(1) && carPos.X + 25 <= track.GetCheckpointPosX(2) && (carPos.Y >= track.GetCheckpointPosY(1) && carPos.Y <= track.GetCheckpointPosY(2))))
             {
                 SetCheckpoint(1);
                 checkPointtime();
+                if (pitstopvisit == true)
+                {
+                    pitstopcount ++;
+                    pitstopvisit = false;
+                }
             }
-            //checkpoint 2
+            //checkpoint 2???
             if ((carPos.X + 25 >= track.checkp2_x1 && carPos.X <= track.checkp2_x2) && (carPos.Y >= track.checkp2_y1 && carPos.Y <= track.checkp2_y2) && CheckCheckpoint(1) == true)
             {
                 SetCheckpoint(2);
                 checkPointtime();
             }
-            //checkpoint 3
+            //checkpoint 3???
             if ((carPos.X >= track.checkp3_x1 && carPos.X <= track.checkp3_x2) && (carPos.Y >= track.checkp3_y1 && carPos.Y <= track.checkp3_y2) && CheckCheckpoint(2) == true)
             {
                 SetCheckpoint(3);
                 checkPointtime();
             }
-            //checkpoint 4
+            //checkpoint 4???
             if ((carPos.X >= track.checkp4_x1 && carPos.X <= track.checkp4_x2) && (carPos.Y >= track.checkp4_y1 && carPos.Y <= track.checkp4_y2) && CheckCheckpoint(3) == true)
             {
                 SetCheckpoint(4);
                 checkPointtime();
             }
-            //checkpoint 5
+            //checkpoint 5???
             if ((carPos.X >= track.checkp5_x1 && carPos.X <= track.checkp5_x2) && (carPos.Y >= track.checkp5_y1 && carPos.Y <= track.checkp5_y2) && CheckCheckpoint(4) == true)
             {
                 SetCheckpoint(5);
                 checkPointtime();
             }
-            //checkpoint 6
+            //checkpoint 6???
             if ((carPos.X >= track.checkp6_x1 && carPos.X <= track.checkp6_x2) && (carPos.Y >= track.checkp6_y1 && carPos.Y <= track.checkp6_y2) && CheckCheckpoint(5) == true)
             {
                 SetCheckpoint(6);
@@ -487,8 +558,9 @@ namespace RaceGame
 
         public void groundFactor()
         {
-            Color RGB = collisionMap.GetPixel(Convert.ToInt32(carPos.X + 15), Convert.ToInt32(carPos.Y + 15));
-            if (RGB.R == 255 && RGB.G == 0 && RGB.B == 0)
+            Color VoorkantRGB = collisionMap.GetPixel(Convert.ToInt32(carPos.X), Convert.ToInt32(carPos.Y + 15));
+            Color AchterkantRGB = collisionMap.GetPixel(Convert.ToInt32(carPos.X + 30), Convert.ToInt32(carPos.Y + 15));
+            if (VoorkantRGB.R == 255 && VoorkantRGB.G == 0 && VoorkantRGB.B == 0)
             {
                 collideBlock = true;
                 if (b == true)
@@ -505,10 +577,39 @@ namespace RaceGame
                 collideBlock = false;
             }
 
-            if (RGB.R == 255 && RGB.G == 255 && RGB.B == 255)
+            if (VoorkantRGB.R == 255 && VoorkantRGB.G == 255 && VoorkantRGB.B == 255)
             {
                 for (float i = speed; i <= -1f; i++)
                     speed = speed + 0.25f;
+            }
+
+           
+            if (AchterkantRGB.R == 255 && AchterkantRGB.G == 0 && AchterkantRGB.B == 0)
+            {
+                collideBlock = true;
+                if (b == true)
+                {
+                    speed = -0.5f;
+                }
+                else
+                {
+                    speed = 0.5f;
+                }
+            }
+            else
+            {
+                collideBlock = false;
+            }
+
+            if (AchterkantRGB.R == 255 && AchterkantRGB.G == 255 && AchterkantRGB.B == 255)
+            {
+                for (float i = speed; i <= -1f; i++)
+                    speed = speed + 0.25f;
+                onSand = true;
+            }
+            else
+            {
+                onSand = false;
             }
         }
         #endregion
