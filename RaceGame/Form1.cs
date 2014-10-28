@@ -11,7 +11,7 @@ using System.Xml.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using System.Windows.Media;
+using System.Windows.Media; // ronde 1--> lap 1 --> ronde 2
 using System.Windows;
 
 namespace RaceGame
@@ -48,7 +48,9 @@ namespace RaceGame
             this.Load += new EventHandler(Form1_CreateBackBuffer);
             this.Paint += new PaintEventHandler(Form1_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(Form1_KeyDown);
-            this.KeyUp += new System.Windows.Forms.KeyEventHandler(Form1_keyUp);            
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(Form1_keyUp);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(myForm_MouseClick);
+			
             //Maakt het fullscreen
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;

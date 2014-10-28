@@ -74,6 +74,10 @@ namespace RaceGame
         public void SetTrack(byte track_nr)
         {
             this.track_nr = track_nr;
+            if (track_nr == 3)
+            {
+                angle = 1.57075f;
+            }
         }
 
         public Bitmap GetTrack()
@@ -233,7 +237,7 @@ namespace RaceGame
             }
             else
                 noFuel = false;
-            if ((carPos.X + 25) > 425f && (carPos.X + 25) < 650f && (carPos.Y + 25) > 680 && (carPos.Y + 25) < 750 && speed < 0.001f && speed > -0.001f)//checkt of balletje stil is in het aangegeven vak.
+            if ((carPos.X + 25) > track.pit_x1 && (carPos.X + 25) < track.pit_x2 && (carPos.Y + 25) > track.pit_y1 && (carPos.Y + 25) < track.pit_y2 && speed < 0.001f && speed > -0.001f)
             {
                 if (fuel < 100)
                 {
@@ -358,37 +362,37 @@ namespace RaceGame
         #region checkpoint methodes
         public void Checkpoints()
         {
-            //checkpoint 1. op track 1, deze punten moeten dus in class voor track1 komen te staan ofzo.
-            if ((carPos.X + 25 >= track.GetCheckpointPosX(1) && carPos.X + 25 <= track.GetCheckpointPosX(2) && (carPos.Y >= track.GetCheckpointPosY(1) && carPos.Y <= track.GetCheckpointPosY(2))))
+            //checkpoint 1
+            if ((carPos.X + 25 >= track.checkp1_x1 && carPos.X + 25 <= track.checkp1_x2 && (carPos.Y >= track.checkp1_y1 && carPos.Y <= track.checkp1_y2)))
             {
                 SetCheckpoint(1);
                 checkPointtime();
             }
-            //checkpoint 2???
+            //checkpoint 2
             if ((carPos.X + 25 >= track.checkp2_x1 && carPos.X <= track.checkp2_x2) && (carPos.Y >= track.checkp2_y1 && carPos.Y <= track.checkp2_y2) && CheckCheckpoint(1) == true)
             {
                 SetCheckpoint(2);
                 checkPointtime();
             }
-            //checkpoint 3???
+            //checkpoint 3
             if ((carPos.X >= track.checkp3_x1 && carPos.X <= track.checkp3_x2) && (carPos.Y >= track.checkp3_y1 && carPos.Y <= track.checkp3_y2) && CheckCheckpoint(2) == true)
             {
                 SetCheckpoint(3);
                 checkPointtime();
             }
-            //checkpoint 4???
+            //checkpoint 4
             if ((carPos.X >= track.checkp4_x1 && carPos.X <= track.checkp4_x2) && (carPos.Y >= track.checkp4_y1 && carPos.Y <= track.checkp4_y2) && CheckCheckpoint(3) == true)
             {
                 SetCheckpoint(4);
                 checkPointtime();
             }
-            //checkpoint 5???
+            //checkpoint 5
             if ((carPos.X >= track.checkp5_x1 && carPos.X <= track.checkp5_x2) && (carPos.Y >= track.checkp5_y1 && carPos.Y <= track.checkp5_y2) && CheckCheckpoint(4) == true)
             {
                 SetCheckpoint(5);
                 checkPointtime();
             }
-            //checkpoint 6???
+            //checkpoint 6
             if ((carPos.X >= track.checkp6_x1 && carPos.X <= track.checkp6_x2) && (carPos.Y >= track.checkp6_y1 && carPos.Y <= track.checkp6_y2) && CheckCheckpoint(5) == true)
             {
                 SetCheckpoint(6);
