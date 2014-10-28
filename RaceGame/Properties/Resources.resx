@@ -121,12 +121,6 @@
   <data name="AutoVierkantRegenboog" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\AutoVierkantRegenboog.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="text_paused_000000" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\text_paused_000000.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="racetrack" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\racetrack.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="AutoVierkantGroen" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\AutoVierkantGroen.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -141,5 +135,167 @@
   </data>
   <data name="text_paused_resized" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\text_paused_resized.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Afrika" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Afrika.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Afrika1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Afrika.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Antarctica" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Antarctica.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Antarctica1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Antarctica.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Australie" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Australië.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Australie1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Australië.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Azie" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Azië.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Azie1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Azië.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Europa" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Europa.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Europa1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Europa.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Noord_Amerika" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Noord-Amerika.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Noord_Amerika1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Noord-Amerika.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Zuid_Amerika" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Zuid-Amerika.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Zuid_Amerika1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Zuid-Amerika.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AutoVierkantMask" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AutoVierkantMask.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="arrow_left" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\arrow_left.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="arrow_right" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\arrow_right.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="button_confirm" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\button_confirm.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="button_confirm_bright" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\button_confirm_bright.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="button_exit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\button_exit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="button_exit_bright" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\button_exit_bright.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="button_start" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\button_start.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="button_start_bright" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\button_start_bright.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="carMenuBlue" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\carMenuBlue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="carMenuGreen" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\carMenuGreen.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="carMenuGrey" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\carMenuGrey.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="carMenuRainbow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\carMenuRainbow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="carMenuRed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\carMenuRed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Continenten" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Continenten.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="con_afrika" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\con_afrika.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="con_afrika_bright" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\con_afrika_bright.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="con_antartica" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\con_antartica.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="con_antartica_bright" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\con_antartica_bright.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="con_asia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\con_asia.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="con_asia_bright" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\con_asia_bright.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="con_australia" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\con_australia.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="con_australia_bright" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\con_australia_bright.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="con_europe" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\con_europe.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="con_europe_bright" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\con_europe_bright.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="con_north_amerika" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\con_north_amerika.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="con_north_amerika_bright" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\con_north_amerika_bright.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="con_south_amerika" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\con_south_amerika.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="con_south_amerika_bright" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\con_south_amerika_bright.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="logo_SelectWorld_000000" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logo_SelectWorld_000000.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="logo_SelectWorld_Bright" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logo_SelectWorld_Bright.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Player1_000000" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Player1_000000.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Player2_000000" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Player2_000000.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="screen_options" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\screen_options.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="screen_title" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\screen_title.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="selectWorld" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\selectWorld.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="text_numberOfPlayers" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\text_numberOfPlayers.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="text_selectedTrack" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\text_selectedTrack.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="text_selectedVehicle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\text_selectedVehicle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="text_selectedVehicle1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\text_selectedVehicle1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
