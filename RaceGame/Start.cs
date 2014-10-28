@@ -45,7 +45,7 @@ namespace RaceGame
 
             private void startBright_Click(object sender, EventArgs e)
             {
-                if (textBox1.Text != "Player 1" || textBox2.Text != "Player 2")
+                if (textBox1.Text != "Player 1" && textBox2.Text != "Player 2")
                 {
                     Options optionScreen = new Options();
                     optionScreen.naam1 = textBox1.Text;

@@ -13,20 +13,20 @@ namespace RaceGame
     {
         public string name;
         private Track track = new Track();
-        List<TimeSpan> bestlap1 = new List<TimeSpan>();
         private bool l, r, f, b = false;
         private float speed, angle = 0f;
         public byte fuel = 100;		
         public double distance = 0;
         private bool checkedCheckpoint1, checkedCheckpoint2, checkedCheckpoint3 = false;
         private bool checkedCheckpoint4, checkedCheckpoint5, checkedCheckpoint6 = false;
-        public bool noFuel = false;		
+        public bool noFuel,finished = false;		
         public PointF carPos, carSpeed;		
         public string ronde = "Lap 1";
         public string breaktime = "00:00:00";
         private Bitmap auto;
         public string laptime = "00:00:00";
         public TimeSpan time = new TimeSpan();
+        public TimeSpan Totaal = new TimeSpan();
         public TimeSpan besttime = new TimeSpan();
         byte track_nr, i = 0;
         Bitmap collisionMap;
@@ -163,6 +163,7 @@ namespace RaceGame
                         }
                         time = TimeSpan.Zero;
                         i++;
+                        finished = true;
                         checkedCheckpoint6 = false;
                         break;
                 }
@@ -213,6 +214,8 @@ namespace RaceGame
             Checkpoints();
             Finish();
             groundFactor();
+            if (finished == false)
+                Totaal = Totaal.Add(TimeSpan.FromMilliseconds(10));
         }
 
         #region fuel
@@ -266,7 +269,7 @@ namespace RaceGame
             Bitmap returnBitmap = new Bitmap(auto.Width, auto.Height + 1);
             Graphics g = Graphics.FromImage(returnBitmap);
             g.TranslateTransform((float)auto.Width / 2, (float)auto.Height / 2);
-            g.RotateTransform(angle * (float)(57.1));
+            g.RotateTransform(angle * (float)(57.15));
             g.TranslateTransform(-(float)auto.Width / 2, -(float)auto.Height / 2);
             g.DrawImage(auto, auto.Width / 2 - auto.Height / 2, auto.Height / 2 - auto.Width / 2, auto.Height, auto.Width);
             return returnBitmap;

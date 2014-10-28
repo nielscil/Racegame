@@ -6,6 +6,8 @@ using System.Data;
 using System.Drawing;
 using Color = System.Drawing.Color;
 using System.Linq;
+using System.Xml;
+using System.Xml.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
@@ -19,15 +21,15 @@ namespace RaceGame
         Player player1 = new Player();
         Player player2 = new Player();
         public string naam1, naam2;
-        Bitmap Backbuffer = new Bitmap(1024,768);
+        Bitmap Backbuffer;
         Bitmap paused = new Bitmap(RaceGame.Properties.Resources.text_paused_resized);
         byte i = 0;
-        double countDownTimer = 3;
+        double countDownTimer = 4;
         System.Windows.Forms.Timer GameTimer = new System.Windows.Forms.Timer();
         System.Windows.Forms.Timer timerFuel = new System.Windows.Forms.Timer();
         bool debug, test = false;
         public byte trk, car1, car2 = 0;
-        TimeSpan total = new TimeSpan();
+       TimeSpan total = new TimeSpan();
         public Form1()
         {
             InitializeComponent();
@@ -179,6 +181,7 @@ namespace RaceGame
             label6.Text = player1.ronde;
             label9.Text = player2.laptime;
             label11.Text = player2.ronde;
+
             if (debug != true)
             {
                 label5.Text = player1.breaktime;
@@ -194,7 +197,12 @@ namespace RaceGame
             label13.Text = Convert.ToString(player2.fuel);
             player1.Race();
             player2.Race();
+            if (player1.finished == true && player2.finished == true)
+            {
+                Highscore();
+            }
             Draw();
+
         }
 
         void timerFuel_Tick_1(object sender, EventArgs e)
@@ -219,6 +227,29 @@ namespace RaceGame
         private void button3_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        public void Highscore()
+        {
+            int result = TimeSpan.Compare(player1.Totaal, player2.Totaal);
+            if (result == -1)
+            {
+                MessageBox.Show("Player 1 wins!");
+            }
+            else if (result == 0)
+            {
+                MessageBox.Show("Draw, try again!");
+            }
+            else
+            {
+                MessageBox.Show("Player 2 Wins!");
+            }
+            XDocument highscore = XDocument.Load("Highscore.xml");
+            new XElement("Highscore",
+                new XElement("name", naam1),
+                new XElement("score", player1.Totaal.ToString()));
+            GameTimer.Stop();
+
         }
         void myForm_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e) //Waarvoor is dit?
         {
