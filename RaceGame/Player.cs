@@ -144,6 +144,7 @@ namespace RaceGame
                         i++;
                         checkedCheckpoint6 = false;
                         break;
+
                     case 3:
                         ronde = "Ronde: 5";
                         result = TimeSpan.Compare(time, besttime);
@@ -273,7 +274,7 @@ namespace RaceGame
             Bitmap returnBitmap = new Bitmap(auto.Width, auto.Height + 1);
             Graphics g = Graphics.FromImage(returnBitmap);
             g.TranslateTransform((float)auto.Width / 2, (float)auto.Height / 2);
-            g.RotateTransform(angle * (float)(57.15));
+            g.RotateTransform(angle * (float)(57.305));
             g.TranslateTransform(-(float)auto.Width / 2, -(float)auto.Height / 2);
             g.DrawImage(auto, auto.Width / 2 - auto.Height / 2, auto.Height / 2 - auto.Width / 2, auto.Height, auto.Width);
             return returnBitmap;

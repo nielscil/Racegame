@@ -228,13 +228,16 @@ namespace RaceGame
         }
         private void button3_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            Options optionScreen = new Options();
+            optionScreen.Show();
+            this.Hide();
         }
 
         public void Highscore()
         {
+            GameTimer.Stop();
             int result = TimeSpan.Compare(player1.Totaal, player2.Totaal);
-            if (result == -1)
+            if (result < 0)
             {
                 MessageBox.Show("Player 1 wins!");
             }
@@ -250,7 +253,6 @@ namespace RaceGame
             new XElement("Highscore",
                 new XElement("name", naam1),
                 new XElement("score", player1.Totaal.ToString()));
-            GameTimer.Stop();
 
         }
         void myForm_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e) //Waarvoor is dit?
